@@ -29,12 +29,8 @@ func _physics_process(delta):
 	Cam.zoom.x = zoom;
 	Cam.zoom.y = zoom;
 
-func _on_Area2D_area_entered(area):
-	if area.get_parent().name == "girl1":
-		var d = Dialogic.start("TEST");
-		if (get_node("CanvasLayer").get_child_count()==0):
-			get_node("CanvasLayer").add_child(d);
-		else: area.get_parent().add_child(d);
+func _on_Area2D_area_entered(area):	
+	area.get_parent().playNextTimeline();		
 
 func doMovement():
 	velocity = Vector2()	

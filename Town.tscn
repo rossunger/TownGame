@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Houses/tumblr_mtbh2vFU7J1s7i6fqo1_1280.png" type="Texture" id=1]
 [ext_resource path="res://Houses/tumblr_mt2o99ZcSv1s7i6fqo1_1280.png" type="Texture" id=2]
@@ -12,7 +12,7 @@
 [ext_resource path="res://Houses/tumblr_pfxt01PDaE1s7i6fqo1_1280.png" type="Texture" id=10]
 [ext_resource path="res://Houses/tumblr_pfryhdmm6V1s7i6fqo1_1280.png" type="Texture" id=11]
 [ext_resource path="res://People/girl1.png" type="Texture" id=12]
-[ext_resource path="res://girl1.gd" type="Script" id=13]
+[ext_resource path="res://Character.gd" type="Script" id=13]
 [ext_resource path="res://Map.jpg" type="Texture" id=14]
 [ext_resource path="res://loveHeart.png" type="Texture" id=15]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=16]
@@ -26,8 +26,92 @@ height = 204.567
 
 [sub_resource type="CapsuleShape2D" id=2]
 
-[sub_resource type="Animation" id=3]
-resource_name = "GoToMap"
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 1 ), 0.0, 0.318275, 0, 0, Vector2( 1, 0.703409 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 23.87
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.2
+initial_velocity_random = 0.56
+angular_velocity = 0.2
+angular_velocity_random = 1.0
+orbit_velocity = 0.1
+orbit_velocity_random = 0.4
+scale = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 10 )
+color = Color( 1, 1, 1, 0.592157 )
+hue_variation = 1.0
+hue_variation_random = 0.02
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.694318 ), -0.443182, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 45.19
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 0.2
+angular_velocity_random = 0.14
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.4
+scale_random = 0.3
+scale_curve = SubResource( 12 )
+color = Color( 1, 1, 1, 0.290196 )
+hue_variation = 0.5
+hue_variation_random = 0.5
+
+[sub_resource type="Animation" id=7]
+resource_name = "BobUpAndDown"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.901252 ),
+"update": 0,
+"values": [ Vector2( 368.416, 22.6923 ), Vector2( 368.416, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2DTrail:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 2
@@ -79,8 +163,7 @@ tracks/3/keys = {
 "values": [ -6.979, -71.202 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "mouse_animation"
+[sub_resource type="Animation" id=6]
 length = 11.0
 loop = true
 tracks/0/type = "value"
@@ -157,13 +240,18 @@ z_index = -1
 texture = ExtResource( 8 )
 
 [node name="Character" type="KinematicBody2D" parent="."]
+position = Vector2( -6.3393, 21.4186 )
 collision_mask = 2
 script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Character"]
 
 [node name="girl1" type="Sprite" parent="Character"]
-position = Vector2( 368.131, -32.3311 )
+visible = false
+position = Vector2( 368.416, 12.9462 )
 scale = Vector2( 0.405931, 0.405931 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -187,6 +275,34 @@ position = Vector2( 370.251, 60.5035 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
+[node name="Particles2D" type="Particles2D" parent="Character"]
+visible = false
+material = SubResource( 3 )
+use_parent_material = true
+position = Vector2( 368.416, 22.6923 )
+amount = 16
+lifetime = 3.5
+randomness = 0.17
+fixed_fps = 30
+process_material = SubResource( 4 )
+texture = ExtResource( 15 )
+
+[node name="Particles2DTrail" type="Particles2D" parent="Character"]
+visible = false
+material = SubResource( 3 )
+use_parent_material = true
+position = Vector2( 368.416, 20.4873 )
+lifetime = 2.0
+randomness = 0.17
+fixed_fps = 30
+local_coords = false
+process_material = SubResource( 8 )
+texture = ExtResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Character"]
+autoplay = "BobUpAndDown"
+anims/BobUpAndDown = SubResource( 7 )
+
 [node name="NPCs" type="Node2D" parent="."]
 position = Vector2( 274.767, -129.714 )
 
@@ -196,12 +312,15 @@ z_index = -1
 [node name="loveHeart" type="Sprite" parent="NPCs/Julie"]
 texture = ExtResource( 15 )
 
-[node name="Judy" parent="NPCs" instance=ExtResource( 19 )]
+[node name="Jimmy" parent="NPCs" instance=ExtResource( 19 )]
 modulate = Color( 1, 0.760784, 0.760784, 1 )
+position = Vector2( -1.51208, -78.0306 )
 tint = Color( 1, 0.760784, 0.760784, 1 )
 characterName = "Jimmy"
+timelines = [ "TEST", "Test2" ]
 
-[node name="Jane" parent="NPCs" instance=ExtResource( 19 )]
+[node name="Abby" parent="NPCs" instance=ExtResource( 19 )]
+visible = false
 modulate = Color( 0.584314, 0.639216, 1, 1 )
 position = Vector2( 1031.89, 21.9757 )
 tint = Color( 0.584314, 0.639216, 1, 1 )
@@ -215,7 +334,7 @@ texture = ExtResource( 14 )
 script = ExtResource( 17 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
-anims/GoToMap = SubResource( 3 )
+anims/GoToMap = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
@@ -230,10 +349,11 @@ position = Vector2( 598.763, 430.971 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animals/MouseExample"]
 autoplay = "mouse_animation"
-anims/mouse_animation = SubResource( 4 )
+anims/mouse_animation = SubResource( 6 )
 
 [node name="mouse1" type="Sprite" parent="Animals/MouseExample"]
 position = Vector2( -1.25317, -2.70334 )
 scale = Vector2( 0.0767206, 0.0747003 )
 texture = ExtResource( 18 )
+
 [connection signal="area_entered" from="Character/Area2D" to="Character" method="_on_Area2D_area_entered"]

@@ -11,6 +11,7 @@ func set_tint(value):
 	modulate = value;	
 func set_name(value):
 	characterName = value;
+	name = characterName;
 	var label = get_node("RichTextLabel")
 	if (label):
 		label.bbcode_text = "[wave amp=20 freq=4]" + characterName +"[/wave]";
@@ -18,8 +19,11 @@ func set_name(value):
 func _ready():
 	set_tint(tint);
 	set_name(characterName);
-	
+		
 func playNextTimeline():
-	Dialogic.start(timelines[currentTimeline])
-	currentTimeline+=1
+	if currentTimeline < timelines.size():	
+		var d = Dialogic.start(timelines[currentTimeline])
+		get_tree().get_root().get_node("Game/Character/CanvasLayer").add_child(d);
+		currentTimeline+=1
+		
 	

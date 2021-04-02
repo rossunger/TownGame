@@ -14,7 +14,7 @@ outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="CanvasItemMaterial" id=7]
+[sub_resource type="CanvasItemMaterial" id=3]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -40,12 +40,13 @@ angle_random = 1.0
 scale_curve = SubResource( 5 )
 anim_speed = 1.56
 
-[node name="girl1" type="Sprite"]
+[node name="Character Name" type="Sprite"]
 position = Vector2( -1.51208, -78.0306 )
 scale = Vector2( 0.38531, 0.361887 )
 z_index = 1
 texture = ExtResource( 1 )
 script = ExtResource( 5 )
+timelines = [ "timeline1", "timeline2" ]
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -71,7 +72,7 @@ __meta__ = {
 }
 
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 7 )
+material = SubResource( 3 )
 position = Vector2( 2.75256, -106.49 )
 z_index = -1
 amount = 20

@@ -169,7 +169,6 @@ texture = ExtResource( 15 )
 [node name="girl1" parent="NPCs" instance=ExtResource( 19 )]
 
 [node name="Map" type="Sprite" parent="."]
-visible = false
 position = Vector2( 364.234, -54.832 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 14 )

@@ -1,9 +1,7 @@
 .tmp
 .DS_Store
 project-icon.png
-project.godot
 test-scenes
-/dialogic
 /.import
 /default_env.tres
 /icon.png

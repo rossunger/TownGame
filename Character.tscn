@@ -1,0 +1,159 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://loveHeart.png" type="Texture" id=1]
+[ext_resource path="res://People/girl1.png" type="Texture" id=2]
+[ext_resource path="res://Character.gd" type="Script" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 86.1072
+height = 204.567
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.318275, 0, 0, Vector2( 1, 0.703409 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 23.87
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.2
+initial_velocity_random = 0.56
+angular_velocity = 0.2
+angular_velocity_random = 1.0
+orbit_velocity = 0.1
+orbit_velocity_random = 0.4
+scale = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+color = Color( 1, 1, 1, 0.592157 )
+hue_variation = 1.0
+hue_variation_random = 0.02
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.694318 ), -0.443182, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 1
+emission_sphere_radius = 45.19
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 0.2
+angular_velocity_random = 0.14
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.4
+scale_random = 0.3
+scale_curve = SubResource( 8 )
+color = Color( 1, 1, 1, 0.290196 )
+hue_variation = 0.5
+hue_variation_random = 0.5
+
+[sub_resource type="Animation" id=10]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.901252 ),
+"update": 0,
+"values": [ Vector2( 368.416, 22.6923 ), Vector2( 368.416, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2DTrail:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[node name="Character" type="KinematicBody2D"]
+position = Vector2( -6.3393, 21.4186 )
+collision_mask = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="girl1" type="Sprite" parent="."]
+visible = false
+position = Vector2( 368.416, 12.9462 )
+scale = Vector2( 0.405931, 0.405931 )
+z_index = 1
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 400, -150 )
+current = true
+smoothing_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+collision_mask = 2
+
+[node name="NearbyCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 365.476, 59.0877 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 370.251, 60.5035 )
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 3 )
+use_parent_material = true
+position = Vector2( 368.416, 22.6923 )
+amount = 16
+lifetime = 3.5
+randomness = 0.17
+fixed_fps = 30
+process_material = SubResource( 6 )
+texture = ExtResource( 1 )
+
+[node name="Particles2DTrail" type="Particles2D" parent="."]
+material = SubResource( 3 )
+use_parent_material = true
+position = Vector2( 368.416, 20.4873 )
+lifetime = 2.0
+randomness = 0.17
+fixed_fps = 30
+local_coords = false
+process_material = SubResource( 9 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "BobUpAndDown"
+anims/BobUpAndDown = SubResource( 10 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

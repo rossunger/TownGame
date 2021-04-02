@@ -7,23 +7,10 @@ var zoom = 1
 var targetZoom = 1
 onready var Map = get_tree().get_root().get_node("Game/Map");
 onready var Cam = get_node("Camera2D");
-
+export var movementEnabled = true;
 
 func get_input():
-	velocity = Vector2()	
-	if Input.is_action_pressed('ui_right'):
-		velocity.x += 1
-	if Input.is_action_pressed('ui_left'):
-		velocity.x -= 1
-	if Input.is_action_pressed('ui_down'):
-		velocity.y += 1
-	if Input.is_action_pressed('ui_up'):
-		velocity.y -= 1
-	velocity = velocity.normalized() * speed
-	if velocity.length() > 0:
-		targetZoom = 1.5
-	else:
-		targetZoom = 1
+	if (movementEnabled): doMovement();
 		
 	if Input.is_action_pressed("ui_home"):
 		Map.doShow(true)
@@ -48,3 +35,19 @@ func _on_Area2D_area_entered(area):
 		if (get_node("CanvasLayer").get_child_count()==0):
 			get_node("CanvasLayer").add_child(d);
 		else: area.get_parent().add_child(d);
+
+func doMovement():
+	velocity = Vector2()	
+	if Input.is_action_pressed('ui_right'):
+		velocity.x += 1
+	if Input.is_action_pressed('ui_left'):
+		velocity.x -= 1
+	if Input.is_action_pressed('ui_down'):
+		velocity.y += 1
+	if Input.is_action_pressed('ui_up'):
+		velocity.y -= 1
+	velocity = velocity.normalized() * speed
+	if velocity.length() > 0:
+		targetZoom = 1.5
+	else:
+		targetZoom = 1	

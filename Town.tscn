@@ -166,9 +166,19 @@ z_index = -1
 [node name="loveHeart" type="Sprite" parent="NPCs/Julie"]
 texture = ExtResource( 15 )
 
-[node name="girl1" parent="NPCs" instance=ExtResource( 19 )]
+[node name="Judy" parent="NPCs" instance=ExtResource( 19 )]
+modulate = Color( 1, 0.760784, 0.760784, 1 )
+tint = Color( 1, 0.760784, 0.760784, 1 )
+characterName = "Jimmy"
+
+[node name="Jane" parent="NPCs" instance=ExtResource( 19 )]
+modulate = Color( 0.584314, 0.639216, 1, 1 )
+position = Vector2( 1031.89, 21.9757 )
+tint = Color( 0.584314, 0.639216, 1, 1 )
+characterName = "Abby"
 
 [node name="Map" type="Sprite" parent="."]
+visible = false
 position = Vector2( 364.234, -54.832 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 14 )

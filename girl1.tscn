@@ -14,19 +14,19 @@ outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="CanvasItemMaterial" id=6]
+[sub_resource type="CanvasItemMaterial" id=7]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.396818 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=6]
 render_priority = -1
 emission_shape = 1
 emission_sphere_radius = 112.81
@@ -37,11 +37,10 @@ initial_velocity = 18.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle_random = 1.0
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 5 )
 anim_speed = 1.56
 
 [node name="girl1" type="Sprite"]
-modulate = Color( 0.741176, 0.968627, 1, 1 )
 position = Vector2( -1.51208, -78.0306 )
 scale = Vector2( 0.38531, 0.361887 )
 z_index = 1
@@ -63,23 +62,22 @@ margin_top = -311.0
 margin_right = 1387.0
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[wave amp=20 freq=4
-]Aunt Judy [/wave]"
+bbcode_text = "[wave amp=20 freq=4]Character Name[/wave]"
 meta_underlined = false
-text = "Aunt Judy "
+text = "Character Name"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 6 )
+material = SubResource( 7 )
 position = Vector2( 2.75256, -106.49 )
 z_index = -1
 amount = 20
 lifetime = 10.0
 explosiveness = 0.28
 randomness = 0.25
-process_material = SubResource( 5 )
+process_material = SubResource( 6 )
 texture = ExtResource( 2 )
 script = ExtResource( 4 )

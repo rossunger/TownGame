@@ -65,6 +65,18 @@ tracks/2/keys = {
 "method": "play"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("../AudioStreamPlayer:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -6.979, -71.202 ]
+}
 
 [node name="Game" type="Node2D"]
 position = Vector2( 111.091, 449.635 )
@@ -179,5 +191,6 @@ anims/GoToMap = SubResource( 3 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-
+volume_db = -67.764
+pitch_scale = 0.5
 [connection signal="area_entered" from="Character/Area2D" to="Character" method="_on_Area2D_area_entered"]

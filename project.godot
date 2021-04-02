@@ -14,6 +14,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/dialogic_class.gd"
 }, {
+"base": "Control",
+"class": "DialogicBackgroundMusic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
+}, {
+"base": "Node",
+"class": "DialogicDefinitionsUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
+}, {
+"base": "Reference",
+"class": "DialogicResources",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicResources.gd"
+}, {
 "base": "Reference",
 "class": "DialogicUtil",
 "language": "GDScript",
@@ -21,6 +36,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Dialogic": "",
+"DialogicBackgroundMusic": "",
+"DialogicDefinitionsUtil": "",
+"DialogicResources": "",
 "DialogicUtil": ""
 }
 
@@ -35,11 +53,10 @@ settings/fps/force_fps=60
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/ui_design_tool/plugin.cfg" )
+enabled=PoolStringArray( "dialogic", "ui_design_tool" )
 
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"

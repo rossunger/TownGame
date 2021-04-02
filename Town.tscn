@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Houses/tumblr_mtbh2vFU7J1s7i6fqo1_1280.png" type="Texture" id=1]
 [ext_resource path="res://Houses/tumblr_mt2o99ZcSv1s7i6fqo1_1280.png" type="Texture" id=2]
@@ -12,14 +12,15 @@
 [ext_resource path="res://Houses/tumblr_pfxt01PDaE1s7i6fqo1_1280.png" type="Texture" id=10]
 [ext_resource path="res://Houses/tumblr_pfryhdmm6V1s7i6fqo1_1280.png" type="Texture" id=11]
 [ext_resource path="res://Character.tscn" type="PackedScene" id=12]
+[ext_resource path="res://D1Q1.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Map.jpg" type="Texture" id=14]
 [ext_resource path="res://loveHeart.png" type="Texture" id=15]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Map.gd" type="Script" id=17]
 [ext_resource path="res://Animals/mouse_static_1.png" type="Texture" id=18]
-[ext_resource path="res://NPC.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Templates/NPC.tscn" type="PackedScene" id=19]
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=1]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 2
@@ -71,7 +72,7 @@ tracks/3/keys = {
 "values": [ -6.979, -71.202 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 length = 11.0
 loop = true
 tracks/0/type = "value"
@@ -179,7 +180,7 @@ texture = ExtResource( 14 )
 script = ExtResource( 17 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
-anims/GoToMap = SubResource( 11 )
+anims/GoToMap = SubResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
@@ -194,9 +195,11 @@ position = Vector2( 598.763, 430.971 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animals/MouseExample"]
 autoplay = "mouse_animation"
-anims/mouse_animation = SubResource( 12 )
+anims/mouse_animation = SubResource( 2 )
 
 [node name="mouse1" type="Sprite" parent="Animals/MouseExample"]
 position = Vector2( -1.25317, -2.70334 )
 scale = Vector2( 0.0767206, 0.0747003 )
 texture = ExtResource( 18 )
+
+[node name="Node" parent="." instance=ExtResource( 13 )]

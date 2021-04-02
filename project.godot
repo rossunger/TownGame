@@ -14,21 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/dialogic_class.gd"
 }, {
-"base": "Control",
-"class": "DialogicBackgroundMusic",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
-}, {
-"base": "Node",
-"class": "DialogicDefinitionsUtil",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
-}, {
-"base": "Reference",
-"class": "DialogicResources",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicResources.gd"
-}, {
 "base": "Reference",
 "class": "DialogicUtil",
 "language": "GDScript",
@@ -36,9 +21,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Dialogic": "",
-"DialogicBackgroundMusic": "",
-"DialogicDefinitionsUtil": "",
-"DialogicResources": "",
 "DialogicUtil": ""
 }
 

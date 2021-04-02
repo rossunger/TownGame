@@ -35,11 +35,10 @@ settings/fps/force_fps=60
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/ui_design_tool/plugin.cfg" )
+enabled=PoolStringArray( "dialogic", "ui_design_tool" )
 
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"

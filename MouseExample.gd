@@ -37,7 +37,7 @@ func checkSafety():
 	pass;
 	
 func _on_Area2D_area_entered(area):
-	if area.get_parent().name == "Character":
+	if area.get_parent().name == "Player":
 		escape();
 		pass;
 

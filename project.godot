@@ -18,16 +18,26 @@ _global_script_classes=[ {
 "class": "DialogicUtil",
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
+}, {
+"base": "Reference",
+"class": "test",
+"language": "GDScript",
+"path": "res://datatypes.gd"
 } ]
 _global_script_class_icons={
 "Dialogic": "",
-"DialogicUtil": ""
+"DialogicUtil": "",
+"test": ""
 }
 
 [application]
 
 config/name="Draw A City"
-run/main_scene="res://Town.tscn"
+run/main_scene="res://Game.tscn"
+
+[autoload]
+
+dt="*res://datatypes.gd"
 
 [debug]
 
@@ -35,7 +45,7 @@ settings/fps/force_fps=60
 
 [editor_plugins]
 
-enabled=PoolStringArray( "dialogic", "ui_design_tool" )
+enabled=PoolStringArray( "res://addons/ui_design_tool/plugin.cfg" )
 
 [rendering]
 

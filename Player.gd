@@ -1,13 +1,19 @@
 extends KinematicBody2D
 
 export (int) var speed = 300
+export (bool) var movementEnabled = true;
+
+enum viewMode {SIDE,MAP,MENU}
+export(viewMode) var view_mode = 0;
+
+var characters = {"jody": "test", "aja":"boop"}
+export(NodePath) var character;
 
 var velocity = Vector2()
 var zoom = 1
 var targetZoom = 1
-onready var Map = get_tree().get_root().get_node("Game/Map");
+onready var Map = get_tree().get_root().get_node("Game/WORLD/Map");
 onready var Cam = get_node("Camera2D");
-export var movementEnabled = true;
 
 func get_input():
 	if (movementEnabled): doMovement();
@@ -46,4 +52,4 @@ func doMovement():
 	if velocity.length() > 0:
 		targetZoom = 1.5
 	else:
-		targetZoom = 1	
+		targetZoom = 1		

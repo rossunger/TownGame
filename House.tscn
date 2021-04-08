@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Houses/tumblr_pfxt01PDaE1s7i6fqo1_1280.png" type="Texture" id=1]
+
+[node name="tumblr_pfxt01PDaE1s7i6fqo1_1280" type="Sprite"]
+position = Vector2( 2203.09, -292.196 )
+texture = ExtResource( 1 )

@@ -1,0 +1,40 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.733333, 0.52549, 0.52549, 1 )
+polygon = PoolVector2Array( 1052.64, -351.555, 1050.12, 165.642, -178.928, 165.642, -186.487, -338.326 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2( 12.5993, 97.0139 )
+color = Color( 0.396078, 0.176471, 0.176471, 1 )
+polygon = PoolVector2Array( 1025.56, -432.19, 1023.04, 62.3288, -170.738, 65.4785, -179.558, -427.78 )
+
+[node name="Polygon2D5" type="Polygon2D" parent="."]
+position = Vector2( -1201.96, 106.569 )
+scale = Vector2( 1, 1.02545 )
+color = Color( 0.321569, 0.145098, 0.145098, 1 )
+polygon = PoolVector2Array( 1021.78, -431.56, 1031.23, 45.32, 942.401, -75.7013, 934.841, -478.697 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+position = Vector2( 10.0794, 97.6438 )
+color = Color( 0.905882, 0.882353, 0.882353, 1 )
+polygon = PoolVector2Array( 1026.19, 50.9895, 1023.04, 62.3288, -170.738, 65.4785, -171.998, 50.9895 )
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+position = Vector2( -604.762, 166.309 )
+color = Color( 0.592157, 0.556863, 0.556863, 1 )
+polygon = PoolVector2Array( 339.529, -143.668, 445.363, -1.92715, 166.29, -1.29721, 243.145, -158.157 )
+
+[node name="Polygon2D6" type="Polygon2D" parent="."]
+position = Vector2( 387.614, 69.5411 )
+scale = Vector2( 1.62011, 1.8129 )
+color = Color( 0.592157, 0.556863, 0.556863, 1 )
+polygon = PoolVector2Array( 342.049, -143.668, 343.993, 52.6622, 229.286, 51.6197, 229.675, -142.973 )
+
+[node name="Polygon2D7" type="Polygon2D" parent="."]
+position = Vector2( -317.312, 68.9112 )
+scale = Vector2( 1.62011, 1.8129 )
+color = Color( 0.592157, 0.556863, 0.556863, 1 )
+polygon = PoolVector2Array( 342.049, -143.668, 343.993, 52.6622, 229.286, 51.6197, 229.675, -142.973 )

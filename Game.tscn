@@ -1,14 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://NPCManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://House.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Outside.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Map.gd" type="Script" id=4]
-[ext_resource path="res://Houses/tumblr_mk6fmgAXan1s7i6fqo1_r1_1280.png" type="Texture" id=5]
-[ext_resource path="res://Houses/tumblr_mmdffay2lO1s7i6fqo1_1280.png" type="Texture" id=6]
+[ext_resource path="res://Inside.gd" type="Script" id=6]
 [ext_resource path="res://MouseExample.tscn" type="PackedScene" id=7]
-[ext_resource path="res://House.gd" type="Script" id=8]
 [ext_resource path="res://D1Q1.tres" type="Animation" id=9]
+[ext_resource path="res://Houses/Inside/1MainStInside.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Map.jpg" type="Texture" id=15]
 
@@ -68,7 +67,7 @@ tracks/3/keys = {
 position = Vector2( 111.091, 449.635 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 175.836, -427.292 )
+position = Vector2( 8.89655, -555.174 )
 z_index = 10
 
 [node name="Particles2D" parent="Player" index="5"]
@@ -87,34 +86,13 @@ script = ExtResource( 4 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
 anims/GoToMap = SubResource( 1 )
 
-[node name="Downtown" type="Node2D" parent="."]
-position = Vector2( -111.091, -449.635 )
+[node name="Outside" parent="." instance=ExtResource( 3 )]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Downtown"]
-scroll_ignore_camera_zoom = true
+[node name="MainSt" parent="Outside" index="2"]
+visible = true
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Downtown/ParallaxBackground"]
-motion_scale = Vector2( 0, 1 )
-
-[node name="1 Second st" parent="Downtown/ParallaxBackground/ParallaxLayer" instance=ExtResource( 3 )]
-position = Vector2( 262.536, -281.366 )
-scale = Vector2( 0.1, 0.1 )
-z_index = -10
-texture = ExtResource( 5 )
-script = ExtResource( 8 )
-Address = "1 Main St"
-
-[node name="1 Main st" parent="Downtown" instance=ExtResource( 3 )]
-position = Vector2( 718.819, -321.297 )
-script = ExtResource( 8 )
-Address = "1 Main St"
-
-[node name="2 Main st" parent="Downtown" instance=ExtResource( 3 )]
-position = Vector2( -182.88, -215.159 )
-scale = Vector2( 0.88, 0.7 )
-texture = ExtResource( 6 )
-script = ExtResource( 8 )
-Address = "1 Main St"
+[node name="1 Main st" parent="Outside/MainSt" index="0"]
+InsideScene = NodePath("../../../Inside/1MainSt")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
@@ -169,7 +147,49 @@ text = "Abby"
 autoplay = "D1Q1"
 anims/D1Q1 = ExtResource( 9 )
 
+[node name="DebugOverlay" type="CanvasLayer" parent="."]
+
+[node name="DEBUG" type="Panel" parent="DebugOverlay"]
+margin_left = 6.0
+margin_top = 14.0
+margin_right = 394.0
+margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="goInside" type="Button" parent="DebugOverlay/DEBUG"]
+margin_left = 8.74011
+margin_top = 11.63
+margin_right = 89.7401
+margin_bottom = 36.63
+text = "Go Inside"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="goOutside" type="Button" parent="DebugOverlay/DEBUG"]
+margin_left = 97.5645
+margin_top = 18.5596
+margin_right = 182.565
+margin_bottom = 43.5596
+text = "Go Outside"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inside" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="1MainSt" parent="Inside" instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 66.7758, -609.172 )
+
+[connection signal="pressed" from="DebugOverlay/DEBUG/goInside" to="Player" method="_on_Button_pressed"]
+[connection signal="pressed" from="DebugOverlay/DEBUG/goOutside" to="Player" method="_on_Button2_pressed"]
+
 [editable path="Player"]
+[editable path="Outside"]
 [editable path="MouseExample"]
 [editable path="NPCManager"]
 [editable path="NPCManager/Jimmy"]

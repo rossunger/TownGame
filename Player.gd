@@ -12,7 +12,7 @@ export(NodePath) var character;
 var velocity = Vector2()
 var zoom = 1
 var targetZoom = 1
-onready var Map = get_tree().get_root().get_node("Game/WORLD/Map");
+onready var Map = get_tree().get_root().get_node("Game/Map");
 onready var Cam = get_node("Camera2D");
 
 func get_input():
@@ -53,3 +53,17 @@ func doMovement():
 		targetZoom = 1.5
 	else:
 		targetZoom = 1		
+
+func goInside(path):	
+	get_node("/root/Game/Inside").CurrentHouse = path
+	get_node("/root/Game/Outside").CurrentStreet = null	
+
+func goOutside(path):
+	get_node("/root/Game/Outside").CurrentStreet = path
+	get_node("/root/Game/Inside").CurrentHouse = null
+
+func _on_Button_pressed():
+	goInside("/root/Game/Inside/1MainSt")
+
+func _on_Button2_pressed():
+	goOutside("/root/Game/Outside/MainSt")

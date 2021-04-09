@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://House.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Street.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Outside.gd" type="Script" id=3]
+[ext_resource path="res://House.gd" type="Script" id=4]
+[ext_resource path="res://Houses/tumblr_mmcl7mgYcw1s7i6fqo1_1280.png" type="Texture" id=5]
+[ext_resource path="res://Houses/tumblr_mqrg8nGCOg1qkgy0bo1_1280.png" type="Texture" id=6]
+[ext_resource path="res://Houses/tumblr_mmdffay2lO1s7i6fqo1_1280.png" type="Texture" id=7]
+
+[node name="Outside" type="Node2D"]
+position = Vector2( -111.091, -449.635 )
+script = ExtResource( 3 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0 )
+motion_mirroring = Vector2( 512, 512 )
+
+[node name="CloudsBack" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+motion_offset = Vector2( 0, -300 )
+
+[node name="Street3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.8, 0.8 )
+motion_offset = Vector2( 0, -300 )
+
+[node name="Street2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.9, 0.9 )
+motion_offset = Vector2( 0, -150 )
+
+[node name="ThirdSt" parent="." instance=ExtResource( 2 )]
+
+[node name="1 Third st" parent="ThirdSt" instance=ExtResource( 1 )]
+position = Vector2( 17.8179, 96.217 )
+z_index = -10
+texture = ExtResource( 6 )
+script = ExtResource( 4 )
+Address = "1 Third St"
+
+[node name="MainSt" parent="." instance=ExtResource( 2 )]
+Street2 = NodePath("../SecondSt")
+
+[node name="1 Main st" parent="MainSt" instance=ExtResource( 1 )]
+position = Vector2( 725.946, 131.853 )
+script = ExtResource( 4 )
+Address = "1 Main St"
+
+[node name="2 Main st" parent="MainSt" instance=ExtResource( 1 )]
+position = Vector2( -365.056, 238.761 )
+scale = Vector2( 0.88, 0.7 )
+texture = ExtResource( 7 )
+script = ExtResource( 4 )
+Address = "1 Main St"
+
+[node name="ThirdSt2" parent="." instance=ExtResource( 2 )]
+
+[node name="SecondSt" parent="." instance=ExtResource( 2 )]
+
+[node name="1 Second st" parent="SecondSt" instance=ExtResource( 1 )]
+position = Vector2( 32.0724, 67.7083 )
+z_index = -10
+texture = ExtResource( 5 )
+script = ExtResource( 4 )
+Address = "1 Second St"

@@ -30,17 +30,9 @@ motion_offset = Vector2( 0, -300 )
 motion_scale = Vector2( 0.9, 0.9 )
 motion_offset = Vector2( 0, -150 )
 
-[node name="ThirdSt" parent="." instance=ExtResource( 2 )]
-
-[node name="1 Third st" parent="ThirdSt" instance=ExtResource( 1 )]
-position = Vector2( 17.8179, 96.217 )
-z_index = -10
-texture = ExtResource( 6 )
-script = ExtResource( 4 )
-Address = "1 Third St"
-
 [node name="MainSt" parent="." instance=ExtResource( 2 )]
 Street2 = NodePath("../SecondSt")
+Street3 = NodePath("../ThirdSt")
 
 [node name="1 Main st" parent="MainSt" instance=ExtResource( 1 )]
 position = Vector2( 725.946, 131.853 )
@@ -54,9 +46,17 @@ texture = ExtResource( 7 )
 script = ExtResource( 4 )
 Address = "1 Main St"
 
-[node name="ThirdSt2" parent="." instance=ExtResource( 2 )]
+[node name="ThirdSt" parent="." instance=ExtResource( 2 )]
+
+[node name="1 Third st" parent="ThirdSt" instance=ExtResource( 1 )]
+position = Vector2( -171.052, 89.09 )
+z_index = -10
+texture = ExtResource( 6 )
+script = ExtResource( 4 )
+Address = "1 Third St"
 
 [node name="SecondSt" parent="." instance=ExtResource( 2 )]
+Street2 = NodePath("../ThirdSt")
 
 [node name="1 Second st" parent="SecondSt" instance=ExtResource( 1 )]
 position = Vector2( 32.0724, 67.7083 )

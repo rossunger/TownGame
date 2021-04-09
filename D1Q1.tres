@@ -3,32 +3,53 @@
 [resource]
 resource_name = "D1Q1"
 length = 10.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("../NPCManager/Jimmy:position")
+tracks/0/type = "method"
+tracks/0/path = NodePath("../NPCManager/Jimmy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 6.1, 7.1, 10 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 612.934, -614.521 ), Vector2( 612.934, -399.912 ), Vector2( 99.9872, -399.912 ), Vector2( 99.9872, -399.912 ), Vector2( 616.298, -482.32 ) ]
+"times": PoolRealArray( 6.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "sadness", 1.0, true ],
+"method": "set_emotion"
+} ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("../NPCManager/Jimmy")
+tracks/1/type = "value"
+tracks/1/path = NodePath("../NPCManager/Jimmy:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 2, 6.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "sadness", 1.0, true ],
-"method": "set_emotion"
-}, {
-"args": [ "sadness", 1.0, true ],
-"method": "set_emotion"
-} ]
+"times": PoolRealArray( 0, 2, 6.1, 7.1, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 617.974, -183.628 ), Vector2( 570.097, -74.8523 ), Vector2( -91.5209, -69.8126 ), Vector2( -91.5209, -69.8126 ), Vector2( 570.097, -74.8523 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../NPCManager/Abby:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3, 3.6, 5.1, 7.6, 9.3, 9.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -332.619, -85 ), Vector2( -332.619, -85 ), Vector2( -332.619, -85 ), Vector2( -151.19, -72.4008 ), Vector2( -151.19, -72.4008 ), Vector2( -330.099, -82.4802 ), Vector2( -330.099, -82.4802 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../NPCManager/Abby:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3, 9.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }

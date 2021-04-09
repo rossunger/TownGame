@@ -61,9 +61,3 @@ func goInside(path):
 func goOutside(path):
 	get_node("/root/Game/Outside").CurrentStreet = path
 	get_node("/root/Game/Inside").CurrentHouse = null
-
-func _on_Button_pressed():
-	goInside("/root/Game/Inside/1MainSt")
-
-func _on_Button2_pressed():
-	goOutside("/root/Game/Outside/MainSt")

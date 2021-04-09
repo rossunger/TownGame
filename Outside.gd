@@ -23,6 +23,15 @@ func LoadStreet(street):
 		street2.visible = true
 		for c in street2.get_children():		
 			c.set_owner(self)
+	#if we know another street that is needed for parallax, then reparent it there
+	if street.Street3:		
+		var street3 = street.get_node(street.Street3)
+		remove_child(street3)
+		get_node("ParallaxBackground/Street3").add_child(street3)
+		street3.set_owner(self)
+		street3.visible = true
+		for c in street3.get_children():		
+			c.set_owner(self)
 	
 func clearStreets():
 	#go through each parallax layer and reparent each "street" back to "Outside".

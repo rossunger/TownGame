@@ -36,7 +36,8 @@ func _physics_process(delta):
 	Cam.zoom.y = zoom;
 
 func _on_Area2D_area_entered(area):	
-	area.get_parent().playNextTimeline();		
+#	area.get_parent().playNextTimeline();		
+	pass
 
 func doMovement():
 	velocity = Vector2()	

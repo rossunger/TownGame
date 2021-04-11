@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://AI/AIInput.gd" type="Script" id=1]
+[ext_resource path="res://AI/KnowledgeBase/DayOfTheWeek.tscn" type="PackedScene" id=2]
+
+[node name="DayOfTheWeek" type="Node"]
+script = ExtResource( 1 )
+Score1IfMatch = true
+
+[node name="DayOfTheWeek" parent="." instance=ExtResource( 2 )]
+FixedValue = [  ]

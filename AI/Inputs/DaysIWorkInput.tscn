@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://AI/KnowledgeBase/DaysIWork.tscn" type="PackedScene" id=1]
+[ext_resource path="res://AI/AIInput.gd" type="Script" id=2]
+
+[node name="DaysIWork" type="Node"]
+script = ExtResource( 2 )
+
+[node name="DaysIWork" parent="." instance=ExtResource( 1 )]
+title = "DaysIWork"
+type = 0
+valueType = 1
+MinValue = 0
+MaxValue = 49.0
+
+[editable path="DaysIWork"]

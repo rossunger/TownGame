@@ -32,11 +32,12 @@ static func smallestValue(params = []):
 			smallest = i 
 	return smallest
 
+"""
 class Relationship:
 	var withWhom : NodePath
 	var trust = 0
 	var attraction = 0
-
+"""
 class Household:
 	var Name = "New Household"
 	var Houses : Array #of NodePath to house

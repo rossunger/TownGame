@@ -10,8 +10,10 @@ func LoadInside(house):
 	if !house:
 		return
 	house = get_node(house)
-	house.visible = true;
+	get_node("/root/Game/Player").position = house.get_node("PlayerStart").position
+	house.show()	
 
 func clearInsides():
 	for i in get_children():
-		i.visible=false
+		i.hide()
+		

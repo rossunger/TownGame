@@ -35,7 +35,8 @@ func set_name(value):
 
 func _ready():
 	set_tint(tint);
-	set_name(characterName);		
+	set_name(characterName);	
+	$MyRelationships.newRelationship(name)
 		
 #experiment! this gets called when the players "nearby" area collides with this NPC
 func playNextTimeline():

@@ -10,6 +10,7 @@ enum AIKnowledgeValueType {fixedValue, fixedRange, dynamicRange}
 export var description = "Day Of The Week"
 export var value = ""
 export (WhoseKnowledge) var whoseKnowledge = WhoseKnowledge._myProperty
+export var Parameters = [""]
 var Score1IfMatch = false
 
 func _ready():		

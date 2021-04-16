@@ -8,21 +8,19 @@
 radius = 86.1072
 height = 204.567
 
-[sub_resource type="CapsuleShape2D" id=2]
-
-[sub_resource type="CanvasItemMaterial" id=3]
+[sub_resource type="CanvasItemMaterial" id=11]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.318275, 0, 0, Vector2( 1, 0.703409 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 1
 emission_sphere_radius = 23.87
 flag_disable_z = true
@@ -37,18 +35,18 @@ orbit_velocity = 0.1
 orbit_velocity_random = 0.4
 scale = 0.0
 scale_random = 1.0
-scale_curve = SubResource( 5 )
+scale_curve = SubResource( 4 )
 color = Color( 1, 1, 1, 0.592157 )
 hue_variation = 1.0
 hue_variation_random = 0.02
 
-[sub_resource type="Curve" id=7]
+[sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.694318 ), -0.443182, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=8]
-curve = SubResource( 7 )
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=8]
 emission_shape = 1
 emission_sphere_radius = 45.19
 flag_disable_z = true
@@ -61,12 +59,12 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.4
 scale_random = 0.3
-scale_curve = SubResource( 8 )
+scale_curve = SubResource( 7 )
 color = Color( 1, 1, 1, 0.290196 )
 hue_variation = 0.5
 hue_variation_random = 0.5
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -94,9 +92,11 @@ tracks/1/keys = {
 "values": [  ]
 }
 
+[sub_resource type="CapsuleShape2D" id=10]
+
 [node name="Character" type="KinematicBody2D"]
 position = Vector2( -6.3393, 21.4186 )
-collision_mask = 2
+collision_mask = 6
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
@@ -105,55 +105,58 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="girl1" type="Sprite" parent="."]
-visible = false
-position = Vector2( 368.416, 12.9462 )
+position = Vector2( 5.02436, -117.308 )
 scale = Vector2( 0.405931, 0.405931 )
 z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -395.392, -26.2546 )
 offset = Vector2( 400, -150 )
 current = true
 smoothing_enabled = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="NearbyArea" type="Area2D" parent="."]
+position = Vector2( -363.392, -74.2546 )
 monitorable = false
 collision_mask = 2
 
-[node name="NearbyCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="NearbyCollisionShape2D" type="CollisionShape2D" parent="NearbyArea"]
 position = Vector2( 365.476, 59.0877 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 370.251, 60.5035 )
-rotation = 1.5708
-shape = SubResource( 2 )
-
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 3 )
+visible = false
+material = SubResource( 11 )
 use_parent_material = true
-position = Vector2( 368.416, 22.6923 )
+position = Vector2( 0.415985, -89.3077 )
 amount = 16
 lifetime = 3.5
 randomness = 0.17
 fixed_fps = 30
-process_material = SubResource( 6 )
+process_material = SubResource( 5 )
 texture = ExtResource( 1 )
 
 [node name="Particles2DTrail" type="Particles2D" parent="."]
-material = SubResource( 3 )
+visible = false
+material = SubResource( 11 )
 use_parent_material = true
-position = Vector2( 368.416, 20.4873 )
+position = Vector2( 0.415985, -91.5127 )
 lifetime = 2.0
 randomness = 0.17
 fixed_fps = 30
 local_coords = false
-process_material = SubResource( 9 )
+process_material = SubResource( 8 )
 texture = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "BobUpAndDown"
-anims/BobUpAndDown = SubResource( 10 )
+anims/BobUpAndDown = SubResource( 9 )
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[node name="feetCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 6.85939, -20.7512 )
+rotation = 1.5708
+shape = SubResource( 10 )
+
+[connection signal="area_entered" from="NearbyArea" to="." method="_on_Area2D_area_entered"]

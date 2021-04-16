@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://NPCManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -11,7 +11,13 @@
 [ext_resource path="res://D1Q1.tres" type="Animation" id=9]
 [ext_resource path="res://Houses/Inside/1MainStInside.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Houses/tumblr_mkurzifDUa1s7i6fqo1_1280.png" type="Texture" id=12]
+[ext_resource path="res://Houses/tumblr_ml5spgYm3i1s7i6fqo1_1280.png" type="Texture" id=13]
+[ext_resource path="res://Houses/tumblr_mlvx0wdugv1s7i6fqo1_1280.png" type="Texture" id=14]
 [ext_resource path="res://Map.jpg" type="Texture" id=15]
+[ext_resource path="res://Houses/tumblr_mlbh4m9OVz1s7i6fqo1_1280.png" type="Texture" id=16]
+[ext_resource path="res://NPCs/Relationship.gd" type="Script" id=17]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Animation" id=1]
 tracks/0/type = "value"
@@ -65,6 +71,72 @@ tracks/3/keys = {
 "values": [ -6.979, -71.202 ]
 }
 
+[sub_resource type="Animation" id=2]
+resource_name = "TownCouncil1"
+length = 60.0
+tracks/0/type = "method"
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ NodePath("../Inside/1MainSt") ],
+"method": "goInside"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../UI/Title:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../UI/Title:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 3.78, 5 ),
+"transitions": PoolRealArray( 1.41421, 1, 1, 1.41421 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../NPCManager/Jimmy:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.7, 2.1, 3.7, 5, 6.3, 7, 8.4, 10, 11.3, 14, 14.7, 16.1, 17.7, 19, 20.3, 21, 22.4, 24, 25.3, 26.3, 27, 28.4, 30, 31.3, 32.6, 33.3, 34.7, 36.3, 37.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -511.265, -531.447 ), Vector2( -343.086, -541.537 ), Vector2( -343.086, -541.537 ), Vector2( -511.265, -531.447 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../NPCManager/Jimmy:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="Game" type="Node2D"]
 position = Vector2( 111.091, 449.635 )
 script = ExtResource( 8 )
@@ -75,10 +147,16 @@ DayOfTheYear = 365
 position = Vector2( 0, 0 )
 z_index = 10
 
-[node name="Particles2D" parent="Player" index="5"]
+[node name="Camera2D" parent="Player" index="2"]
+smoothing_enabled = false
+
+[node name="NearbyArea" parent="Player" index="3"]
+monitorable = true
+
+[node name="Particles2D" parent="Player" index="4"]
 emitting = false
 
-[node name="Particles2DTrail" parent="Player" index="6"]
+[node name="Particles2DTrail" parent="Player" index="5"]
 emitting = false
 
 [node name="Map" type="Sprite" parent="."]
@@ -97,7 +175,37 @@ anims/GoToMap = SubResource( 1 )
 visible = true
 
 [node name="1 Main st" parent="Outside/MainSt" index="0"]
+position = Vector2( 697.946, 133.853 )
 InsideScene = NodePath("../../../Inside/1MainSt")
+HouseTexture = ExtResource( 12 )
+
+[node name="GoInsideArea" parent="Outside/MainSt/1 Main st" index="0"]
+position = Vector2( 29.5842, 236.387 )
+
+[node name="GoInsideLabel" parent="Outside/MainSt/1 Main st" index="1"]
+position = Vector2( 29.5842, 236.387 )
+
+[node name="HouseImage" parent="Outside/MainSt/1 Main st" index="2"]
+position = Vector2( 104, -152 )
+texture = ExtResource( 12 )
+
+[node name="2 Main st" parent="Outside/MainSt" index="1"]
+position = Vector2( -221.716, 454.242 )
+scale = Vector2( 1, 1 )
+HouseTexture = ExtResource( 13 )
+
+[node name="GoInsideLabel" parent="Outside/MainSt/2 Main st" index="1"]
+position = Vector2( 1.01099, 4.62671 )
+
+[node name="HouseImage" parent="Outside/MainSt/2 Main st" index="2"]
+position = Vector2( -8, -354 )
+texture = ExtResource( 13 )
+
+[node name="1 Third st" parent="Outside/ThirdSt" index="0"]
+HouseTexture = ExtResource( 14 )
+
+[node name="1 Second st" parent="Outside/SecondSt" index="0"]
+HouseTexture = ExtResource( 16 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
@@ -116,21 +224,28 @@ position = Vector2( 1070.53, 428.857 )
 ] instance=ExtResource( 1 )]
 
 [node name="Jimmy" parent="NPCManager" index="0"]
-position = Vector2( -91.5209, -69.8126 )
+visible = true
+position = Vector2( -511.265, -531.447 )
 
 [node name="RichTextLabel" parent="NPCManager/Jimmy" index="1"]
 bbcode_text = "[wave amp=20 freq=4]Jimmy[/wave]"
 text = "Jimmy"
 
+[node name="RelationshipWithJimmy" type="Node" parent="NPCManager/Jimmy/MyRelationships" index="0"]
+script = ExtResource( 17 )
+
 [node name="Abby" parent="NPCManager" index="1"]
-visible = true
-position = Vector2( -151.19, -72.4008 )
+position = Vector2( -330.099, -82.4802 )
+
+[node name="Judith" parent="NPCManager" index="2"]
+visible = false
 
 [node name="Timelines" type="Node" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Timelines"]
-autoplay = "D1Q1"
+autoplay = "TownCouncil1"
 anims/D1Q1 = ExtResource( 9 )
+anims/TownCouncil1 = SubResource( 2 )
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
@@ -168,14 +283,21 @@ __meta__ = {
 script = ExtResource( 6 )
 
 [node name="1MainSt" parent="Inside" instance=ExtResource( 10 )]
+position = Vector2( 113.103, -24.7425 )
+
+[node name="UI" parent="." instance=ExtResource( 18 )]
+
+[node name="Title" parent="UI" index="0"]
 visible = false
-position = Vector2( 66.7758, -609.172 )
+modulate = Color( 1, 1, 1, 0 )
 
 [connection signal="pressed" from="DebugOverlay/DEBUG/goInside" to="DebugOverlay" method="_on_goInside_pressed"]
 [connection signal="pressed" from="DebugOverlay/DEBUG/goOutside" to="DebugOverlay" method="_on_goOutside_pressed"]
 
 [editable path="Player"]
 [editable path="Outside"]
+[editable path="Outside/MainSt/1 Main st"]
+[editable path="Outside/MainSt/2 Main st"]
 [editable path="MouseExample"]
 [editable path="NPCManager"]
 [editable path="NPCManager/Jimmy"]
@@ -184,4 +306,4 @@ position = Vector2( 66.7758, -609.172 )
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday"]
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday/DayOfTheWeek"]
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday/DaysIWork"]
-[editable path="NPCManager/Jimmy/MyRelationships"]
+[editable path="UI"]

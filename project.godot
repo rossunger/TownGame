@@ -105,5 +105,6 @@ enabled=PoolStringArray( "res://addons/ui_design_tool/plugin.cfg" )
 
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
+environment/default_clear_color=Color( 0.788235, 0.788235, 0.788235, 1 )
 quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"

@@ -15,6 +15,8 @@ var targetZoom = 1
 onready var Map = get_tree().get_root().get_node("Game/Map");
 onready var Cam = get_node("Camera2D");
 
+var targetAction: Dictionary
+
 func get_input():
 	if (movementEnabled): doMovement();
 		
@@ -27,6 +29,7 @@ func get_input():
 		
 
 func _physics_process(delta):
+	
 	get_input();
 	velocity = move_and_slide(velocity);
 	if (abs(zoom - targetZoom) >= 0.01):
@@ -54,11 +57,7 @@ func doMovement():
 		targetZoom = 1.5
 	else:
 		targetZoom = 1		
-
-func goInside(path):	
-	get_node("/root/Game/Inside").CurrentHouse = path
-	get_node("/root/Game/Outside").CurrentStreet = null	
-
-func goOutside(path):
-	get_node("/root/Game/Outside").CurrentStreet = path
-	get_node("/root/Game/Inside").CurrentHouse = null
+	if Input.is_action_pressed("ui_select"):		
+		if targetAction.size() > 0:
+			funcref(get_node(targetAction.target), targetAction.function_name).call_func(targetAction.params)
+			targetAction.clear()

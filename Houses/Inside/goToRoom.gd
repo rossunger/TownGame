@@ -6,9 +6,9 @@ export (NodePath) var eastRoom
 export (NodePath) var westRoom
 
 var currentRoom
-onready var tween = get_parent().get_node("Tween")
+onready var tween = get_parent().get_parent().get_node("Tween")
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(body):	
 	if body.name=="Player":					
 		modulate.a = 1
 		var r:NodePath

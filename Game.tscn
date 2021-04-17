@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://NPCManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -11,11 +11,7 @@
 [ext_resource path="res://D1Q1.tres" type="Animation" id=9]
 [ext_resource path="res://Houses/Inside/1MainStInside.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=11]
-[ext_resource path="res://Houses/tumblr_mkurzifDUa1s7i6fqo1_1280.png" type="Texture" id=12]
-[ext_resource path="res://Houses/tumblr_ml5spgYm3i1s7i6fqo1_1280.png" type="Texture" id=13]
-[ext_resource path="res://Houses/tumblr_mlvx0wdugv1s7i6fqo1_1280.png" type="Texture" id=14]
 [ext_resource path="res://Map.jpg" type="Texture" id=15]
-[ext_resource path="res://Houses/tumblr_mlbh4m9OVz1s7i6fqo1_1280.png" type="Texture" id=16]
 [ext_resource path="res://NPCs/Relationship.gd" type="Script" id=17]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=18]
 
@@ -144,7 +140,7 @@ DayOfTheWeek = 1
 DayOfTheYear = 365
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 0 )
+position = Vector2( 738.314, 551.846 )
 z_index = 10
 
 [node name="Camera2D" parent="Player" index="2"]
@@ -171,41 +167,17 @@ anims/GoToMap = SubResource( 1 )
 
 [node name="Outside" parent="." instance=ExtResource( 3 )]
 
-[node name="MainSt" parent="Outside" index="1"]
-visible = true
-
 [node name="1 Main st" parent="Outside/MainSt" index="0"]
-position = Vector2( 697.946, 133.853 )
 InsideScene = NodePath("../../../Inside/1MainSt")
-HouseTexture = ExtResource( 12 )
-
-[node name="GoInsideArea" parent="Outside/MainSt/1 Main st" index="0"]
-position = Vector2( 29.5842, 236.387 )
 
 [node name="GoInsideLabel" parent="Outside/MainSt/1 Main st" index="1"]
-position = Vector2( 29.5842, 236.387 )
+position = Vector2( 196.508, 416.666 )
 
-[node name="HouseImage" parent="Outside/MainSt/1 Main st" index="2"]
-position = Vector2( 104, -152 )
-texture = ExtResource( 12 )
+[node name="GoInsideLabel" parent="Outside/SecondSt/1 Second st" index="1"]
+position = Vector2( -50.0169, 442.057 )
 
-[node name="2 Main st" parent="Outside/MainSt" index="1"]
-position = Vector2( -221.716, 454.242 )
-scale = Vector2( 1, 1 )
-HouseTexture = ExtResource( 13 )
-
-[node name="GoInsideLabel" parent="Outside/MainSt/2 Main st" index="1"]
-position = Vector2( 1.01099, 4.62671 )
-
-[node name="HouseImage" parent="Outside/MainSt/2 Main st" index="2"]
-position = Vector2( -8, -354 )
-texture = ExtResource( 13 )
-
-[node name="1 Third st" parent="Outside/ThirdSt" index="0"]
-HouseTexture = ExtResource( 14 )
-
-[node name="1 Second st" parent="Outside/SecondSt" index="0"]
-HouseTexture = ExtResource( 16 )
+[node name="GoInsideLabel" parent="Outside/ThirdSt/2 Third st" index="1"]
+position = Vector2( 1.01098, 212.627 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
@@ -280,10 +252,15 @@ __meta__ = {
 }
 
 [node name="Inside" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 6 )
 
 [node name="1MainSt" parent="Inside" instance=ExtResource( 10 )]
+visible = false
 position = Vector2( 113.103, -24.7425 )
+
+[node name="FloorCollision" parent="Inside/1MainSt/Floor" index="0"]
+visible = true
 
 [node name="UI" parent="." instance=ExtResource( 18 )]
 
@@ -296,8 +273,16 @@ modulate = Color( 1, 1, 1, 0 )
 
 [editable path="Player"]
 [editable path="Outside"]
+[editable path="Outside/MainSt"]
 [editable path="Outside/MainSt/1 Main st"]
 [editable path="Outside/MainSt/2 Main st"]
+[editable path="Outside/SecondSt"]
+[editable path="Outside/SecondSt/1 Second st"]
+[editable path="Outside/SecondSt/2 Second st"]
+[editable path="Outside/ThirdSt"]
+[editable path="Outside/ThirdSt/1 Third st"]
+[editable path="Outside/ThirdSt/2 Third st"]
+[editable path="Outside/ThirdSt/3 Third st"]
 [editable path="MouseExample"]
 [editable path="NPCManager"]
 [editable path="NPCManager/Jimmy"]
@@ -306,4 +291,5 @@ modulate = Color( 1, 1, 1, 0 )
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday"]
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday/DayOfTheWeek"]
 [editable path="NPCManager/Jimmy/TestBrain/GoToWork/OnlyIfItsAWorkday/DaysIWork"]
+[editable path="Inside/1MainSt"]
 [editable path="UI"]

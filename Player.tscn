@@ -8,7 +8,7 @@
 radius = 86.1072
 height = 204.567
 
-[sub_resource type="CanvasItemMaterial" id=11]
+[sub_resource type="CanvasItemMaterial" id=2]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -95,7 +95,6 @@ tracks/1/keys = {
 [sub_resource type="CapsuleShape2D" id=10]
 
 [node name="Character" type="KinematicBody2D"]
-position = Vector2( -6.3393, 21.4186 )
 collision_mask = 6
 script = ExtResource( 3 )
 __meta__ = {
@@ -105,7 +104,7 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="girl1" type="Sprite" parent="."]
-position = Vector2( 5.02436, -117.308 )
+position = Vector2( -1.97564, -98.308 )
 scale = Vector2( 0.405931, 0.405931 )
 z_index = 1
 texture = ExtResource( 2 )
@@ -128,7 +127,7 @@ shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 visible = false
-material = SubResource( 11 )
+material = SubResource( 2 )
 use_parent_material = true
 position = Vector2( 0.415985, -89.3077 )
 amount = 16
@@ -140,7 +139,7 @@ texture = ExtResource( 1 )
 
 [node name="Particles2DTrail" type="Particles2D" parent="."]
 visible = false
-material = SubResource( 11 )
+material = SubResource( 2 )
 use_parent_material = true
 position = Vector2( 0.415985, -91.5127 )
 lifetime = 2.0
@@ -155,7 +154,6 @@ autoplay = "BobUpAndDown"
 anims/BobUpAndDown = SubResource( 9 )
 
 [node name="feetCollision" type="CollisionShape2D" parent="."]
-position = Vector2( 6.85939, -20.7512 )
 rotation = 1.5708
 shape = SubResource( 10 )
 

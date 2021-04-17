@@ -18,11 +18,11 @@ func _ready():
 	setHouseTexture(HouseTexture)
 
 
-func _on_GoInsideArea_entered(area):
-	if InsideScene:
+func _on_GoInsideArea_entered(area):	
+	if InsideScene:		
 		$GoInsideLabel.visible = true
 		area.get_parent().targetAction = {"target": "/root/Game", "function_name": "goInside", "params": get_node(InsideScene).get_path()}
 	
 func _on_GoInsideArea_exited(area):
-	$GoInsideLabel.visible = false
+	$GoInsideLabel.visible = false	
 	

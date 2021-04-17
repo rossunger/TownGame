@@ -1,19 +1,22 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="E:/FONTBASE/Sensible Fonts/Unna-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Houses/Inside/goToRoom.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Houses/Inside/goToRoom.gd" type="Script" id=2]
 [ext_resource path="res://Houses/Inside/HouseInside.gd" type="Script" id=3]
 [ext_resource path="res://Houses/Inside/Room.gd" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 151.414, 16 )
+
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 51.3032, 63.8196 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=6]
 size = 30
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 48
 use_filter = true
 font_data = ExtResource( 1 )
@@ -27,11 +30,17 @@ firstRoom = NodePath("Rooms/Foyer")
 [node name="PlayerStart" type="Node2D" parent="."]
 position = Vector2( -1376.63, 194.941 )
 
-[node name="transitionHallFoyer" parent="." instance=ExtResource( 2 )]
-position = Vector2( -307.069, 103.639 )
+[node name="Transitions" type="Node2D" parent="."]
 z_index = 5
-northRoom = NodePath("../Rooms/Hall")
-southRoom = NodePath("../Rooms/Foyer")
+
+[node name="transitionHallFoyer" type="Area2D" parent="Transitions"]
+position = Vector2( -307.069, 103.639 )
+script = ExtResource( 2 )
+northRoom = NodePath("../../Rooms/Hall")
+southRoom = NodePath("../../Rooms/Foyer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/transitionHallFoyer"]
+shape = SubResource( 4 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
@@ -46,7 +55,7 @@ collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
 position = Vector2( -1675.07, 166.497 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -162,7 +171,7 @@ margin_left = 253.345
 margin_top = -33.0
 margin_right = 352.345
 margin_bottom = 42.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 6 )
 text = "Town 
 Meeting"
 align = 1
@@ -187,13 +196,12 @@ margin_left = -1613.0
 margin_top = -148.318
 margin_right = -1536.0
 margin_bottom = -30.3177
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Exit
 <---"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="body_exited" from="Transitions/transitionHallFoyer" to="Transitions/transitionHallFoyer" method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Exit" to="." method="_on_Area2D_body_entered"]
-
-[editable path="transitionHallFoyer"]

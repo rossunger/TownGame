@@ -6,16 +6,18 @@ onready var NPCManager = get_node("NPCManager")
 var lastStreet: NodePath
 var lastLocation: Vector2
 
+var allColliders = []
+
 func SetDayOfTheWeek(day):
 	DayOfTheWeek = day	
 	
-func goInside(path):	
+func goInside(path):		
 	lastLocation = $Player.position
 	get_node("Inside").CurrentHouse = path	
 	lastStreet = get_node("Outside").CurrentStreet
 	get_node("Outside").CurrentStreet = null		
 
-func goOutside(path):
+func goOutside(path):	
 	get_node("Outside").CurrentStreet = path
 	get_node("Inside").CurrentHouse = null
 	lastStreet = ""		
@@ -23,5 +25,8 @@ func goOutside(path):
 	
 	
 func _ready():
+	#init defaults - to do
 	goInside("/root/Game/Inside/1MainSt")
 	goOutside("/root/Game/Outside/MainSt")	
+		
+	allColliders.append("/root/Game/Outside/Floor")	

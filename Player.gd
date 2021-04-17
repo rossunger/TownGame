@@ -28,8 +28,7 @@ func get_input():
 	#if Input.is_action_pressed("ui_page_down"):
 		
 
-func _physics_process(delta):
-	
+func _physics_process(delta):	
 	get_input();
 	velocity = move_and_slide(velocity);
 	if (abs(zoom - targetZoom) >= 0.01):
@@ -61,3 +60,7 @@ func doMovement():
 		if targetAction.size() > 0:
 			funcref(get_node(targetAction.target), targetAction.function_name).call_func(targetAction.params)
 			targetAction.clear()
+
+func clearTargetAction(param):
+	if targetAction && targetAction.params && targetAction.params == param:		
+		targetAction.clear()

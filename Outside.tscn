@@ -23,6 +23,9 @@ extents = Vector2( 146.219, 8 )
 
 [node name="Outside" type="Node2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
 
 [node name="Transitions" type="Node2D" parent="."]
 
@@ -86,11 +89,15 @@ z = 3
 [node name="1 Main st" parent="MainSt" instance=ExtResource( 1 )]
 position = Vector2( 721.189, 96.1768 )
 Address = "1 Main St"
+InsideScene = NodePath(".")
 HouseTexture = ExtResource( 4 )
 
 [node name="GoInsideArea" parent="MainSt/1 Main st" index="0"]
 position = Vector2( 196.508, 416.666 )
 scale = Vector2( 1, 1.5 )
+
+[node name="CollisionShape2D" parent="MainSt/1 Main st/GoInsideArea" index="0"]
+disabled = true
 
 [node name="GoInsideLabel" parent="MainSt/1 Main st" index="1"]
 position = Vector2( 196.508, 416.666 )
@@ -102,17 +109,27 @@ texture = ExtResource( 4 )
 position = Vector2( -365.056, 238.761 )
 scale = Vector2( 0.88, 0.7 )
 Address = "1 Main St"
+InsideScene = NodePath(".")
 HouseTexture = ExtResource( 7 )
 
 [node name="GoInsideArea" parent="MainSt/2 Main st" index="0"]
 position = Vector2( -86.9008, 391.545 )
 scale = Vector2( 1.4, 2 )
 
+[node name="CollisionShape2D" parent="MainSt/2 Main st/GoInsideArea" index="0"]
+disabled = true
+
 [node name="GoInsideLabel" parent="MainSt/2 Main st" index="1"]
 position = Vector2( -86.9008, 391.545 )
 
 [node name="HouseImage" parent="MainSt/2 Main st" index="2"]
 texture = ExtResource( 7 )
+
+[node name="FloorShape2" type="Polygon2D" parent="MainSt"]
+position = Vector2( -1, -1 )
+z_index = -2
+color = Color( 0.407843, 0.407843, 0.407843, 1 )
+polygon = PoolVector2Array( -660.716, 511.213, -660.716, 672.945, 221.617, 665.791, 1099.31, 658.675, 1085.04, 508.835, 483.301, 513.592, 484.422, 394.704, -90.939, 404.194, -89.8972, 513.592 )
 
 [node name="SecondSt" parent="." instance=ExtResource( 2 )]
 position = Vector2( -9.52441, -282.557 )
@@ -129,6 +146,9 @@ HouseTexture = ExtResource( 6 )
 [node name="GoInsideArea" parent="SecondSt/1 Second st" index="0"]
 position = Vector2( -50.0169, 442.057 )
 
+[node name="CollisionShape2D" parent="SecondSt/1 Second st/GoInsideArea" index="0"]
+disabled = true
+
 [node name="GoInsideLabel" parent="SecondSt/1 Second st" index="1"]
 position = Vector2( -50.0169, 442.057 )
 
@@ -144,16 +164,31 @@ HouseTexture = ExtResource( 5 )
 [node name="GoInsideArea" parent="SecondSt/2 Second st" index="0"]
 position = Vector2( 2.34582, 253.528 )
 
+[node name="CollisionShape2D" parent="SecondSt/2 Second st/GoInsideArea" index="0"]
+disabled = true
+
 [node name="GoInsideLabel" parent="SecondSt/2 Second st" index="1"]
 position = Vector2( 2.34583, 253.528 )
 
 [node name="HouseImage" parent="SecondSt/2 Second st" index="2"]
 texture = ExtResource( 5 )
 
+[node name="FloorShape3" type="Polygon2D" parent="SecondSt"]
+position = Vector2( 9.52441, 282.557 )
+z_index = -12
+color = Color( 0.431373, 0.431373, 0.431373, 1 )
+polygon = PoolVector2Array( 483.301, 513.592, 484.422, 394.704, 1525.05, 404.185, 1506.02, 263.858, 592.724, 261.729, 595.086, 152.073, 354.908, 148.536, 359.576, 261.999, 67.095, 263.202, 64.6998, 216.29, -92.2756, 211.533, -92.2756, 263.858, -410.983, 263.858, -408.605, 406.563, -90.939, 404.194, -89.8972, 513.592 )
+
 [node name="ThirdSt" parent="." instance=ExtResource( 2 )]
 position = Vector2( 15.874, -441.297 )
 z_index = -1
 z = 1
+
+[node name="FloorShape3" type="Polygon2D" parent="ThirdSt"]
+position = Vector2( -15.874, 441.297 )
+z_index = -12
+color = Color( 0.427451, 0.427451, 0.427451, 1 )
+polygon = PoolVector2Array( 592.724, 261.729, 595.086, 152.073, 1470.34, 140.18, 1463.21, 54.5576, 596.167, 56.9481, 597.464, -57.2278, 307.298, -50.0927, 307.298, 61.6928, -1017.48, 56.936, -1019.86, 152.073, 362.002, 149.694, 359.576, 261.999 )
 
 [node name="1 Third st" parent="ThirdSt" instance=ExtResource( 1 )]
 position = Vector2( -704.988, 230.583 )
@@ -163,6 +198,9 @@ HouseTexture = ExtResource( 8 )
 
 [node name="GoInsideArea" parent="ThirdSt/1 Third st" index="0"]
 position = Vector2( 231.585, 269.812 )
+
+[node name="CollisionShape2D" parent="ThirdSt/1 Third st/GoInsideArea" index="0"]
+disabled = true
 
 [node name="GoInsideLabel" parent="ThirdSt/1 Third st" index="1"]
 position = Vector2( 231.585, 269.812 )
@@ -179,6 +217,9 @@ HouseTexture = ExtResource( 9 )
 [node name="GoInsideArea" parent="ThirdSt/2 Third st" index="0"]
 position = Vector2( 1.01098, 212.627 )
 
+[node name="CollisionShape2D" parent="ThirdSt/2 Third st/GoInsideArea" index="0"]
+disabled = true
+
 [node name="GoInsideLabel" parent="ThirdSt/2 Third st" index="1"]
 position = Vector2( 1.01098, 212.627 )
 
@@ -193,6 +234,9 @@ HouseTexture = ExtResource( 10 )
 
 [node name="GoInsideArea" parent="ThirdSt/3 Third st" index="0"]
 position = Vector2( -282.715, 236.179 )
+
+[node name="CollisionShape2D" parent="ThirdSt/3 Third st/GoInsideArea" index="0"]
+disabled = true
 
 [node name="GoInsideLabel" parent="ThirdSt/3 Third st" index="1"]
 position = Vector2( -282.715, 236.179 )

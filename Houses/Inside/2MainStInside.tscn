@@ -1,28 +1,29 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="E:/FONTBASE/Sensible Fonts/Unna-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Houses/Inside/goToRoom.gd" type="Script" id=2]
-[ext_resource path="res://Houses/Inside/HouseInside.gd" type="Script" id=3]
-[ext_resource path="res://Houses/Inside/Room.gd" type="Script" id=4]
+[ext_resource path="res://Houses/Inside/goToRoom.gd" type="Script" id=1]
+[ext_resource path="res://Houses/Inside/HouseInside.gd" type="Script" id=2]
+[ext_resource path="res://Houses/Inside/Room.gd" type="Script" id=3]
+[ext_resource path="E:/FONTBASE/Sensible Fonts/Unna-Regular.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 151.414, 16 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 51.3032, 63.8196 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 size = 30
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 48
 use_filter = true
-font_data = ExtResource( 1 )
+font_data = ExtResource( 4 )
 
-[node name="HouseInside" type="Node2D"]
-script = ExtResource( 3 )
+[node name="2MainSt" type="Node2D"]
+position = Vector2( 113.103, -24.7425 )
+script = ExtResource( 2 )
 firstRoom = NodePath("Rooms/Foyer")
 
 [node name="Tween" type="Tween" parent="."]
@@ -35,17 +36,16 @@ z_index = 5
 
 [node name="transitionHallFoyer" type="Area2D" parent="Transitions"]
 position = Vector2( -307.069, 103.639 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 northRoom = NodePath("../../Rooms/Hall")
 southRoom = NodePath("../../Rooms/Foyer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/transitionHallFoyer"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
 [node name="FloorCollision" type="CollisionPolygon2D" parent="Floor"]
-visible = false
 position = Vector2( -719.155, 517.485 )
 build_mode = 1
 polygon = PoolVector2Array( 1766.9, -356.048, 1766.9, -282.509, 427.119, -279.709, -939.906, -276.852, -939.906, -353.22, 274.313, -354.489, 356.716, -510.533, -940.85, -510.533, -482.885, -972.987, 1295.09, -977.477, 1849.59, -517.268, 468.962, -512.778, 554.017, -354.781 )
@@ -55,14 +55,14 @@ collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
 position = Vector2( -1675.07, 166.497 )
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="Hall" type="Node2D" parent="Rooms"]
 position = Vector2( 94.4352, 80.1808 )
 z_index = -1
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
 [node name="Polygon2D9" type="Polygon2D" parent="Rooms/Hall"]
 position = Vector2( -1027.8, -596.933 )
@@ -102,7 +102,7 @@ color = Color( 0.301961, 0.215686, 0.215686, 1 )
 polygon = PoolVector2Array( 1850.3, -283.852, 463.416, -279.785, 550.954, -113.888, 270.338, -113.888, 357.905, -279.565, -939.906, -276.852, -479.467, -749.202, 1298.05, -739.572 )
 
 [node name="Foyer" type="Node2D" parent="Rooms"]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 z = 1
 
 [node name="Polygon2D" type="Polygon2D" parent="Rooms/Foyer"]
@@ -171,7 +171,7 @@ margin_left = 253.345
 margin_top = -33.0
 margin_right = 352.345
 margin_bottom = 42.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Town 
 Meeting"
 align = 1
@@ -196,9 +196,20 @@ margin_left = -1613.0
 margin_top = -148.318
 margin_right = -1536.0
 margin_bottom = -30.3177
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Exit
 <---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit2" type="Label" parent="Rooms/Foyer"]
+margin_left = -1228.13
+margin_top = -151.882
+margin_right = -1151.13
+margin_bottom = -33.8813
+custom_fonts/font = SubResource( 4 )
+text = "This is a different houes"
 __meta__ = {
 "_edit_use_anchors_": false
 }

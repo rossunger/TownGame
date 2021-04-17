@@ -3,6 +3,7 @@ extends Node2D
 export (NodePath) var CurrentHouse setget LoadInside
 
 func LoadInside(house):
+	#set the actual variable
 	CurrentHouse = house		
 	if !is_inside_tree():
 		return

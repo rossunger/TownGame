@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://NPCManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://D1Q1.tres" type="Animation" id=9]
 [ext_resource path="res://Houses/Inside/1MainStInside.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Houses/Inside/2MainStInside.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Map.jpg" type="Texture" id=15]
 [ext_resource path="res://NPCs/Relationship.gd" type="Script" id=17]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=18]
@@ -173,6 +174,9 @@ InsideScene = NodePath("../../../Inside/1MainSt")
 [node name="GoInsideLabel" parent="Outside/MainSt/1 Main st" index="1"]
 position = Vector2( 196.508, 416.666 )
 
+[node name="2 Main st" parent="Outside/MainSt" index="1"]
+InsideScene = NodePath("../../../Inside/2MainSt")
+
 [node name="GoInsideLabel" parent="Outside/SecondSt/1 Second st" index="1"]
 position = Vector2( -50.0169, 442.057 )
 
@@ -262,10 +266,11 @@ position = Vector2( 113.103, -24.7425 )
 [node name="FloorCollision" parent="Inside/1MainSt/Floor" index="0"]
 visible = true
 
+[node name="2MainSt" parent="Inside" instance=ExtResource( 12 )]
+
 [node name="UI" parent="." instance=ExtResource( 18 )]
 
 [node name="Title" parent="UI" index="0"]
-visible = false
 modulate = Color( 1, 1, 1, 0 )
 
 [connection signal="pressed" from="DebugOverlay/DEBUG/goInside" to="DebugOverlay" method="_on_goInside_pressed"]

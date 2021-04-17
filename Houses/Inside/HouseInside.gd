@@ -11,21 +11,21 @@ func _ready():
 		else:
 			room.modulate.a = 1
 
-	
-
-
 func _on_Area2D_body_entered(body):
 	if body.name=="Player":		
 		get_node("/root/Game").goOutside(get_node("/root/Game").lastStreet)
 
 func show():	
 	get_node("Floor/FloorCollision").set_deferred("disabled", false)
+	get_node("Exit/CollisionShape2D").set_deferred("disabled", false)
 	#go through each of the transitions, and get the collision shape (child 0) and enable it
 	for t in get_node("Transitions").get_children():
 		t.get_child(0).set_deferred("disabled", false)
 	visible = true;		
+	
 func hide():	
 	get_node("Floor/FloorCollision").set_deferred("disabled", true)
+	get_node("Exit/CollisionShape2D").set_deferred("disabled", true)
 	for t in get_node("Transitions").get_children():
 		t.get_child(0).set_deferred("disabled", true)
 	visible = false;	

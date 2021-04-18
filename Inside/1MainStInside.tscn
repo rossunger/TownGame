@@ -1,0 +1,181 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="E:/FONTBASE/Sensible Fonts/Unna-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Inside/goToRoom.gd" type="Script" id=2]
+[ext_resource path="res://Inside/HouseInside.gd" type="Script" id=3]
+[ext_resource path="res://Inside/Room.gd" type="Script" id=4]
+[ext_resource path="res://Objects/Sign.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Inside/PlayerStart.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 151.414, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 51.3032, 63.8196 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="HouseInside" type="Node2D"]
+script = ExtResource( 3 )
+firstRoom = NodePath("Rooms/Foyer")
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="PlayerStart" type="Node2D" parent="."]
+position = Vector2( -1077.27, 196.623 )
+script = ExtResource( 6 )
+
+[node name="Transitions" type="Node2D" parent="."]
+z_index = 5
+
+[node name="transitionHallFoyer" type="Area2D" parent="Transitions"]
+position = Vector2( -307.069, 103.639 )
+script = ExtResource( 2 )
+northRoom = NodePath("../../Rooms/Hall")
+southRoom = NodePath("../../Rooms/Foyer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/transitionHallFoyer"]
+shape = SubResource( 1 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="FloorCollision" type="CollisionPolygon2D" parent="Floor"]
+visible = false
+position = Vector2( -719.155, 517.485 )
+build_mode = 1
+polygon = PoolVector2Array( 1766.9, -356.048, 1766.9, -282.509, 427.119, -279.709, -939.906, -276.852, -939.906, -353.22, 274.313, -354.489, 356.716, -510.533, -940.85, -510.533, -482.885, -972.987, 1295.09, -977.477, 1849.59, -517.268, 468.962, -512.778, 554.017, -354.781 )
+
+[node name="Exit" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+position = Vector2( -1675.07, 166.497 )
+shape = SubResource( 2 )
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Hall" type="Node2D" parent="Rooms"]
+position = Vector2( 94.4352, 80.1808 )
+z_index = -1
+script = ExtResource( 4 )
+
+[node name="Polygon2D9" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -1027.8, -596.933 )
+scale = Vector2( 1.4862, 1 )
+color = Color( 0.396078, 0.176471, 0.176471, 1 )
+polygon = PoolVector2Array( 1025.56, -432.19, 1023.04, 62.3288, -170.738, 65.4785, -179.558, -427.78 )
+
+[node name="Polygon2D10" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -776.368, -540.413 )
+scale = Vector2( 1.4862, 1 )
+color = Color( 0.619608, 0.607843, 0.607843, 1 )
+polygon = PoolVector2Array( 821.004, -262.669, 814.962, -56.1362, 715.268, -101.035, 706.205, -296.343 )
+
+[node name="Polygon2D13" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -775.477, -372.924 )
+scale = Vector2( 1.4862, 1 )
+z_index = 1
+color = Color( 0.160784, 0.14902, 0.14902, 1 )
+polygon = PoolVector2Array( 780.543, -237.257, 814.186, -71.257, 801.402, -75.257, 770.451, -210.257, 772.469, -134.257, 762.376, -137.257, 759.012, -212.257, 724.696, -97.257, 715.268, -101.035, 752.956, -249.257 )
+
+[node name="Polygon2D12" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -771.913, -521.21 )
+scale = Vector2( 1.4862, 1 )
+color = Color( 0.960784, 0.12549, 0.12549, 1 )
+polygon = PoolVector2Array( 770.903, -258.662, 774.365, -256.295, 775.166, -287.647, 778.103, -287.25, 777.836, -253.121, 798.478, -230.153, 794.853, -219.848, 770.153, -247.879, 754.885, -240.538, 745.454, -230.527, 745.454, -207.167, 753.987, -201.16, 755.783, -231.861, 759.375, -231.861, 759.825, -197.823, 767.956, -192.402, 773.831, -238.437, 777.035, -234.865, 770.894, -190.418, 778.904, -184.862, 785.172, -155.227, 782.278, -141.76, 762.968, -118.4, 753.537, -125.335, 753.003, -108.27, 749.496, -112.393, 749.945, -126.409, 729.736, -133.083, 731.773, -148.936, 760.723, -133.083, 777.339, -153.773, 773.297, -172.461, 769.558, -179.703, 763.951, -142.399, 761.548, -143.59, 766.621, -181.291, 758.926, -185.142, 755.783, -143.095, 751.292, -145.764, 753.537, -187.812, 734.227, -196.488, 734.676, -226.522, 743.928, -243.517, 754.885, -252.551, 753.088, -287.257, 757.13, -287.925, 758.926, -254.554 )
+
+[node name="Polygon2D11" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -1019.41, -597.602 )
+scale = Vector2( 1.46465, 1 )
+color = Color( 0.905882, 0.882353, 0.882353, 1 )
+polygon = PoolVector2Array( 1026.19, 50.9895, 1023.04, 62.3288, -170.738, 65.4785, -171.998, 50.9895 )
+
+[node name="Floor" type="Polygon2D" parent="Rooms/Hall"]
+position = Vector2( -809.809, 203.889 )
+z_index = -1
+color = Color( 0.301961, 0.215686, 0.215686, 1 )
+polygon = PoolVector2Array( 1850.3, -283.852, 463.416, -279.785, 550.954, -113.888, 270.338, -113.888, 357.905, -279.565, -939.906, -276.852, -479.467, -749.202, 1298.05, -739.572 )
+
+[node name="Foyer" type="Node2D" parent="Rooms"]
+script = ExtResource( 4 )
+z = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="Rooms/Foyer"]
+color = Color( 0.733333, 0.52549, 0.52549, 1 )
+polygon = PoolVector2Array( 1052.64, -351.555, 1050.12, 165.642, -178.928, 165.642, -186.487, -338.326 )
+
+[node name="Polygon2D10" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -1491.75, 2.51985 )
+color = Color( 0.733333, 0.52549, 0.52549, 1 )
+polygon = PoolVector2Array( 1059.34, -338.955, 1050.12, 165.642, -178.928, 165.642, -186.487, -338.326 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( 12.5993, 97.0139 )
+color = Color( 0.396078, 0.176471, 0.176471, 1 )
+polygon = PoolVector2Array( 1025.56, -432.19, 1023.04, 62.3288, -170.738, 65.4785, -179.558, -427.78 )
+
+[node name="Polygon2D9" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -1467.81, 103.314 )
+color = Color( 0.396078, 0.176471, 0.176471, 1 )
+polygon = PoolVector2Array( 1025.56, -432.19, 1023.04, 62.3288, -170.738, 65.4785, -179.558, -427.78 )
+
+[node name="Polygon2D5" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -1201.96, 106.569 )
+scale = Vector2( 1, 1.02545 )
+color = Color( 0.321569, 0.145098, 0.145098, 1 )
+polygon = PoolVector2Array( 1021.78, -431.56, 1031.23, 45.32, 942.401, -75.7013, 934.841, -478.697 )
+
+[node name="Polygon2D8" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -1307.79, 105.309 )
+scale = Vector2( 1, 1.02545 )
+color = Color( 0.321569, 0.145098, 0.145098, 1 )
+polygon = PoolVector2Array( 871.605, -430.781, 866.802, 58.2218, 942.401, -75.7013, 935.69, -433.415, 934.841, -478.697 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( 10.0794, 97.6438 )
+color = Color( 0.905882, 0.882353, 0.882353, 1 )
+polygon = PoolVector2Array( 1026.19, 50.9895, 1023.04, 62.3288, -170.738, 65.4785, -171.998, 50.9895 )
+
+[node name="Polygon2D6" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -2192.47, 78.531 )
+scale = Vector2( 1.62011, 1.8129 )
+color = Color( 0.592157, 0.556863, 0.556863, 1 )
+polygon = PoolVector2Array( 341.216, -154.933, 339.367, 46.7256, 289.427, 84.7432, 289.427, -125.18 )
+
+[node name="Polygon2D11" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -1470, 102.644 )
+color = Color( 0.905882, 0.882353, 0.882353, 1 )
+polygon = PoolVector2Array( 1026.19, 50.9895, 1023.04, 62.3288, -170.738, 65.4785, -171.998, 50.9895 )
+
+[node name="Polygon2D7" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( 671.571, 50.9316 )
+scale = Vector2( 1.62011, 1.8129 )
+color = Color( 0.592157, 0.556863, 0.556863, 1 )
+polygon = PoolVector2Array( 276.925, -118.221, 273.225, 95.0082, 229.286, 51.6197, 229.675, -142.973 )
+
+[node name="Sign" parent="Rooms/Foyer" instance=ExtResource( 5 )]
+
+[node name="Floor" type="Polygon2D" parent="Rooms/Foyer"]
+position = Vector2( -717.155, 517.485 )
+z_index = -1
+color = Color( 0.301961, 0.215686, 0.215686, 1 )
+polygon = PoolVector2Array( 1766.9, -356.048, 1840.37, -285.324, -1003.42, -285.324, -939.906, -353.22, 274.313, -354.489, 366.407, -533.632, 447.224, -535.877, 554.017, -354.781 )
+
+[node name="Exit" type="Label" parent="Rooms/Foyer"]
+margin_left = -1613.0
+margin_top = -148.318
+margin_right = -1536.0
+margin_bottom = -30.3177
+custom_fonts/font = SubResource( 3 )
+text = "Exit
+<---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="tree_entered" from="PlayerStart" to="PlayerStart" method="_on_PlayerStart_tree_entered"]
+[connection signal="body_exited" from="Transitions/transitionHallFoyer" to="Transitions/transitionHallFoyer" method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Exit" to="." method="_on_Area2D_body_entered"]

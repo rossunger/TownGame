@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name DaysThatIWork
 export var Mon = true
 export var Tue = true

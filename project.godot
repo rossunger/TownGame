@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://AI/Consideration.gd"
 }, {
-"base": "Node",
+"base": "Resource",
 "class": "DaysThatIWork",
 "language": "GDScript",
 "path": "res://NPCs/NPCData/DaysThatIWork.gd"
@@ -42,7 +42,22 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Dialogic",
 "language": "GDScript",
-"path": "res://addons/dialogic/Other/dialogic_class.gd"
+"path": "res://addons/dialogic/Other/DialogicClass.gd"
+}, {
+"base": "Control",
+"class": "DialogicBackgroundMusic",
+"language": "GDScript",
+"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
+}, {
+"base": "Node",
+"class": "DialogicDefinitionsUtil",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
+}, {
+"base": "Reference",
+"class": "DialogicResources",
+"language": "GDScript",
+"path": "res://addons/dialogic/Other/DialogicResources.gd"
 }, {
 "base": "Reference",
 "class": "DialogicUtil",
@@ -59,15 +74,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://NPCs/NPCData/MyRelationships.gd"
 }, {
+"base": "Node2D",
+"class": "Neighbourhood",
+"language": "GDScript",
+"path": "res://Outside/Neighbourhood.gd"
+}, {
+"base": "Node2D",
+"class": "OutsideHouse",
+"language": "GDScript",
+"path": "res://Outside/OutsideHouse.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
+}, {
 "base": "Node",
 "class": "Relationship",
 "language": "GDScript",
 "path": "res://NPCs/Relationship.gd"
 }, {
-"base": "Reference",
-"class": "test",
+"base": "Node2D",
+"class": "Street",
 "language": "GDScript",
-"path": "res://datatypes.gd"
+"path": "res://Outside/Street.gd"
 } ]
 _global_script_class_icons={
 "AIKnowledgeBase": "",
@@ -77,21 +107,29 @@ _global_script_class_icons={
 "Consideration": "",
 "DaysThatIWork": "",
 "Dialogic": "",
+"DialogicBackgroundMusic": "",
+"DialogicDefinitionsUtil": "",
+"DialogicResources": "",
 "DialogicUtil": "",
 "MyEmotions": "",
 "MyRelationships": "",
+"Neighbourhood": "",
+"OutsideHouse": "",
+"Player": "",
 "Relationship": "",
-"test": ""
+"Street": ""
 }
 
 [application]
 
 config/name="Draw A City"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://GameRoot.tscn"
 
 [autoload]
 
-dt="*res://datatypes.gd"
+DialogicSingleton="*res://addons/dialogic/Other/DialogicSingleton.gd"
+Enums="*res://enums.gd"
+Game="*res://Game.gd"
 
 [debug]
 
@@ -99,7 +137,7 @@ settings/fps/force_fps=60
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ui_design_tool/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/mixing-desk/plugin.cfg", "res://addons/ui_design_tool/plugin.cfg" )
 
 [rendering]
 
@@ -107,4 +145,3 @@ quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 environment/default_clear_color=Color( 0.788235, 0.788235, 0.788235, 1 )
 quality/filters/msaa=2
-environment/default_environment="res://default_env.tres"

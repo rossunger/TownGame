@@ -1,1 +1,1 @@
-{"events":[],"metadata":{"dialogic-version":"0.9","name":"D1Q1AJ"}}
+{"events":[{"options":[],"question":"What do you think of the meat grinder?"},{"choice":"Love it"},{"character":"","portrait":"","text":"Really??"},{"choice":"Hate it"},{"character":"","portrait":"","text":"hahaha. of course you do"},{"choice":"the what??"},{"character":"","portrait":"","text":"nevermind."},{"endbranch":""}],"metadata":{"dialogic-version":"1.0","file":"timeline-1617395320.json","name":"D1Q1Abby"}}

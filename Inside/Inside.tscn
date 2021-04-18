@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Inside/Inside.gd" type="Script" id=2]
+
+[node name="Inside" type="Node2D"]
+visible = false
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "A collection of inside locations which should  all be separate scenes
+"
+}

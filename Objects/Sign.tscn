@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/SignFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Objects/Sign.gd" type="Script" id=2]
+
+[node name="Sign" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = -49.9028
+margin_top = -157.867
+margin_right = 49.0972
+margin_bottom = -43.8667
+custom_fonts/font = ExtResource( 1 )
+text = "Town 
+Meeting"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D8" type="Polygon2D" parent="."]
+position = Vector2( -33.7428, -17.4387 )
+scale = Vector2( 0.115327, 0.420334 )
+color = Color( 0.337255, 0.27451, 0.27451, 1 )
+polygon = PoolVector2Array( 342.049, -143.668, 343.993, 52.6622, 229.286, 51.6197, 229.675, -142.973 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
+color = Color( 0.45098, 0.419608, 0.419608, 1 )
+polygon = PoolVector2Array( 57.2642, -152.425, 60.8318, -75.1264, -59.2781, -79.8832, -56.8997, -157.182 )
+__meta__ = {
+"_editor_description_": ""
+}

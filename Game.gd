@@ -1,28 +1,18 @@
-extends Node2D
-enum Days {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}
-export (Days) var DayOfTheWeek = Days.Monday setget SetDayOfTheWeek
-export (int, 0, 365) var DayOfTheYear = 0
-onready var NPCManager = get_node("NPCManager")
-var lastStreet: NodePath
-var lastLocation: Vector2
+extends Node
+signal goInside
+signal goOutside
+signal playerMoved
+signal newPlayerStart
+signal doInteraction
 
-func SetDayOfTheWeek(day):
-	DayOfTheWeek = day	
-	
-func goInside(path):		
-	lastLocation = $Player.position
-	lastStreet = get_node("Outside").CurrentStreet
-	get_node("Inside").CurrentHouse = path		
-	get_node("Outside").CurrentStreet = null		
+var player
 
-func goOutside(path):	
-	get_node("Outside").CurrentStreet = path
-	get_node("Inside").CurrentHouse = null
-	lastStreet = ""		
-	$Player.position = lastLocation		
+func setPlayerTargetAction(action):
+	player.targetAction = action
+
+func doInteraction():	
+	for i in get_tree().get_nodes_in_group("interactable"):
+		i.interact()
+	#1. decide which one has priority
+	#2. 
 	
-	
-func _ready():
-	#init defaults - to do
-	goInside("/root/Game/Inside/1MainSt")
-	goOutside("/root/Game/Outside/MainSt")	

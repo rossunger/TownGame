@@ -1,30 +1,28 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://NPCs/visuals/girl1.png" type="Texture" id=1]
-[ext_resource path="res://loveHeart.png" type="Texture" id=2]
-[ext_resource path="res://AI/Brains/TestBrain.tscn" type="PackedScene" id=3]
+[ext_resource path="res://FX/loveHeart.png" type="Texture" id=2]
+[ext_resource path="res://NPCs/NPCData/IWorkWeekdays.tres" type="Resource" id=3]
 [ext_resource path="E:/FONTBASE/Handwritingy/Gaegu-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://NPCs/NPCFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://NPCs/visuals/NPCFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://NPCs/NPC.gd" type="Script" id=6]
-[ext_resource path="res://NPCs/NPCData/DaysThatIWork.gd" type="Script" id=7]
 [ext_resource path="res://NPCs/NPCData/MyEmotions.gd" type="Script" id=8]
 [ext_resource path="res://NPCs/NPCData/MyRelationships.gd" type="Script" id=9]
+[ext_resource path="res://NPCs/Relationship.tscn" type="PackedScene" id=10]
 
-[sub_resource type="CapsuleShape2D" id=1]
-
-[sub_resource type="CanvasItemMaterial" id=3]
+[sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.396818 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=4]
 render_priority = -1
 emission_shape = 1
 emission_sphere_radius = 112.81
@@ -35,52 +33,47 @@ initial_velocity = 18.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle_random = 1.0
-scale_curve = SubResource( 5 )
+scale_curve = SubResource( 3 )
 anim_speed = 1.56
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=6]
 size = 60
 use_filter = true
 extra_spacing_char = -3
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 1 )
 
-[node name="CharacterName" type="Sprite"]
-position = Vector2( -1.51208, -78.0306 )
+[sub_resource type="CapsuleShape2D" id=8]
+
+[node name="CharacterName" type="KinematicBody2D"]
 scale = Vector2( 0.38531, 0.361887 )
 z_index = 1
-texture = ExtResource( 1 )
 script = ExtResource( 6 )
+daysThatIWork = ExtResource( 3 )
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 5.70959, 222.729 )
-rotation = 1.5708
-scale = Vector2( 2.76329, 2.59531 )
-shape = SubResource( 1 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 121.0
-margin_top = -311.0
-margin_right = 1387.0
+[node name="NameLabel" type="RichTextLabel" parent="."]
+margin_left = 117.914
+margin_top = -508.168
+margin_right = 1383.91
+margin_bottom = -197.168
 custom_fonts/normal_font = ExtResource( 5 )
 bbcode_text = "[wave amp=20 freq=4]CharacterName[/wave]"
 meta_underlined = false
-text = "CharacterName"
+text = "[wave amp=20 freq=4]CharacterName[/wave]"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Particles2D" type="Particles2D" parent="."]
-material = SubResource( 3 )
+material = SubResource( 1 )
 position = Vector2( 2.75256, -106.49 )
 z_index = -1
 emitting = false
@@ -88,49 +81,52 @@ amount = 20
 lifetime = 10.0
 explosiveness = 0.28
 randomness = 0.25
-process_material = SubResource( 6 )
+process_material = SubResource( 4 )
 texture = ExtResource( 2 )
 
 [node name="StrongestEmotion" type="Label" parent="."]
-margin_left = 136.0
-margin_top = -104.0
-margin_right = 558.0
-margin_bottom = -40.0
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 8 )
+margin_left = 123.655
+margin_top = -324.171
+margin_right = 545.655
+margin_bottom = -260.171
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Strongest Emotion:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EmotionLabel" type="Label" parent="."]
-margin_left = 578.0
-margin_top = -106.0
-margin_right = 822.0
-margin_bottom = -42.0
-custom_styles/normal = SubResource( 9 )
-custom_fonts/font = SubResource( 8 )
+margin_left = 568.741
+margin_top = -322.885
+margin_right = 812.741
+margin_bottom = -258.885
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "Happiness"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="TestBrain" parent="." instance=ExtResource( 3 )]
-
-[node name="DayOfTheWeek" parent="TestBrain/GoToWork/OnlyIfItsAWorkday" index="0"]
-Score1IfMatch = false
-
-[node name="DaysThatIWork" type="Node" parent="."]
-script = ExtResource( 7 )
 
 [node name="MyEmotions" type="Node" parent="."]
 script = ExtResource( 8 )
 
 [node name="MyRelationships" type="Node" parent="."]
 script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": "first relationship is always with yourself"
+}
 
-[editable path="TestBrain"]
-[editable path="TestBrain/GoToWork"]
-[editable path="TestBrain/GoToWork/OnlyIfItsAWorkday"]
-[editable path="TestBrain/GoToWork/OnlyIfItsAWorkday/DayOfTheWeek"]
-[editable path="TestBrain/GoToWork/OnlyIfItsAWorkday/DaysIWork"]
+[node name="RelationshipWithCharacterName" parent="MyRelationships" instance=ExtResource( 10 )]
+numberOfInteraction = -1
+
+[node name="feetCollision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2( 2.76329, 2.59531 )
+shape = SubResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -240 )
+
+[connection signal="renamed" from="." to="." method="_on_renamed"]

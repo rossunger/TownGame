@@ -1,5 +1,4 @@
 extends Reference
-class_name test
 enum viewMode {SIDE,MAP,MENU}
 
 static func normalise(params = []):

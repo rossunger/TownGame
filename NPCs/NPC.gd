@@ -1,18 +1,28 @@
 tool
 extends Node2D
-export var tint = Color(1,1,1,1) setget set_tint; #for debug purposes
-export var characterName = "CharacterName" setget set_name;
-#export var timelines = ["timeline1"];
-#export var currentTimeline = 0;
+export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
 
-export var Beliefs : Array #of bool? or float?
-export var Memories : Array #of bool? or of "events"?
-export var Households : Array #of type NodePath
+func _get_configuration_warning():
+	var warning:= PoolStringArray()
+	var hasBrain = false
+	#var hasBrain = false
+	for child in get_children():		
+		if child is Brain:
+			hasBrain=true
+	if !hasBrain:
+		warning.append("%s is missing a Brain" % name)
+	return warning.join("/n")
 
 func set(param, value):
 	print("setting: " + param)
-	
 
+
+func _on_renamed():	
+	get_node("NameLabel").text = name	
+	var label = get_node("MyRelationships").get_child(0)
+	label.name = name
+	label.set_owner(get_parent())
+	
 func set_emotion(emotion:String, value:float, relative=true):
 	if relative:
 		get_node("MyEmotions")[emotion] += value
@@ -20,32 +30,8 @@ func set_emotion(emotion:String, value:float, relative=true):
 		get_node("MyEmotions")[emotion] = value	
 	get_node("EmotionLabel").text = get_node("MyEmotions").getLargestEmotionName()
 
-func set_tint(value):
-	tint = value;
-	modulate = value;	
 
-func set_name(value):
-	characterName = value;
-	name = characterName;
-	if has_node("RichTextLabel"):
-		var label = get_node("RichTextLabel")
-		if (label):			
-			label.bbcode_text = "[wave amp=20 freq=4]" + characterName +"[/wave]";
-			label.text = characterName
-
-func _ready():
-	set_tint(tint);
-	set_name(characterName);	
-	$MyRelationships.newRelationship(name)
-		
-#experiment! this gets called when the players "nearby" area collides with this NPC
-func playNextTimeline():
-#	if currentTimeline < timelines.size():	
-		#var d = Dialogic.start(timelines[currentTimeline])
-		#get_tree().get_root().get_node("Game/Character/CanvasLayer").add_child(d);
-		#currentTimeline+=1
-	pass
-	
+#Insert AI functinos here??	
 func stopAndWait():
 	print("im stopping and waiting")
 	#play idle animation

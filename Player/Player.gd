@@ -11,7 +11,7 @@ var lastPosition: Vector2 #track this for the parallax effect... pass this info 
 
 var lastOutsidePlayerPosition  #for when you go inside
 
-onready var Cam = get_node("Camera2D");
+onready var Cam = get_node("PlayerCamera");
 var zoom = 2
 var targetZoom = 2
 
@@ -19,8 +19,15 @@ func _ready():
 	Game.connect("goInside", self, "goInside")
 	Game.connect("goOutside", self, "goOutside")
 	Game.connect("newPlayerStart", self, "setPlayerStart")
+	Game.player = self
 
-func get_input():
+func _input(ev):
+	if Input.is_action_pressed("ui_cancel") && not ev.is_echo():
+		Game.setPaused(!Game.isPaused)
+
+func get_input():	
+	if Game.isPaused:
+		return
 	if (movementEnabled): doMovement();
 	if Input.is_action_pressed("ui_select"):		
 		Game.doInteraction()
@@ -57,14 +64,18 @@ func doMovement():
 	else:
 		targetZoom = 2			
 
-func goOutside():	
+func goOutside():		
 	if lastOutsidePlayerPosition:
-		position = lastOutsidePlayerPosition
+		set_deferred("position", lastOutsidePlayerPosition)
 	else:
 		pass
-func goInside():
+func goInside(data = {}):
 	lastOutsidePlayerPosition = position	
+	if data.has("PlayerStart"):
+		position = data.PlayerStart
+	 
 
 func setPlayerStart(newPosition):
-	lastOutsidePlayerPosition = newPosition
+	if !lastOutsidePlayerPosition:
+		lastOutsidePlayerPosition = newPosition
 	position = newPosition

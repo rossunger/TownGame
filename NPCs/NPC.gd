@@ -2,26 +2,17 @@ tool
 extends Node2D
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
 
-func _get_configuration_warning():
-	var warning:= PoolStringArray()
-	var hasBrain = false
-	#var hasBrain = false
-	for child in get_children():		
-		if child is Brain:
-			hasBrain=true
-	if !hasBrain:
-		warning.append("%s is missing a Brain" % name)
-	return warning.join("/n")
-
 func set(param, value):
 	print("setting: " + param)
 
 
 func _on_renamed():	
 	get_node("NameLabel").text = name	
-	var label = get_node("MyRelationships").get_child(0)
-	label.name = name
-	label.set_owner(get_parent())
+	#var label = get_node("MyRelationships").get_child(0)
+	#label.name = name
+
+func _on_CharacterName_tree_entered():
+	_on_renamed()
 	
 func set_emotion(emotion:String, value:float, relative=true):
 	if relative:
@@ -39,6 +30,20 @@ func stopAndWait():
 
 func goToLocation(location):
 	print("im going to location: " + location)
+
+
+
+func _get_configuration_warning():
+	var warning:= PoolStringArray()
+	var hasBrain = false
+	#var hasBrain = false
+	for child in get_children():		
+		if child is Brain:
+			hasBrain=true
+	if !hasBrain:
+		warning.append("%s is missing a Brain" % name)
+	return warning.join("/n")
+
 
 
 """ List of INSTRUCTIONS an ACTION can give a CHARACTER

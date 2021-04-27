@@ -1,24 +1,24 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://DebugOverlay.gd" type="Script" id=1]
-[ext_resource path="res://GameRoot.gd" type="Script" id=2]
-[ext_resource path="res://Map.gd" type="Script" id=3]
-[ext_resource path="res://Map.jpg" type="Texture" id=4]
-[ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Animals/MouseExample.tscn" type="PackedScene" id=7]
-[ext_resource path="res://UI.tscn" type="PackedScene" id=8]
-[ext_resource path="res://NPCs/NPCManager.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Inside/Inside.gd" type="Script" id=10]
-[ext_resource path="res://Outside/Downtown.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Director.gd" type="Script" id=12]
-[ext_resource path="res://CinematicCamera.gd" type="Script" id=13]
-[ext_resource path="res://Timelines/Camera/CloseUp.tres" type="Resource" id=14]
-[ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=15]
-[ext_resource path="res://DEBUG.gd" type="Script" id=16]
-[ext_resource path="res://FX/light.png" type="Texture" id=17]
-[ext_resource path="res://Timelines/Camera/cameraShot.gd" type="Script" id=18]
-[ext_resource path="res://GlobalLighting.gd" type="Script" id=19]
+[ext_resource path="res://Animals/MouseExample.tscn" type="PackedScene" id=1]
+[ext_resource path="res://NPCs/NPCManager.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Map.gd" type="Script" id=5]
+[ext_resource path="res://Inside/Inside.gd" type="Script" id=6]
+[ext_resource path="res://DebugOverlay.gd" type="Script" id=7]
+[ext_resource path="res://Director.gd" type="Script" id=8]
+[ext_resource path="res://CinematicCamera.gd" type="Script" id=9]
+[ext_resource path="res://Timelines/Camera/CloseUp.tres" type="Resource" id=10]
+[ext_resource path="res://Map.jpg" type="Texture" id=11]
+[ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Timelines/Camera/cameraShot.gd" type="Script" id=13]
+[ext_resource path="res://GlobalLighting.gd" type="Script" id=14]
+[ext_resource path="res://DEBUG.gd" type="Script" id=15]
+[ext_resource path="res://FX/light.png" type="Texture" id=16]
+[ext_resource path="res://GameRoot.gd" type="Script" id=17]
+[ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Outside/Downtown.tscn" type="PackedScene" id=19]
 
 [sub_resource type="Animation" id=1]
 tracks/0/type = "value"
@@ -202,19 +202,18 @@ tracks/5/keys = {
 "values": [ true, false ]
 }
 
-[node name="GameRoot" type="Node2D"]
-position = Vector2( 111.091, 449.635 )
-script = ExtResource( 2 )
-StartingNeighbourhoodScene = ExtResource( 11 )
-PauseMenu = ExtResource( 15 )
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 17 )
+StartingNeighbourhoodScene = ExtResource( 19 )
+PauseMenu = ExtResource( 18 )
 
 [node name="GlobalLighting" type="Node2D" parent="."]
-script = ExtResource( 19 )
+script = ExtResource( 14 )
 
 [node name="Morning" type="Light2D" parent="GlobalLighting"]
 position = Vector2( 1222.71, -78.7556 )
 scale = Vector2( 3.07526, 2.73633 )
-texture = ExtResource( 17 )
+texture = ExtResource( 16 )
 texture_scale = 8.19
 color = Color( 0.972549, 0.501961, 1, 1 )
 energy = 0.96
@@ -224,7 +223,7 @@ mode = 2
 position = Vector2( 1222.71, -77.7556 )
 scale = Vector2( 3.07526, 2.73633 )
 enabled = false
-texture = ExtResource( 17 )
+texture = ExtResource( 16 )
 texture_scale = 8.19
 color = Color( 1, 0.996078, 0.729412, 1 )
 energy = 0.96
@@ -234,7 +233,7 @@ mode = 2
 position = Vector2( 1222.71, -78.7556 )
 scale = Vector2( 3.07526, 2.73633 )
 enabled = false
-texture = ExtResource( 17 )
+texture = ExtResource( 16 )
 texture_scale = 8.19
 color = Color( 1, 0.741176, 0.596078, 1 )
 energy = 0.96
@@ -244,30 +243,24 @@ mode = 2
 position = Vector2( 1222.71, -78.7556 )
 scale = Vector2( 3.07526, 2.73633 )
 enabled = false
-texture = ExtResource( 17 )
+texture = ExtResource( 16 )
 texture_scale = 8.19
 color = Color( 0.521569, 0.454902, 1, 1 )
 energy = 1.03
 mode = 2
 
-[node name="Player" parent="." instance=ExtResource( 6 )]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 738.314, 551.846 )
 z_index = 10
 
-[node name="UI" parent="." instance=ExtResource( 8 )]
+[node name="UI" parent="." instance=ExtResource( 4 )]
 
-[node name="Title" parent="UI" index="0"]
-modulate = Color( 1, 1, 1, 0 )
-
-[node name="MouseExample" parent="." instance=ExtResource( 7 )]
+[node name="MouseExample" parent="." instance=ExtResource( 1 )]
 position = Vector2( -746.111, -883.819 )
 z_index = 10
 
-[node name="mouse1" parent="MouseExample" index="1"]
-position = Vector2( 1070.53, 428.857 )
-
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
-script = ExtResource( 1 )
+script = ExtResource( 7 )
 
 [node name="DEBUG" type="Panel" parent="DebugOverlay"]
 margin_left = 883.705
@@ -303,8 +296,8 @@ __meta__ = {
 visible = false
 position = Vector2( 364.234, -54.832 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 4 )
-script = ExtResource( 3 )
+texture = ExtResource( 11 )
+script = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
 anims/GoToMap = SubResource( 1 )
@@ -313,33 +306,30 @@ anims/GoToMap = SubResource( 1 )
 autoplay = "TownCouncil1"
 anims/D1Q1 = SubResource( 2 )
 anims/TownCouncil1 = SubResource( 3 )
-script = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="CinematicCamera" type="Camera2D" parent="Director"]
 position = Vector2( 848.958, 835.61 )
 current = true
 zoom = Vector2( 0.1, 0.1 )
-script = ExtResource( 13 )
-preset = ExtResource( 14 )
+script = ExtResource( 9 )
+preset = ExtResource( 10 )
 
 [node name="cameraShot1" type="Node2D" parent="Director"]
-script = ExtResource( 18 )
-cameraPreset = ExtResource( 14 )
+script = ExtResource( 13 )
+cameraPreset = ExtResource( 10 )
 target = NodePath("../../Player")
 
-[node name="NPCManager" parent="." instance=ExtResource( 9 )]
-
-[node name="Jimmy" parent="NPCManager" index="0"]
-position = Vector2( -511.265, -531.447 )
+[node name="NPCManager" parent="." instance=ExtResource( 2 )]
 
 [node name="Inside" type="Node2D" parent="."]
-script = ExtResource( 10 )
+script = ExtResource( 6 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="GlobalAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 12 )
 volume_db = -67.764
 pitch_scale = 0.5
 __meta__ = {
@@ -349,11 +339,7 @@ __meta__ = {
 [node name="Outside" type="Node2D" parent="."]
 
 [node name="DEBUG" type="Node2D" parent="."]
-script = ExtResource( 16 )
+script = ExtResource( 15 )
 
 [connection signal="pressed" from="DebugOverlay/DEBUG/NextTimeOfDay" to="DebugOverlay" method="_on_goInside_pressed"]
 [connection signal="pressed" from="DebugOverlay/DEBUG/goOutside" to="DebugOverlay" method="_on_goOutside_pressed"]
-
-[editable path="UI"]
-[editable path="MouseExample"]
-[editable path="NPCManager"]

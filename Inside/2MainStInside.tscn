@@ -23,7 +23,6 @@ use_filter = true
 font_data = ExtResource( 4 )
 
 [node name="2MainSt" type="Node2D"]
-position = Vector2( 113.103, -24.7425 )
 script = ExtResource( 2 )
 firstRoom = NodePath("Rooms/Foyer")
 
@@ -216,5 +215,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="tree_entered" from="PlayerStart" to="PlayerStart" method="_on_PlayerStart_tree_entered"]
 [connection signal="body_exited" from="Transitions/transitionHallFoyer" to="Transitions/transitionHallFoyer" method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Exit" to="." method="_on_Area2D_body_entered"]

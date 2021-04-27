@@ -2,7 +2,6 @@ extends Node2D
 class_name Neighbourhood
 var currentStreet	
 onready var tween = get_node("Tween")
-onready var playerStart = get_node("PlayerStart").position
 export(NodePath) onready var firstStreet = get_node(firstStreet)
 
 func _ready():		

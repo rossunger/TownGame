@@ -1,11 +1,9 @@
-tool
 extends Node2D
 #export (Enums.Days) var DayOfTheWeek = Enums.Days.Monday setget SetDayOfTheWeek
 #export (int, 0, 365) var DayOfTheYear = 0
-onready var NPCManager = get_node("NPCManager")
 
-export(PackedScene) var OutsideScene
-export(PackedScene) var InsideScene
+var OutsideScene
+var InsideScene
 
 export(PackedScene) var StartingNeighbourhoodScene
 var CurrentNeighbourhoodScene
@@ -14,19 +12,28 @@ var InsideHouses: Dictionary = {}
 
 var inside
 var lastStreet
+export (PackedScene) onready var PauseMenu = PauseMenu.instance()
 
 func _ready():				
 	Game.connect("goOutside", self, "goOutside")
 	Game.connect("goInside", self, "goInside")	
-	inside = get_node("Inside")
+	Game.connect("setPaused", self, "setPaused")
+	inside = get_node("Inside")	
+
 	#init defaults - to do		
-	Game.player = $Player
 	Game.emit_signal("goOutside", {"neighbourhood": StartingNeighbourhoodScene})
 	#var new_dialog = Dialogic.start('D1Q1Abby')
 	#get_node("UI").add_child(new_dialog)
 
 #func SetDayOfTheWeek(day):
 	#DayOfTheWeek = day	
+
+func setPaused(paused):
+	print("root got paused")
+	if paused:
+		$UI.add_child(PauseMenu)
+	else:
+		$UI.remove_child(PauseMenu)
 	
 func goInside(data = {}):		
 	if !data.insideHouse:
@@ -38,7 +45,8 @@ func goInside(data = {}):
 	#to do: set LastStreet
 	#lastStreet = .currentStreet									
 
-func goOutside(data = {}):	
+#data can include: neighbourhood, street
+func goOutside(data = {}):		
 	if !data.has("neighbourhood"):
 		data.neighbourhood = CurrentNeighbourhoodScene
 	#1. if different neighbourhood...
@@ -61,7 +69,7 @@ func goOutside(data = {}):
 					if house is OutsideHouse && house.InsideScene is PackedScene:
 						var i = house.InsideScene.instance()				
 						InsideHouses[house.InsideScene.get_path()] = i						
-						print(InsideHouses.keys()[0])
+						#print(InsideHouses.keys()[0])
 	#2. if same neighbourhood, remove_child on all the inside scenes, and add_child the neighbourhood to outside
 	else:
 		for child in $Inside.get_children():

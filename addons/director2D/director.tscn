@@ -1,0 +1,159 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/director2D/ActorsTab.gd" type="Script" id=1]
+[ext_resource path="res://addons/director2D/SearchBox.gd" type="Script" id=2]
+[ext_resource path="res://addons/director2D/director.gd" type="Script" id=3]
+[ext_resource path="res://Timelines/Animations/test.tres" type="Animation" id=4]
+[ext_resource path="res://Timelines/Animations/animation1.tres" type="Animation" id=5]
+[ext_resource path="res://Timelines/Animations/testAnim.tres" type="Animation" id=6]
+[ext_resource path="res://addons/director2D/AnimationsManager.gd" type="Script" id=7]
+
+[node name="Director" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 15
+size_flags_vertical = 15
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+AnimationTab = NodePath("TabContainer/Animations")
+CharactersTab = NodePath("TabContainer/Characters")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 601.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.14902, 0.172549, 0.231373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_right = 1023.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Context" type="GridContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sets" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Characters" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="CharactersInScene" type="GridContainer" parent="TabContainer/Characters"]
+margin_right = 1015.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="Label" type="Label" parent="TabContainer/Characters/CharactersInScene"]
+margin_right = 128.0
+margin_bottom = 14.0
+text = "Actors in the scene:"
+
+[node name="CharacterList" type="GridContainer" parent="TabContainer/Characters/CharactersInScene"]
+margin_top = 18.0
+margin_right = 128.0
+margin_bottom = 18.0
+columns = 4
+
+[node name="SearchBox" type="LineEdit" parent="TabContainer/Characters"]
+margin_top = 104.0
+margin_right = 1015.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+text = "Search"
+script = ExtResource( 2 )
+
+[node name="AllCharacterList" type="GridContainer" parent="TabContainer/Characters"]
+margin_top = 132.0
+margin_right = 1015.0
+margin_bottom = 132.0
+
+[node name="Animations" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+script = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="TabContainer/Animations"]
+margin_top = 5.0
+margin_right = 116.0
+margin_bottom = 19.0
+text = "Animation Name: "
+
+[node name="AnimationName" type="LineEdit" parent="TabContainer/Animations"]
+margin_left = 120.0
+margin_right = 320.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 200, 0 )
+text = "test"
+
+[node name="Button" type="Button" parent="TabContainer/Animations"]
+margin_top = 28.0
+margin_right = 116.0
+margin_bottom = 48.0
+text = "Add animation"
+
+[node name="Consequences" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/animation1 = ExtResource( 5 )
+anims/test = ExtResource( 4 )
+anims/testAnim = ExtResource( 6 )
+
+[node name="test" type="Node2D" parent="AnimationPlayer"]
+
+[connection signal="doSearch" from="TabContainer/Characters/SearchBox" to="TabContainer/Characters" method="_on_SearchBox_doSearch"]
+[connection signal="focus_entered" from="TabContainer/Characters/SearchBox" to="TabContainer/Characters/SearchBox" method="_on_SearchBox_focus_entered"]
+[connection signal="focus_exited" from="TabContainer/Characters/SearchBox" to="TabContainer/Characters/SearchBox" method="_on_SearchBox_focus_exited"]
+[connection signal="text_entered" from="TabContainer/Characters/SearchBox" to="TabContainer/Characters/SearchBox" method="_on_SearchBox_text_entered"]
+[connection signal="pressed" from="TabContainer/Animations/Button" to="." method="createAnimationButtonPressed"]

@@ -107,7 +107,8 @@ scale = Vector2( 0.405931, 0.405931 )
 z_index = 1
 texture = ExtResource( 2 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2( 0, -93.928 )
 offset = Vector2( 0, -120 )
 current = true
 
@@ -122,7 +123,7 @@ shape = SubResource( 1 )
 visible = false
 material = SubResource( 2 )
 use_parent_material = true
-position = Vector2( 0, -90 )
+position = Vector2( 368.416, 22.6923 )
 amount = 16
 lifetime = 3.5
 randomness = 0.17

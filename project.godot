@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://AI/Brain.gd"
 }, {
+"base": "Resource",
+"class": "CameraPreset",
+"language": "GDScript",
+"path": "res://Timelines/Camera/CameraPreset.gd"
+}, {
 "base": "Node",
 "class": "Consideration",
 "language": "GDScript",
@@ -98,12 +103,18 @@ _global_script_classes=[ {
 "class": "Street",
 "language": "GDScript",
 "path": "res://Outside/Street.gd"
+}, {
+"base": "Node2D",
+"class": "cameraShot",
+"language": "GDScript",
+"path": "res://Timelines/Camera/cameraShot.gd"
 } ]
 _global_script_class_icons={
 "AIKnowledgeBase": "",
 "AIKnowledgeItem": "",
 "Action": "",
 "Brain": "",
+"CameraPreset": "",
 "Consideration": "",
 "DaysThatIWork": "",
 "Dialogic": "",
@@ -117,13 +128,14 @@ _global_script_class_icons={
 "OutsideHouse": "",
 "Player": "",
 "Relationship": "",
-"Street": ""
+"Street": "",
+"cameraShot": ""
 }
 
 [application]
 
-config/name="Draw A City"
-run/main_scene="res://GameRoot.tscn"
+config/name="TownGame"
+run/main_scene="res://GameRoot2.tscn"
 
 [autoload]
 
@@ -135,13 +147,9 @@ Game="*res://Game.gd"
 
 settings/fps/force_fps=60
 
-[editor_plugins]
-
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/mixing-desk/plugin.cfg", "res://addons/ui_design_tool/plugin.cfg" )
-
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
-environment/default_clear_color=Color( 0.788235, 0.788235, 0.788235, 1 )
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/filters/msaa=2

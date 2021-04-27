@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Outside/Sprites/Highway.jpg" type="Texture" id=1]
+[ext_resource path="res://Outside/Downtown.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Sign.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Inside/PlayerStart.gd" type="Script" id=19]
+[ext_resource path="res://Outside/ToNeighbourhood.gd" type="Script" id=22]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 80 )
+
+[node name="NS102" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 4
+
+[node name="FloorShape" type="CollisionPolygon2D" parent="Floor"]
+build_mode = 1
+polygon = PoolVector2Array( -896.671, 513.865, -891.059, 667.642, -73.1646, 661.549, -89.8972, 513.592 )
+
+[node name="PlayerStart" type="Node2D" parent="."]
+position = Vector2( -565.295, 626.117 )
+script = ExtResource( 19 )
+
+[node name="ToDowntown" type="Area2D" parent="."]
+position = Vector2( -783.885, 579.32 )
+collision_layer = 4
+script = ExtResource( 22 )
+neighbourhood = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToDowntown"]
+position = Vector2( -21.3574, 16.0181 )
+shape = SubResource( 1 )
+
+[node name="FloorShape2" type="Polygon2D" parent="."]
+position = Vector2( -1, -1 )
+z_index = -2
+color = Color( 0.407843, 0.407843, 0.407843, 1 )
+polygon = PoolVector2Array( -3506.05, 522.027, -3510.8, 674.246, 221.617, 665.791, 223.125, 515.923 )
+
+[node name="Sign" parent="." instance=ExtResource( 17 )]
+position = Vector2( -755.718, 506.85 )
+text = "Down Town"
+
+[node name="Highway" type="Sprite" parent="."]
+position = Vector2( 1438.07, -331.298 )
+texture = ExtResource( 1 )
+
+[connection signal="body_entered" from="ToDowntown" to="ToDowntown" method="_on_ToBeaches_body_entered"]

@@ -12,6 +12,8 @@ func refresh(value):
 	
 #Set the AI thread to process every 
 func _ready():
+	Game.NPCManager = self
+	print("new npcman")
 	AIThread = Thread.new()
 	AIThread.start(self, "AITick")
 	

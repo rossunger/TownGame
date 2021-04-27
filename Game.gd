@@ -4,8 +4,25 @@ signal goOutside
 signal playerMoved
 signal newPlayerStart
 signal doInteraction
+signal setPaused
+signal setTimeOfDay
+signal SaveGame
+signal LoadGame
 
+var NPCManager: Node2D
 var player
+var timeOfDay = Enums.TimesOfDay.Morning
+
+var isPaused = false
+export(PackedScene) var PauseMenuScene 
+
+func setPaused(paused=true):	
+	isPaused = paused
+	emit_signal("setPaused", paused)	
+
+func setPlayerPosition(newPosition):
+	pass
+	#player.position = newPosition
 
 func setPlayerTargetAction(action):
 	player.targetAction = action

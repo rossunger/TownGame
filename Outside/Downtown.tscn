@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=1]
 [ext_resource path="res://Outside/OutsideHouse.gd" type="Script" id=2]
@@ -20,8 +20,12 @@
 [ext_resource path="res://FX/light.png" type="Texture" id=18]
 [ext_resource path="res://Inside/1MainStInside.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Outside/GoInsideArea.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Outside/foregroundCars.gd" type="Script" id=21]
 [ext_resource path="res://Objects/Sign.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Outside/foregroundCar.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Inside/2MainStInside.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Outside/foregroundTrees.gd" type="Script" id=25]
+[ext_resource path="res://Outside/foregroundTree.tscn" type="PackedScene" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 285.93, 8 )
@@ -200,6 +204,28 @@ text = "Beaches <==="
 position = Vector2( 4611.61, 479.483 )
 text = "NS 102 ===>"
 
+[node name="foregroundCarsLeft" type="Node2D" parent="MainSt"]
+position = Vector2( 0, 400 )
+z_index = 100
+script = ExtResource( 21 )
+carsPerMinute = 12
+carScene = ExtResource( 23 )
+
+[node name="foregroundCarsRight" type="Node2D" parent="MainSt"]
+position = Vector2( 0, 420 )
+z_index = 101
+script = ExtResource( 21 )
+carsPerMinute = 9
+carScene = ExtResource( 23 )
+carsGoLeft = false
+
+[node name="foregroundTrees" type="Node2D" parent="MainSt"]
+modulate = Color( 1, 1, 1, 0.32549 )
+position = Vector2( 0, 1200 )
+z_index = 101
+script = ExtResource( 25 )
+foregroundTreeScene = ExtResource( 26 )
+
 [node name="SecondSt" type="Node2D" parent="."]
 position = Vector2( -9.52441, -282.557 )
 script = ExtResource( 5 )
@@ -298,6 +324,7 @@ script = ExtResource( 6 )
 position = Vector2( -784.885, 579.32 )
 collision_layer = 4
 script = ExtResource( 3 )
+GoToNeighbourhood = "Beaches"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeaches"]
 position = Vector2( -21.3574, 16.0181 )
@@ -307,6 +334,7 @@ shape = SubResource( 4 )
 position = Vector2( 4687.56, 566.621 )
 collision_layer = 4
 script = ExtResource( 3 )
+GoToNeighbourhood = "NS102"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToNS102"]
 position = Vector2( -21.3574, 16.0181 )

@@ -13,16 +13,16 @@
 [ext_resource path="res://Outside/Sprites/Beach1.jpg" type="Texture" id=11]
 [ext_resource path="res://Outside/Sprites/Trees/Tree_0000_Layer-15.png" type="Texture" id=12]
 [ext_resource path="res://Outside/Sprites/tumblr_mpmqfkWoKK1s7i6fqo1_1280.png" type="Texture" id=13]
-[ext_resource path="res://Outside/Sprites/tumblr_mlelg2i0uD1s7i6fqo1_1280.png" type="Texture" id=14]
+[ext_resource path="res://Outside/Sprites/tumblr_mkqs9rZn0C1s7i6fqo1_1280.png" type="Texture" id=14]
 [ext_resource path="res://Outside/Sprites/tumblr_mnmpt4jOwp1s7i6fqo1_1280.png" type="Texture" id=15]
-[ext_resource path="res://Outside/Sprites/tumblr_mrtr9dqBP91s7i6fqo1_1280.png" type="Texture" id=16]
+[ext_resource path="res://Outside/Sprites/tumblr_ml7u56vptj1s7i6fqo1_1280.png" type="Texture" id=16]
 [ext_resource path="res://Outside/Sprites/tumblr_mkkyu9X4Ed1s7i6fqo1_1280.png" type="Texture" id=17]
 [ext_resource path="res://Outside/Sprites/tumblr_mknd9sgXv01s7i6fqo1_1280.png" type="Texture" id=18]
 [ext_resource path="res://Outside/Sprites/tumblr_mlbh4m9OVz1s7i6fqo1_1280.png" type="Texture" id=19]
-[ext_resource path="res://Outside/Sprites/tumblr_mnqhorysrx1s7i6fqo1_1280.png" type="Texture" id=20]
-[ext_resource path="res://Outside/Sprites/tumblr_mm8rpe6Gr71s7i6fqo1_1280.png" type="Texture" id=21]
-[ext_resource path="res://Outside/Sprites/tumblr_mqcupaMwKR1s7i6fqo1_1280.png" type="Texture" id=22]
-[ext_resource path="res://Outside/Sprites/tumblr_pfqr3yDAL21s7i6fqo1_1280.png" type="Texture" id=23]
+[ext_resource path="res://Outside/foregroundCars.gd" type="Script" id=20]
+[ext_resource path="res://Outside/foregroundTrees.gd" type="Script" id=21]
+[ext_resource path="res://Outside/foregroundTree.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Outside/foregroundCar.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=24]
 [ext_resource path="res://Outside/ToNeighbourhood.gd" type="Script" id=25]
 
@@ -90,7 +90,7 @@ collision_layer = 4
 
 [node name="FloorShape" type="CollisionPolygon2D" parent="Floor"]
 build_mode = 1
-polygon = PoolVector2Array( -1117.29, 201.872, -1296.15, 95.0848, -1528.42, 223.229, -1680.59, 260.605, -1717.96, 327.347, -1819.41, 407.437, -2235.88, 623.682, -2227.87, 653.048, -898.372, 655.718, 221.617, 665.791, 4514.38, 627.375, 4497.43, 500.239, 4043.99, 502.57, 4010.08, 419.72, 3899.89, 415.482, 3857.55, 503.528, 3310.33, 506.341, 3272.23, 322.203, 3075.4, 322.203, 3034.15, 504.741, 1360.98, 510.547, 1316.56, 414.272, 1094.32, 411.097, 1059.44, 511.593, 483.301, 513.592, 484.422, 394.704, 1525.05, 404.185, 1506.02, 263.858, 592.724, 261.729, 595.086, 152.073, 1470.34, 140.18, 1463.21, 54.5576, 820.821, 56.3287, 816.555, -4.73621, 723.322, -6.8551, 727.571, 56.5858, 596.167, 56.9481, 597.464, -57.2278, 307.298, -50.0927, 307.298, 61.6928, -1017.48, 56.936, -1019.86, 152.073, 362.002, 149.694, 359.576, 261.999, 67.095, 263.202, 64.6998, 216.29, -92.2756, 211.533, -92.2756, 263.858, -410.983, 263.858, -408.605, 406.563, -90.939, 404.194, -89.8972, 513.592, -954.435, 482.188 )
+polygon = PoolVector2Array( -1117.29, 201.872, -1296.15, 95.0848, -1528.42, 223.229, -1680.59, 260.605, -1717.96, 327.347, -1819.41, 407.437, -2235.88, 623.682, -2227.87, 653.048, -898.372, 655.718, 221.617, 665.791, 4700.86, 644.653, 4691.34, 504.962, 4043.99, 502.57, 4010.08, 419.72, 3899.89, 415.482, 3857.55, 503.528, 3310.33, 506.341, 3272.23, 322.203, 3075.4, 322.203, 3034.15, 504.741, 1360.98, 510.547, 1316.56, 414.272, 1094.32, 411.097, 1059.44, 511.593, 483.301, 513.592, 484.422, 394.704, 1525.05, 404.185, 1506.02, 263.858, 592.724, 261.729, 595.086, 152.073, 1470.34, 140.18, 1463.21, 54.5576, 820.821, 56.3287, 816.555, -4.73621, 723.322, -6.8551, 727.571, 56.5858, 596.167, 56.9481, 597.464, -57.2278, 307.298, -50.0927, 307.298, 61.6928, -1017.48, 56.936, -1019.86, 152.073, 362.002, 149.694, 359.576, 261.999, 67.095, 263.202, 64.6998, 216.29, -92.2756, 211.533, -92.2756, 263.858, -410.983, 263.858, -408.605, 406.563, -90.939, 404.194, -89.8972, 513.592, -954.435, 482.188 )
 
 [node name="MainSt" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -115,12 +115,12 @@ script = ExtResource( 5 )
 InsideScene = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="MainSt/1 Main st"]
-position = Vector2( 73.3715, 10.3649 )
+position = Vector2( 159.143, 47.3643 )
 scale = Vector2( 1.08074, 1.08074 )
-texture = ExtResource( 20 )
+texture = ExtResource( 14 )
 
 [node name="GoInsideArea" parent="MainSt/1 Main st" instance=ExtResource( 3 )]
-position = Vector2( 115.59, 406.884 )
+position = Vector2( 159.317, 416.975 )
 scale = Vector2( 1.32, 1.4 )
 
 [node name="2 Main st" type="Node2D" parent="MainSt"]
@@ -130,70 +130,28 @@ script = ExtResource( 5 )
 InsideScene = ExtResource( 2 )
 
 [node name="GoInsideArea" parent="MainSt/2 Main st" instance=ExtResource( 3 )]
-position = Vector2( -16.3639, 387.09 )
+position = Vector2( 3279.62, 391.131 )
 scale = Vector2( 1.5, 2 )
 
 [node name="Sprite" type="Sprite" parent="MainSt/2 Main st"]
-position = Vector2( -13.4779, 101.39 )
-scale = Vector2( 0.781787, 0.774047 )
-texture = ExtResource( 22 )
-
-[node name="3 Main st" type="Node2D" parent="MainSt"]
-position = Vector2( 1363.23, 504.305 )
-script = ExtResource( 5 )
-InsideScene = NodePath("")
-
-[node name="GoInsideArea" parent="MainSt/3 Main st" instance=ExtResource( 3 )]
-position = Vector2( -157.908, -130.985 )
-
-[node name="Sprite" type="Sprite" parent="MainSt/3 Main st"]
-position = Vector2( 25.4272, -455.569 )
-texture = ExtResource( 14 )
-
-[node name="4 Main st" type="Node2D" parent="MainSt"]
-position = Vector2( 1977.72, 631.44 )
-script = ExtResource( 5 )
-InsideScene = NodePath("")
-
-[node name="GoInsideArea" parent="MainSt/4 Main st" instance=ExtResource( 3 )]
-position = Vector2( 194.116, -150.033 )
-
-[node name="Sprite" type="Sprite" parent="MainSt/4 Main st"]
-position = Vector2( 192.783, -854.325 )
-scale = Vector2( 1.5, 2.004 )
-z_index = -1
+position = Vector2( 3043.74, 10.5557 )
+scale = Vector2( 2.19125, 2.02341 )
 texture = ExtResource( 16 )
 
-[node name="5 Main st" type="Node2D" parent="MainSt"]
-position = Vector2( 1977.72, 631.44 )
-script = ExtResource( 5 )
-InsideScene = NodePath("")
-
-[node name="GoInsideArea" parent="MainSt/5 Main st" instance=ExtResource( 3 )]
-position = Vector2( 1200.53, -334.172 )
-
-[node name="Sprite" type="Sprite" parent="MainSt/5 Main st"]
-position = Vector2( 1080.14, -650.487 )
-scale = Vector2( 1.31996, 1.34228 )
-texture = ExtResource( 21 )
-
-[node name="6 Main st2" type="Node2D" parent="MainSt"]
-position = Vector2( 1977.72, 631.44 )
-script = ExtResource( 5 )
-InsideScene = NodePath("")
-
-[node name="GoInsideArea" parent="MainSt/6 Main st2" instance=ExtResource( 3 )]
-position = Vector2( 1980.29, -207.036 )
-
-[node name="Sprite" type="Sprite" parent="MainSt/6 Main st2"]
-position = Vector2( 1982.8, -493.686 )
-scale = Vector2( 1.31996, 1.34228 )
-z_index = -1
-texture = ExtResource( 23 )
-
 [node name="SignToHighway" parent="MainSt" instance=ExtResource( 1 )]
-position = Vector2( 4611.61, 479.483 )
+position = Vector2( 3322.67, 542.094 )
+z_index = 1
 text = "City ---->"
+
+[node name="ToDowntown" type="Area2D" parent="MainSt"]
+position = Vector2( 3385.74, 561.647 )
+collision_layer = 4
+script = ExtResource( 25 )
+GoToNeighbourhood = "Downtown"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainSt/ToDowntown"]
+position = Vector2( -21.3574, 16.0181 )
+shape = SubResource( 4 )
 
 [node name="Tree_0002_Layer-13" type="Sprite" parent="MainSt"]
 position = Vector2( -727.513, 260.605 )
@@ -202,6 +160,28 @@ texture = ExtResource( 9 )
 [node name="Tree_0000_Layer-15" type="Sprite" parent="MainSt"]
 position = Vector2( -1021.18, -22.3811 )
 texture = ExtResource( 12 )
+
+[node name="foregroundCarsLeft" type="Node2D" parent="MainSt"]
+position = Vector2( 0, 400 )
+z_index = 100
+script = ExtResource( 20 )
+carsPerMinute = 12
+carScene = ExtResource( 23 )
+
+[node name="foregroundCarsRight" type="Node2D" parent="MainSt"]
+position = Vector2( 0, 420 )
+z_index = 101
+script = ExtResource( 20 )
+carsPerMinute = 9
+carScene = ExtResource( 23 )
+carsGoLeft = false
+
+[node name="foregroundTrees" type="Node2D" parent="MainSt"]
+modulate = Color( 1, 1, 1, 0.32549 )
+position = Vector2( 0, 1200 )
+z_index = 101
+script = ExtResource( 21 )
+foregroundTreeScene = ExtResource( 22 )
 
 [node name="SecondSt" type="Node2D" parent="."]
 position = Vector2( -9.52441, -282.557 )
@@ -219,7 +199,7 @@ InsideScene = NodePath("")
 position = Vector2( 488.364, 532.24 )
 
 [node name="Sprite" type="Sprite" parent="SecondSt/1 Second st"]
-position = Vector2( 688.423, 239.521 )
+position = Vector2( 1225.82, 233.864 )
 scale = Vector2( -1, 1 )
 texture = ExtResource( 15 )
 
@@ -237,10 +217,10 @@ position = Vector2( -175.838, -104.682 )
 texture = ExtResource( 18 )
 
 [node name="FloorShape3" type="Polygon2D" parent="SecondSt"]
-position = Vector2( 9.52441, 282.557 )
+position = Vector2( 9.52441, 234.474 )
 z_index = -12
 color = Color( 0.431373, 0.431373, 0.431373, 1 )
-polygon = PoolVector2Array( 483.301, 513.592, 484.422, 394.704, 827.539, 397.83, 1525.05, 404.185, 1506.02, 263.858, 592.724, 261.729, 595.086, 152.073, 354.908, 148.536, 359.576, 261.999, -410.983, 263.858, -408.605, 406.563, -90.939, 404.194, -89.8972, 513.592 )
+polygon = PoolVector2Array( 483.301, 513.592, 484.422, 394.704, 827.539, 397.83, 1525.05, 404.185, 1506.02, 263.858, 592.724, 261.729, 595.086, 152.073, 354.908, 148.536, 359.576, 261.999, 182.414, 267.13, -410.983, 263.858, -408.605, 406.563, -90.939, 404.194, -89.8972, 513.592 )
 
 [node name="ThirdSt" type="Node2D" parent="."]
 position = Vector2( 15.874, -441.297 )
@@ -306,16 +286,7 @@ scale = Vector2( 2.42544, 4.12804 )
 z_index = -1
 texture = ExtResource( 11 )
 
-[node name="ToDowntown" type="Area2D" parent="."]
-position = Vector2( 4644.6, 570.132 )
-collision_layer = 4
-script = ExtResource( 25 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ToDowntown"]
-position = Vector2( -21.3574, 16.0181 )
-shape = SubResource( 4 )
-
 [connection signal="body_exited" from="Transitions/TransitionMainStToSecondSt1" to="Transitions/TransitionMainStToSecondSt1" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionSecondStToThirdSt" to="Transitions/TransitionSecondStToThirdSt" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionThirdStToFourthSt" to="Transitions/TransitionThirdStToFourthSt" method="_on_Area2D_body_exited"]
-[connection signal="body_entered" from="ToDowntown" to="ToDowntown" method="_on_ToBeaches_body_entered"]
+[connection signal="body_entered" from="MainSt/ToDowntown" to="MainSt/ToDowntown" method="_on_ToBeaches_body_entered"]

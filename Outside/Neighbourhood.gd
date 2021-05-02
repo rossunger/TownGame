@@ -18,6 +18,8 @@ func doParallax(deltaX, deltaY):
 			var st3 = currentStreet.get_node(currentStreet.Street3)	
 			st3.position.x -= deltaX/3	
 			st3.position.y -= deltaY/8	
+		
+		
 	
 func LoadStreet(street):
 	#set the actual variable

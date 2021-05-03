@@ -2,8 +2,7 @@ extends Node2D
 export var numberOfTrees = 15
 export (PackedScene) var foregroundTreeScene 
 
-func _ready():
-	print("added tree")
+func _ready():	
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()		
 	#randomly place some trees

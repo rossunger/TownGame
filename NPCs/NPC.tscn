@@ -64,7 +64,7 @@ margin_right = 1383.91
 margin_bottom = -197.168
 custom_fonts/normal_font = ExtResource( 5 )
 meta_underlined = false
-text = "Character"
+text = "CharacterName"
 fit_content_height = true
 __meta__ = {
 "_edit_use_anchors_": false

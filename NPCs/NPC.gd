@@ -1,15 +1,14 @@
 tool
-extends Node2D
+extends KinematicBody2D
+class_name NPC
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
+onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork("")
 
 func set(param, value):
 	print("setting: " + param)
 
-
 func _on_renamed():	
 	get_node("NameLabel").text = name	
-	#var label = get_node("MyRelationships").get_child(0)
-	#label.name = name
 
 func _on_CharacterName_tree_entered():
 	_on_renamed()
@@ -21,7 +20,6 @@ func set_emotion(emotion:String, value:float, relative=true):
 		get_node("MyEmotions")[emotion] = value	
 	get_node("EmotionLabel").text = get_node("MyEmotions").getLargestEmotionName()
 
-
 #Insert AI functinos here??	
 func stopAndWait():
 	print("im stopping and waiting")
@@ -30,8 +28,6 @@ func stopAndWait():
 
 func goToLocation(location):
 	print("im going to location: " + location)
-
-
 
 func _get_configuration_warning():
 	var warning:= PoolStringArray()

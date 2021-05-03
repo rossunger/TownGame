@@ -1,4 +1,3 @@
-tool
 extends Node2D
 var endThread=false
 var AIThread 
@@ -12,8 +11,7 @@ func refresh(value):
 	
 #Set the AI thread to process every 
 func _ready():
-	Game.NPCManager = self
-	print("new npcman")
+	Game.NPCManager = self	
 	AIThread = Thread.new()
 	AIThread.start(self, "AITick")
 	

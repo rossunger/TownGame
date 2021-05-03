@@ -1,19 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://AI/Brain.gd" type="Script" id=1]
 [ext_resource path="res://AI/Actions/GoToWork.tscn" type="PackedScene" id=2]
 [ext_resource path="res://AI/Actions/TalkToTarget.tscn" type="PackedScene" id=3]
+[ext_resource path="res://AI/Actions/Wait.tscn" type="PackedScene" id=4]
 
 [node name="TestBrain" type="Node"]
 script = ExtResource( 1 )
 
 [node name="GoToWork" parent="." instance=ExtResource( 2 )]
+signalToEmit = "goToWork"
 
 [node name="TalkToTarget" parent="." instance=ExtResource( 3 )]
+signalToEmit = "talkToTarget"
+signalArgs = [ {
+} ]
+
+[node name="Wait" parent="." instance=ExtResource( 4 )]
 
 [node name="Add other Actions here" type="Node" parent="."]
 
 [editable path="GoToWork"]
 [editable path="GoToWork/OnlyIfItsAWorkday"]
-[editable path="GoToWork/OnlyIfItsAWorkday/DayOfTheWeek"]
+[editable path="GoToWork/OnlyIfItsAWorkday/DayOfTheYear"]
 [editable path="GoToWork/OnlyIfItsAWorkday/DaysIWork"]
+[editable path="GoToWork/OnlyIfItsAWorkday/DaysIWork/DaysIWork"]
+[editable path="Wait"]

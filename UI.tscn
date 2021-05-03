@@ -59,25 +59,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Status"]
-margin_right = 36.0
+[node name="DayOfTheYearLabel" type="Label" parent="Status"]
+margin_right = 55.0
 margin_bottom = 14.0
+rect_min_size = Vector2( 55, 0 )
 text = "Day 1"
 
-[node name="Label" type="Label" parent="Status"]
-margin_left = 86.0
-margin_right = 131.0
+[node name="DayOfTheWeekLabel" type="Label" parent="Status"]
+margin_left = 105.0
+margin_right = 179.0
 margin_bottom = 14.0
-text = "Sunday"
+rect_min_size = Vector2( 74, 0 )
+text = "Wednesday"
+align = 1
+
+[node name="DateOfTheYearLabel" type="Label" parent="Status"]
+margin_left = 229.0
+margin_right = 259.0
+margin_bottom = 14.0
+text = "Jan 1"
 
 [node name="TimeOfDay" type="Label" parent="Status"]
-margin_left = 181.0
-margin_right = 233.0
+margin_left = 309.0
+margin_right = 361.0
 margin_bottom = 14.0
 text = "Morning"
 
 [node name="Location" type="Label" parent="Status"]
-margin_left = 283.0
-margin_right = 350.0
+margin_left = 411.0
+margin_right = 478.0
 margin_bottom = 14.0
 text = "Downtown"

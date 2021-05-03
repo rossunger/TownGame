@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://AI/AIInput.gd" type="Script" id=1]
+[ext_resource path="res://AI/KnowledgeBase/DayOfTheYear.tscn" type="PackedScene" id=2]
+
+[node name="DayOfTheYear" type="Node"]
+script = ExtResource( 1 )
+whoseKnowledge = 2
+Parameters = [ "dayOfTheYear" ]
+
+[node name="DayOfTheYearInput" parent="." instance=ExtResource( 2 )]

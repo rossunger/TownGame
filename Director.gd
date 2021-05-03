@@ -1,6 +1,11 @@
 tool
 extends AnimationPlayer
 
+func emitGoOutside(path):
+	Game.emit_signal("goOutside", {"neighbourhood":load(path)})
+func emitGoInside(path):	
+	Game.emit_signal("goInside", {"insideHouse":load(path)})
+	
 #export (Array, NodePath) var Cameras = [] setget addNewCamera
 #var currentCamera = 0 setget changeCamera
 

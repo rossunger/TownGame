@@ -40,8 +40,7 @@ func LoadStreet(street):
 				if currentStreet.z - st.z == 2:
 					s = 0.6
 				tween.interpolate_property(st, "modulate", st.modulate, Color(s,s,s,1), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)								
-			else:
-				print("TEST")
+			else:				
 				if currentStreet != st:
 					tween.interpolate_property(st, "modulate", st.modulate, Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)																		
 			tween.interpolate_property(street, "position", street.position, street.startPosition, 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			

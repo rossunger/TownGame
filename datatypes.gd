@@ -1,5 +1,4 @@
 extends Reference
-enum viewMode {SIDE,MAP,MENU}
 
 static func normalise(params = []):
 	var sum = 0
@@ -45,8 +44,8 @@ class Household:
 	var Ethnicity = [true,false,false,false,false,false,false,false,false,false,false]	
 	var Religion = [0,0,0,0,0] # _Atheist, _Agnostic, _RedRoad, _Christian, _OtherReligion 
 	var EnglishSecondLanguage = false
-	var AnnualIncome = _35k # _100k, _60k, _35k, _21k, _11k, _6k
-	var IncomeType = _LegalIncome
+	var AnnualIncome = Enums.IncomeBrackets._35k # _100k, _60k, _35k, _21k, _11k, _6k
+	var IncomeType = Enums.IncomeTypes._LegalIncome
 	var Politics = 0 # -1 =radical left, +1 = radical right	
 	#var homeOwners / Renter / Homeless
 	#var newMoney / OldMoney / NoMoney
@@ -62,10 +61,4 @@ class NonNPCs:
 	var Name
 	var Owner
 	var Location
-	
-enum {_happiness, _sadness, _anger, _fear, _disgust, _surprise}
-enum {_Single, _Straight, _Queer, _Poly}
-enum {_White, _Black, _Native, _EastAsian, _SouthAsian, _MiddleEastern, _African, _European, _SouthAmerican}
-enum {_Atheist, _Agnostic, _RedRoad, _Christian, _OtherReligion }
-enum {_LegalIncome, _UnderTheTable, _CriminalIncome}
-enum {_100k, _60k, _35k, _21k, _11k, _6k}
+

@@ -1,23 +1,21 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://AI/Consideration.gd" type="Script" id=1]
-[ext_resource path="res://AI/KnowledgeBase/DaysIWork.tscn" type="PackedScene" id=2]
-[ext_resource path="res://AI/Inputs/DayOfTheWeekInput.tscn" type="PackedScene" id=3]
+[ext_resource path="res://AI/Considerations/OnlyIfItsAWorkDay.gd" type="Script" id=1]
+[ext_resource path="res://AI/Inputs/DaysIWorkInput.tscn" type="PackedScene" id=2]
+[ext_resource path="res://AI/Inputs/DayOfTheYearInput.tscn" type="PackedScene" id=3]
 
 [node name="OnlyIfItsAWorkday" type="Node"]
 script = ExtResource( 1 )
-description = "How far away are we"
 
-[node name="DayOfTheWeek" parent="." instance=ExtResource( 3 )]
-description = null
-value = null
-whoseKnowledge = 2
-Score1IfMatch = true
-
-[node name="DayOfTheWeek" parent="DayOfTheWeek" index="0"]
-FixedValue = [  ]
+[node name="DayOfTheYear" parent="." instance=ExtResource( 3 )]
 
 [node name="DaysIWork" parent="." instance=ExtResource( 2 )]
+Parameters = [ "daysThatIWorkArr" ]
+Score1IfMatch = false
 
-[editable path="DayOfTheWeek"]
+[node name="DaysIWork" parent="DaysIWork" index="0"]
+valueType = 0
+
+[editable path="DayOfTheYear"]
 [editable path="DaysIWork"]
+[editable path="DaysIWork/DaysIWork"]

@@ -70,10 +70,13 @@ func goOutside():
 	else:
 		pass
 func goInside(data = {}):
-	lastOutsidePlayerPosition = position	
-	if data.has("PlayerStart"):
-		position = data.PlayerStart
-	 
+	lastOutsidePlayerPosition = position
+	var s = load(data.insideHouse).get_state()
+	for i in s.get_node_count():
+		if s.get_node_name(i) == "PlayerStart":
+			for j in s.get_node_property_count(i):
+				if s.get_node_property_name(i, j) == "position":
+					position = s.get_node_property_value(i, j)
 
 func setPlayerStart(newPosition):
 	if !lastOutsidePlayerPosition:

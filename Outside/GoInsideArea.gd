@@ -16,15 +16,9 @@ func _get_configuration_warning():
 		return "Please make this area a child of an OutsideHouse"
 	return ""
 
-func interact():
-	#get the PlayerStart location from inside the scene we're about to load. so that we can pass it as a parameter
-	var s = InsideScene.get_state()
-	for i in s.get_node_count():
-		if s.get_node_name(i) == "PlayerStart":
-			for j in s.get_node_property_count(i):
-				if s.get_node_property_name(i, j) == "position":									
-					Game.emit_signal("goInside", {"insideHouse": InsideScene.get_path(), "PlayerStart": s.get_node_property_value(i, j)})
-					remove_from_group("interactable")
-					return		
+func interact():	
+	Game.emit_signal("goInside", {"insideHouse": InsideScene.get_path()})
+	remove_from_group("interactable")
+					
 	
 	

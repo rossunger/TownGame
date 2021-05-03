@@ -12,16 +12,28 @@ export var value = ""
 export (WhoseKnowledge) var whoseKnowledge = WhoseKnowledge._myProperty
 export var Parameters = [""]
 var Score1IfMatch = false
+onready var knowledgeItem = get_child(0)
+var myNPC
 
-func _ready():		
-	if whoseKnowledge == WhoseKnowledge._globalProperty:
-		
-		pass
-	if whoseKnowledge == WhoseKnowledge._myProperty:
-		pass
+
+func _ready():
+	myNPC = self
+	var safety = 0 
+	while not myNPC is NPC:
+		safety += 1
+		if safety >50:				
+			print("ERROR: " + name + " is not a child of NPC")
+			return
+		myNPC = myNPC.get_parent()				
+
 func set_value(v):
 	value = v
 
+func get_value():
+	if whoseKnowledge == WhoseKnowledge._globalProperty:		
+		return Game.get(Parameters[0])			
+	if whoseKnowledge == WhoseKnowledge._myProperty:				
+		return myNPC.get(Parameters[0])		
 
 # call once when node selected 
 func _get_property_list():

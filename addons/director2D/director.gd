@@ -1,38 +1,57 @@
 tool
 extends Control
 
+signal LoadAnimation
+
 var anim
-export (NodePath) onready var AnimationTab = get_node(AnimationTab)
-export (NodePath) onready var CharactersTab = get_node(CharactersTab)
-
-func createAnimationButtonPressed():
-	loadOrCreateAnimation(AnimationTab.get_node("AnimationName").text)
-	addCharactersToScene(CharactersTab.charactersInScene)
-	saveAnimation(AnimationTab.get_node("AnimationName").text, anim)
+var goToLocation
+var sceneName = ""
+var charactersInScene
 	
-func loadOrCreateAnimation(sceneName):
-	if !ResourceLoader.exists("res://Timelines/Animations/" + sceneName + ".tres"):
-		anim = Animation.new()
-		saveAnimation(sceneName, anim)
-	else:
-		anim = ResourceLoader.load("res://Timelines/Animations/" + sceneName + ".tres")		
+func setGoToLocation(path):			
+	if anim:		
+		goToLocation = ""
+		var track 
+		if anim.find_track("Director") != -1:
+			anim.remove_track(anim.find_track("Director"))
+		track = anim.add_track(Animation.TYPE_METHOD)
+		anim.track_set_path(track, "Director")		
+		if path.find("Outside") != -1:					
+			anim.track_insert_key(track, 0.0, {"args": [ path ], "method": "emitGoOutside"})	
+			print("OUTSIDEEEE")		
+		if path.find("Inside") != -1:
+			anim.track_insert_key(track, 0.0, {"args": [ path ], "method": "emitGoInside"} )		
+		saveAnimation()		
+		var rootNode = get_tree().get_edited_scene_root()		
+		if rootNode && rootNode.has_node("DEBUG"):
+			var debugNode = rootNode.get_node("DEBUG")		
+			if debugNode:
+				debugNode.clearChildren()			
+				var scene = load(path).instance()			
+				var child = debugNode.add_child(scene)
+				scene.set_owner(rootNode)		
+	else:		
+		goToLocation = path
 
-func saveAnimation(sceneName, animation):
-	ResourceSaver.save("res://Timelines/Animations/" + sceneName + ".tres", animation)
+func createAnimationButtonPressed(animName):			
+	sceneName = animName
+	createAnimation()		
+	saveAnimation()
+	
+func loadAnimation(animName):
+	sceneName = animName
+	anim = load("res://Timelines/Animations/" + sceneName + ".tres")			
+	emit_signal("LoadAnimation", anim)
+
+func createAnimation():	
+	if !ResourceLoader.exists("res://Timelines/Animations/" + sceneName + ".tres"):
+		anim = Animation.new()							
+	
+func saveAnimation():
+	print("scene name: " + sceneName)
+	ResourceSaver.save("res://Timelines/Animations/" + sceneName + ".tres", anim)
 
 func renameScene():
 	pass
 	
-func addCharactersToScene(characters: Array):
-	for character in characters:
-		if anim.find_track(character + ":position:x") == -1:					
-			var trackX = anim.add_track(Animation.TYPE_BEZIER)
-			var trackY = anim.add_track(Animation.TYPE_BEZIER)			
-			anim.track_set_path(trackX, character + ":position:x")
-			anim.track_set_path(trackY, character + ":position:y")
-			anim.track_insert_key(trackX, 0.0,  [0, -0.25, 0, 0.25, 0 ])
-			anim.track_insert_key(trackY, 0.0,  [0, -0.25, 0, 0.25, 0 ])
-					
-	property_list_changed_notify()		
-
 

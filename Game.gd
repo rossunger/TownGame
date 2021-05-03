@@ -6,12 +6,14 @@ signal newPlayerStart
 signal doInteraction
 signal setPaused
 signal setTimeOfDay
+signal setDayOfTheYear
 signal SaveGame
 signal LoadGame
 
 var NPCManager: Node2D
 var player
 var timeOfDay = Enums.TimesOfDay.Morning
+var dayOfTheYear = 291
 
 var isPaused = false
 export(PackedScene) var PauseMenuScene 

@@ -30,35 +30,3 @@ static func smallestValue(params = []):
 			smallest = i 
 	return smallest
 
-"""
-class Relationship:
-	var withWhom : NodePath
-	var trust = 0
-	var attraction = 0
-"""
-class Household:
-	var Name = "New Household"
-	var Houses : Array #of NodePath to house
-	var Members : Array #of NodePath to character
-	var AdultConstelation = 0 #_single, _straight, _queer, _poly
-	var Ethnicity = [true,false,false,false,false,false,false,false,false,false,false]	
-	var Religion = [0,0,0,0,0] # _Atheist, _Agnostic, _RedRoad, _Christian, _OtherReligion 
-	var EnglishSecondLanguage = false
-	var AnnualIncome = Enums.IncomeBrackets._35k # _100k, _60k, _35k, _21k, _11k, _6k
-	var IncomeType = Enums.IncomeTypes._LegalIncome
-	var Politics = 0 # -1 =radical left, +1 = radical right	
-	#var homeOwners / Renter / Homeless
-	#var newMoney / OldMoney / NoMoney
-	var YearsHere = 12
-
-class House:
-	var ResidentHousehold : Household
-	var Landlord : Household #if different
-	var Location : Vector2
-	var InsideScene : NodePath #scene to load when inside the house	
-
-class NonNPCs:
-	var Name
-	var Owner
-	var Location
-

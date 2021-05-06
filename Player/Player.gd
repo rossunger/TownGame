@@ -6,6 +6,8 @@ export (bool) var movementEnabled = true;
 export(Enums.viewMode) var view_mode = 0;
 export(NodePath) var character; #the character we are following
 
+var currentVehicle = null
+
 var velocity = Vector2()
 var lastPosition: Vector2 #track this for the parallax effect... pass this info to "Outside" node.
 
@@ -18,19 +20,23 @@ var targetZoom = 2
 func _ready():
 	Game.connect("goInside", self, "goInside")
 	Game.connect("goOutside", self, "goOutside")
+	Game.connect("rideBike", self, "rideBike")
 	Game.connect("newPlayerStart", self, "setPlayerStart")
 	Game.player = self
 
 func _input(ev):
 	if Input.is_action_pressed("ui_cancel") && not ev.is_echo():
 		Game.setPaused(!Game.isPaused)
+	if Input.is_action_pressed("ui_select") && not ev.is_echo():		
+		if not currentVehicle:
+			Game.doInteraction()
+		else:
+			exitVehicle()
 
 func get_input():	
 	if Game.isPaused:
 		return
-	if (movementEnabled): doMovement();
-	if Input.is_action_pressed("ui_select"):		
-		Game.doInteraction()
+	if (movementEnabled): doMovement();	
 	#if Input.is_action_pressed("ui_home"):
 		#Map.doShow(true)
 	#if Input.is_action_pressed("ui_end"):
@@ -82,3 +88,19 @@ func setPlayerStart(newPosition):
 	if !lastOutsidePlayerPosition:
 		lastOutsidePlayerPosition = newPosition
 	position = newPosition
+
+func rideBike(bike):	
+	if bike && not currentVehicle:
+		bike.bike.get_parent().remove_child(bike.bike)
+		add_child(bike.bike)
+		bike.bike.position = Vector2(0,0)
+		speed = Enums.PlayerSpeed.Biking
+		currentVehicle = bike.bike
+		
+func exitVehicle():
+	remove_child(currentVehicle)
+	Game.CurrentNeighbourhood.add_child(currentVehicle)	
+	currentVehicle.position = position
+	currentVehicle = null
+	speed = Enums.PlayerSpeed.Walking
+					

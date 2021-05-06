@@ -1,8 +1,12 @@
 tool
 extends Node2D
 class_name OutsideHouse
-export (NodePath) var Household #who lives here
+export (Resource) var Household #who lives here
 export (PackedScene) var InsideScene #scene to load when inside
+	
+func _ready():
+	if Household:
+		$HouseholdLabel.text = Household.name + " Family"
 	
 func _get_configuration_warning():
 	var warning = ""

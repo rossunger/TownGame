@@ -1,6 +1,7 @@
 extends Node
 signal goInside
 signal goOutside
+signal rideBike
 signal playerMoved
 signal newPlayerStart
 signal doInteraction
@@ -14,6 +15,7 @@ var NPCManager: Node2D
 var player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291
+var CurrentNeighbourhood
 
 var isPaused = false
 export(PackedScene) var PauseMenuScene 

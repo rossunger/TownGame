@@ -7,7 +7,7 @@ export var Thu = true
 export var Fri = true 
 export var Sat = false
 export var Sun = false
-func getDaysThatIWork(val):	
+func getDaysThatIWork():	
 	var arr = []
 	if Mon:
 		arr.append(0)

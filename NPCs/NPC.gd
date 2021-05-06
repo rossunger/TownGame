@@ -2,7 +2,32 @@ tool
 extends KinematicBody2D
 class_name NPC
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
-onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork("")
+onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork()
+
+var destination: Vector2
+var working = false
+
+func _physics_process(delta):	
+	if not Engine.editor_hint:
+		if position != destination:
+			#print("I'm at " + str(position) + " and I'm walking to " + str(destination) )
+			if (destination - position).length() < 1:
+				destination = position
+			else:
+				position += (destination - position).normalized() *2
+			#do pathfinding...
+
+func _ready():
+	for child in get_children():
+		if child is Brain:			
+			child.connect("newAction", self, "processNewAction")
+
+func processNewAction(data = []):	
+	print("processing new action")
+	if data[0] == "wait":
+		stopAndWait()
+	if data[0] == "goToWork":
+		goToLocation("WORK")
 
 func set(param, value):
 	print("setting: " + param)
@@ -20,7 +45,7 @@ func set_emotion(emotion:String, value:float, relative=true):
 		get_node("MyEmotions")[emotion] = value	
 	get_node("EmotionLabel").text = get_node("MyEmotions").getLargestEmotionName()
 
-#Insert AI functinos here??	
+#Insert AI functions here??	
 func stopAndWait():
 	print("im stopping and waiting")
 	#play idle animation
@@ -46,8 +71,9 @@ func _get_configuration_warning():
 Wait
 Walk somewhere
 Talk to someone
-Change Parameter [emotional state, belief, wealth, etc)
 Interact with object (call a function on that object)
+Change Parameter [emotional state, belief, wealth, etc)
+
 
 SEQUENCES (complex actions)
 Deliver object to person

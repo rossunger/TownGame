@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Objects/Bike.gd" type="Script" id=2]
+[ext_resource path="res://Objects/BikeFrame1.png" type="Texture" id=3]
+[ext_resource path="res://Objects/BikeWheel1.png" type="Texture" id=4]
+[ext_resource path="res://Objects/BikeWheel2.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Animations/ride.tres" type="Animation" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 200.0
+height = 700.0
+
+[node name="Bike" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Frame" type="Sprite" parent="."]
+position = Vector2( 0, -89.135 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 3 )
+
+[node name="FrontWheel" type="Node2D" parent="Frame"]
+position = Vector2( 288.174, 211.893 )
+
+[node name="FrontWheel" type="Sprite" parent="Frame/FrontWheel"]
+position = Vector2( -283.936, -220.368 )
+texture = ExtResource( 4 )
+
+[node name="BackWheel" type="Node2D" parent="Frame"]
+position = Vector2( -292.412, 211.893 )
+
+[node name="BackWheel" type="Sprite" parent="Frame/BackWheel"]
+position = Vector2( 283.936, -207.655 )
+texture = ExtResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 0.25, 0.25 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="RideMeLabel" type="Node2D" parent="."]
+visible = false
+light_mask = 2
+position = Vector2( -1.13153, -86.7122 )
+z_index = 1
+
+[node name="Label" type="Label" parent="RideMeLabel"]
+margin_left = -52.2464
+margin_top = -31.3598
+margin_right = 138.753
+margin_bottom = 70.6402
+custom_fonts/font = ExtResource( 1 )
+text = "Ride"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ride = ExtResource( 6 )
+
+[connection signal="area_entered" from="Area2D" to="." method="onRideMeAreaEntered"]
+[connection signal="area_exited" from="Area2D" to="." method="onRideMeAreaExited"]

@@ -56,29 +56,31 @@ columns = 2
 script = ExtResource( 7 )
 
 [node name="Label" type="Label" parent="TabContainer/Animations"]
+margin_top = 8.0
 margin_right = 200.0
-margin_bottom = 14.0
+margin_bottom = 22.0
 text = "Current Animation: "
 
 [node name="AnimationName" type="Label" parent="TabContainer/Animations"]
 margin_left = 220.0
 margin_right = 359.0
-margin_bottom = 14.0
-text = "TESTING"
+margin_bottom = 31.0
+text = "(insert timeline)
+"
 script = ExtResource( 10 )
 
 [node name="NewAnimationName" type="LineEdit" parent="TabContainer/Animations"]
-margin_top = 30.0
+margin_top = 47.0
 margin_right = 200.0
-margin_bottom = 54.0
+margin_bottom = 71.0
 rect_min_size = Vector2( 200, 0 )
-text = "test2"
+text = "(new animation name)"
 
 [node name="Button" type="Button" parent="TabContainer/Animations"]
 margin_left = 220.0
-margin_top = 30.0
+margin_top = 47.0
 margin_right = 359.0
-margin_bottom = 54.0
+margin_bottom = 71.0
 text = "Add New Animation"
 script = ExtResource( 9 )
 

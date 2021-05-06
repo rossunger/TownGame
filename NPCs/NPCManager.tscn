@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://NPCs/NPCManager.gd" type="Script" id=1]
-[ext_resource path="res://AI/Brains/TestBrain.tscn" type="PackedScene" id=2]
+[ext_resource path="res://NPCs/AI/Brains/TestBrain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://NPCs/NPC.tscn" type="PackedScene" id=3]
 
 [node name="NPCManager" type="Node2D"]

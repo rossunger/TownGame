@@ -2,14 +2,16 @@ tool
 extends Area2D
 onready var InsideScene = get_parent().InsideScene
 
-func _on_GoInsideArea_entered(area):		
-	add_to_group("interactable")
-	if InsideScene:								
-		$GoInsideLabel.visible = true				
+func _on_GoInsideArea_entered(area):
+	if area.get_parent() is Player:
+		add_to_group("interactable")
+		if InsideScene:								
+			$GoInsideLabel.visible = true				
 	
-func _on_GoInsideArea_exited(area):			
-	remove_from_group("interactable")
-	$GoInsideLabel.visible = false	
+func _on_GoInsideArea_exited(area):
+	if area.get_parent() is Player:			
+		remove_from_group("interactable")
+		$GoInsideLabel.visible = false	
 
 func _get_configuration_warning():
 	if !get_parent() is OutsideHouse:		

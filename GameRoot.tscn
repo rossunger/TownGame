@@ -6,7 +6,7 @@
 [ext_resource path="res://Map.jpg" type="Texture" id=4]
 [ext_resource path="res://Bell Synergies.nksf.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Animals/MouseExample.tscn" type="PackedScene" id=7]
+[ext_resource path="res://NPCs/Animals/MouseExample.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://NPCs/NPCManager.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Inside/Inside.gd" type="Script" id=10]
@@ -32,7 +32,6 @@ var InsideScene
 
 export(PackedScene) var StartingNeighbourhoodScene
 var CurrentNeighbourhoodScene
-var CurrentNeighbourhood
 var InsideHouses: Dictionary = {}
 
 var inside
@@ -64,7 +63,7 @@ func goInside(data = {}):
 	if !data.insideHouse:
 		print(\"ERROR\")
 	#remove_child the neighbourhood, add_child the inside scene
-	$Outside.remove_child(CurrentNeighbourhood)	
+	$Outside.remove_child(Game.CurrentNeighbourhood)	
 	$Inside.add_child(InsideHouses[data.insideHouse])			
 	
 	#to do: set LastStreet
@@ -83,11 +82,11 @@ func goOutside(data = {}):
 			child.queue_free()		
 		InsideHouses.clear()
 		#and load the new neighbourhood...
-		CurrentNeighbourhood = data.neighbourhood.instance()
-		$Outside.add_child(CurrentNeighbourhood)
-		Game.emit_signal(\"newPlayerStart\", CurrentNeighbourhood.get_node(\"PlayerStart\").position)
+		Game.CurrentNeighbourhood = data.neighbourhood.instance()
+		$Outside.add_child(Game.CurrentNeighbourhood)
+		Game.emit_signal(\"newPlayerStart\", Game.CurrentNeighbourhood.get_node(\"PlayerStart\").position)
 		#...including the inside scenes
-		for street in CurrentNeighbourhood.get_children():
+		for street in Game.CurrentNeighbourhood.get_children():
 			if street is Street:
 				for house in street.get_children():
 					#check if it's a house, and if it's \"InsideScene\" parameter has been set
@@ -99,7 +98,7 @@ func goOutside(data = {}):
 	else:
 		for child in $Inside.get_children():
 			$Inside.remove_child(child)
-		$Outside.add_child(CurrentNeighbourhood)	
+		$Outside.add_child(Game.CurrentNeighbourhood)	
 	lastStreet = \"\"		
 	
 func emit_goOutside(params):
@@ -419,6 +418,9 @@ cameraPreset = ExtResource( 14 )
 target = NodePath("../../Player")
 
 [node name="NPCManager" parent="." instance=ExtResource( 9 )]
+
+[node name="Jimmy" parent="NPCManager" index="0"]
+position = Vector2( 120, 580 )
 
 [node name="Inside" type="Node2D" parent="."]
 script = ExtResource( 10 )

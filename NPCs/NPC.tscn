@@ -124,5 +124,7 @@ shape = SubResource( 8 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -240 )
 
+[node name="MyWork" type="Node" parent="."]
+
 [connection signal="renamed" from="." to="." method="_on_renamed"]
 [connection signal="tree_entered" from="." to="." method="_on_CharacterName_tree_entered"]

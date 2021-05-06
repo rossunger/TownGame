@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://NPCs/Jobs/Job.gd" type="Script" id=1]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+jobTitle = ""
+salary = 3
+employer = ""
+multiLocation = false
+dealWithClients = false
+goesToClient = false

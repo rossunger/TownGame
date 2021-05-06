@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=1]
 [ext_resource path="res://Outside/OutsideHouse.gd" type="Script" id=2]
@@ -26,6 +26,9 @@
 [ext_resource path="res://Inside/2MainStInside.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Outside/foregroundTrees.gd" type="Script" id=25]
 [ext_resource path="res://Outside/foregroundTree.tscn" type="PackedScene" id=26]
+[ext_resource path="res://NPCs/Households/Anderson-SmithHousehold.tres" type="Resource" id=27]
+[ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=28]
+[ext_resource path="res://Objects/Bike.tscn" type="PackedScene" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 285.93, 8 )
@@ -38,6 +41,11 @@ extents = Vector2( 146.219, 8 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 40, 80 )
+
+[sub_resource type="NavigationPolygon" id=5]
+vertices = PoolVector2Array( 604.49, 265.088, 1499.19, 263.521, 1516.01, 401.428, 480.023, 391.337, 358.932, 265.518, 591.021, 54.9788, 1462.19, 58.3424, 1472.28, 139.068, 594.385, 152.523, 358.934, 152.523, 305.117, 65.0696, -1014.92, 153.971, -1021.66, 59.6845, -411.327, 408.155, -421.417, 266.885, -101.877, 401.428, 301.753, -56.0194, 597.748, -49.2922, 4637.41, 646.969, -862.047, 663.787, -858.683, 512.426, -91.7759, 511.018, 4637.41, 502.335, 476.655, 509.974 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8, 9, 10 ), PoolIntArray( 11, 12, 10, 9 ), PoolIntArray( 13, 14, 4, 15 ), PoolIntArray( 10, 16, 17, 5 ), PoolIntArray( 18, 19, 20, 21, 22 ), PoolIntArray( 23, 22, 21 ), PoolIntArray( 4, 9, 8, 0 ), PoolIntArray( 4, 3, 23, 21, 15 ) ]
+outlines = [ PoolVector2Array( -858.683, 512.426, -862.047, 663.787, 4637.41, 646.969, 4637.41, 502.335, 476.655, 509.974, 480.023, 391.337, 1516.01, 401.428, 1499.19, 263.521, 604.49, 265.088, 594.385, 152.523, 1472.28, 139.068, 1462.19, 58.3424, 591.021, 54.9788, 597.748, -49.2922, 301.753, -56.0194, 305.117, 65.0696, -1021.66, 59.6845, -1014.92, 153.971, 358.934, 152.523, 358.932, 265.518, -421.417, 266.885, -411.327, 408.155, -101.877, 401.428, -91.7759, 511.018 ) ]
 
 [node name="Downtown" type="Node2D"]
 script = ExtResource( 1 )
@@ -108,6 +116,7 @@ polygon = PoolVector2Array( -3506.05, 522.027, -3510.8, 674.246, 221.617, 665.79
 [node name="1 Main st" type="Node2D" parent="MainSt"]
 position = Vector2( 812.006, 523.352 )
 script = ExtResource( 2 )
+Household = ExtResource( 27 )
 InsideScene = ExtResource( 19 )
 
 [node name="Sprite" type="Sprite" parent="MainSt/1 Main st"]
@@ -119,10 +128,25 @@ texture = ExtResource( 15 )
 position = Vector2( -2.13556, 6.61755 )
 scale = Vector2( 1.32, 1.4 )
 
+[node name="HouseholdLabel" type="Label" parent="MainSt/1 Main st"]
+margin_left = -317.943
+margin_top = -615.256
+margin_right = 252.057
+margin_bottom = -513.256
+custom_fonts/font = ExtResource( 28 )
+text = "Anderson-Smith Family"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Household" type="Node2D" parent="MainSt/1 Main st"]
+
 [node name="2 Main st" type="Node2D" parent="MainSt"]
 position = Vector2( -384.127, 509.547 )
 scale = Vector2( 0.88, 0.7 )
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = ExtResource( 24 )
 
 [node name="GoInsideArea" parent="MainSt/2 Main st" instance=ExtResource( 20 )]
@@ -146,6 +170,7 @@ mode = 2
 [node name="3 Main st" type="Node2D" parent="MainSt"]
 position = Vector2( 1208.51, 379.852 )
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="MainSt/3 Main st" instance=ExtResource( 20 )]
@@ -158,6 +183,7 @@ texture = ExtResource( 14 )
 [node name="4 Main st" type="Node2D" parent="MainSt"]
 position = Vector2( 2172.81, 483.442 )
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="MainSt/4 Main st" instance=ExtResource( 20 )]
@@ -172,6 +198,7 @@ texture = ExtResource( 11 )
 [node name="5 Main st" type="Node2D" parent="MainSt"]
 position = Vector2( 3175.16, 325.354 )
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="MainSt/5 Main st" instance=ExtResource( 20 )]
@@ -185,6 +212,7 @@ texture = ExtResource( 13 )
 [node name="6 Main st2" type="Node2D" parent="MainSt"]
 position = Vector2( 3955.51, 422.898 )
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="MainSt/6 Main st2" instance=ExtResource( 20 )]
@@ -232,6 +260,8 @@ foregroundTreeScene = ExtResource( 26 )
 [node name="OutsideTheShop" type="Node2D" parent="MainSt/PointsOfInterest"]
 position = Vector2( 612.172, 511.265 )
 
+[node name="Objects" type="Node2D" parent="MainSt"]
+
 [node name="SecondSt" type="Node2D" parent="."]
 position = Vector2( -9.52441, -282.557 )
 script = ExtResource( 5 )
@@ -242,6 +272,7 @@ z = 2
 position = Vector2( -655.575, 9.13692 )
 z_index = -10
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="SecondSt/1 Second st" instance=ExtResource( 20 )]
@@ -256,6 +287,7 @@ texture = ExtResource( 7 )
 position = Vector2( 1053.92, 277.471 )
 z_index = -10
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="SecondSt/2 Second st" instance=ExtResource( 20 )]
@@ -287,6 +319,7 @@ polygon = PoolVector2Array( 592.724, 261.729, 595.086, 152.073, 1470.34, 140.18,
 position = Vector2( -569.377, 241.178 )
 z_index = -10
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="ThirdSt/1 Third st" instance=ExtResource( 20 )]
@@ -300,6 +333,7 @@ texture = ExtResource( 16 )
 position = Vector2( -8.73514, 272.345 )
 z_index = -10
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="ThirdSt/2 Third st" instance=ExtResource( 20 )]
@@ -313,6 +347,7 @@ texture = ExtResource( 12 )
 position = Vector2( 1012.03, 256.793 )
 z_index = -10
 script = ExtResource( 2 )
+Household = NodePath("")
 InsideScene = NodePath("")
 
 [node name="GoInsideArea" parent="ThirdSt/3 Third st" instance=ExtResource( 20 )]
@@ -345,6 +380,15 @@ GoToNeighbourhood = "NS102"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToNS102"]
 position = Vector2( -21.3574, 16.0181 )
 shape = SubResource( 4 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
+
+[node name="FloorNavPoly" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 5 )
+
+[node name="Bike" parent="." instance=ExtResource( 29 )]
+position = Vector2( 1143.94, 539.97 )
 
 [connection signal="body_exited" from="Transitions/TransitionMainStToSecondSt1" to="Transitions/TransitionMainStToSecondSt1" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionSecondStToThirdSt" to="Transitions/TransitionSecondStToThirdSt" method="_on_Area2D_body_exited"]

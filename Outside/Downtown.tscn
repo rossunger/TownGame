@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=1]
 [ext_resource path="res://Outside/OutsideHouse.gd" type="Script" id=2]
@@ -28,7 +28,6 @@
 [ext_resource path="res://Outside/foregroundTree.tscn" type="PackedScene" id=26]
 [ext_resource path="res://NPCs/Households/Anderson-SmithHousehold.tres" type="Resource" id=27]
 [ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=28]
-[ext_resource path="res://Objects/Bike.tscn" type="PackedScene" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 285.93, 8 )
@@ -260,8 +259,6 @@ foregroundTreeScene = ExtResource( 26 )
 [node name="OutsideTheShop" type="Node2D" parent="MainSt/PointsOfInterest"]
 position = Vector2( 612.172, 511.265 )
 
-[node name="Objects" type="Node2D" parent="MainSt"]
-
 [node name="SecondSt" type="Node2D" parent="."]
 position = Vector2( -9.52441, -282.557 )
 script = ExtResource( 5 )
@@ -386,9 +383,6 @@ visible = false
 
 [node name="FloorNavPoly" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 5 )
-
-[node name="Bike" parent="." instance=ExtResource( 29 )]
-position = Vector2( 1143.94, 539.97 )
 
 [connection signal="body_exited" from="Transitions/TransitionMainStToSecondSt1" to="Transitions/TransitionMainStToSecondSt1" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionSecondStToThirdSt" to="Transitions/TransitionSecondStToThirdSt" method="_on_Area2D_body_exited"]

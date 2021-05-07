@@ -1,26 +1,21 @@
 tool
-extends KinematicBody2D
+extends Node
 class_name NPC
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
 onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork()
 
 var destination: Vector2
 var working = false
+var body
+var bodyNeighbourhood #the neighbourhood that the body is in
+var bodyStreet #the street that the body is on
+var bodyInside #the house the body is inside of
 
-func _physics_process(delta):	
-	if not Engine.editor_hint:
-		if position != destination:
-			#print("I'm at " + str(position) + " and I'm walking to " + str(destination) )
-			if (destination - position).length() < 1:
-				destination = position
-			else:
-				position += (destination - position).normalized() *2
-			#do pathfinding...
-
-func _ready():
+func _ready():	
 	for child in get_children():
 		if child is Brain:			
 			child.connect("newAction", self, "processNewAction")
+	Game.connect("goOutside", self, "processSceneChange")
 
 func processNewAction(data = []):	
 	print("processing new action")
@@ -32,11 +27,9 @@ func processNewAction(data = []):
 func set(param, value):
 	print("setting: " + param)
 
-func _on_renamed():	
-	get_node("NameLabel").text = name	
-
 func _on_CharacterName_tree_entered():
-	_on_renamed()
+	if Engine.editor_hint:
+		$NPCBody.doRename()			
 	
 func set_emotion(emotion:String, value:float, relative=true):
 	if relative:
@@ -65,7 +58,42 @@ func _get_configuration_warning():
 		warning.append("%s is missing a Brain" % name)
 	return warning.join("/n")
 
+func processSceneChange(data):
+	if data.has("neighbourhood"):
+		if data.neighbourhood == bodyNeighbourhood:
+			returnToScene()
+		elif not has_node(name):
+			leaveScene()
+	if data.has("insideHouse"):
+		if data.insideHouse == bodyNeighbourhood:
+			returnToScene()
+		elif not has_node(name):
+			leaveScene()
+			
+func leaveScene():
+	#bodyParent = 
+	print(body.get_parent().get_path())
+	body.get_parent().remove_child(body)
+	add_child(body)	
+	body.set_process(false)
+	
 
+func returnToScene():
+	#this happens when we load a new neighbourhood, or a new inside scene...
+	body.set_process(true)
+	remove_child(body)
+	var st = Game.CurrentNeighbourhood.get_node(bodyStreet)
+	st.add_child(body)		
+
+func teleport(newNeighbourhood, newStreet = null, newInside = null):
+	if newNeighbourhood:
+		bodyNeighbourhood = newNeighbourhood		
+	if newStreet:
+		bodyStreet = newStreet
+	if newInside:
+		bodyInside = newInside
+	if load(Game.CurrentNeighbourhood.filename) == newNeighbourhood:
+		returnToScene()		
 
 """ List of INSTRUCTIONS an ACTION can give a CHARACTER
 Wait

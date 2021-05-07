@@ -37,14 +37,16 @@ enum TimesOfDay {Morning, Afternoon, Evening, Night}
 enum Emotions {_happiness, _sadness, _anger, _fear, _disgust, _surprise}
 
 #HOUSEHOLD STUFF
-enum RelationshipIdentities {_Single, _Straight, _Queer, _Poly}
-enum Ethnicities {_White, _Black, _Native, _EastAsian, _SouthAsian, _MiddleEastern, _African, _European, _SouthAmerican}
-enum Religions {_Atheist, _Agnostic, _RedRoad, _Christian, _OtherReligion }
-enum IncomeTypes {_LegalIncome, _UnderTheTable, _CriminalIncome}
+enum RelationshipIdentities {Single, Straight, Queer, Poly}
+enum Ethnicities {White, Black, Native, EastAsian, SouthAsian, MiddleEastern, African, European, SouthAmerican}
+enum Religions {Atheist, Agnostic, RedRoad, Christian, OtherReligion }
+enum IncomeTypes {LegalIncome, UnderTheTable, CriminalIncome}
 enum IncomeBrackets {_100k, _60k, _35k, _21k, _11k, _6k}
 enum YearsHere {bornAndBred, _20, _12, _5, justArrived}
 enum PoliticalLeanings { centre, radicalLeft, left,  right, radicalRight }
-enum wealthType { noMoney, newMoney, oldMoney }
-enum  { homeOwners, renters, homeless }
+enum WealthType { noMoney, newMoney, oldMoney }
+enum HomeOwnership { homeOwners, renters, homeless }
 
-const PlayerSpeed = {"Walking": 300, "Running": 450, "Biking": 600, "Car": 800}
+enum PlayerSpeed {Walking=300, Running=450, Biking=600, Car=800}
+
+enum VehicleType {Bike, Car}

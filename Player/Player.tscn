@@ -150,3 +150,5 @@ anims/BobUpAndDown = SubResource( 9 )
 [node name="feetCollision" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource( 10 )
+
+[node name="VehicleRemoteTransform2D" type="RemoteTransform2D" parent="."]

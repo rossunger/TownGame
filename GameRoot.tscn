@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://DebugOverlay.gd" type="Script" id=1]
 [ext_resource path="res://Timelines/Animations/test2.tres" type="Animation" id=2]
@@ -19,8 +19,10 @@
 [ext_resource path="res://FX/light.png" type="Texture" id=17]
 [ext_resource path="res://Timelines/Camera/cameraShot.gd" type="Script" id=18]
 [ext_resource path="res://GlobalLighting.gd" type="Script" id=19]
+[ext_resource path="res://Objects/Bike.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Outside/Beaches.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Timelines/Animations/TESTING.tres" type="Animation" id=22]
+[ext_resource path="res://ObjectManager.gd" type="Script" id=23]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -71,10 +73,8 @@ func goInside(data = {}):
 
 #data can include: neighbourhood, street
 func goOutside(data = {}):		
-	if !data.has(\"neighbourhood\"):
-		data.neighbourhood = CurrentNeighbourhoodScene
 	#1. if different neighbourhood...
-	if data.neighbourhood != CurrentNeighbourhoodScene:
+	if data.has(\"neighbourhood\") && data.neighbourhood != CurrentNeighbourhoodScene:
 		#...then clear everything from memory
 		for child in $Outside.get_children():
 			child.queue_free()
@@ -443,6 +443,12 @@ script = ExtResource( 16 )
 
 [node name="Beaches" parent="DEBUG" instance=ExtResource( 21 )]
 
+[node name="ObjectManager" type="Node2D" parent="."]
+script = ExtResource( 23 )
+
+[node name="Bike" parent="ObjectManager" instance=ExtResource( 20 )]
+position = Vector2( 1260.4, 546.066 )
+
 [connection signal="pressed" from="DebugOverlay/DEBUG/NextTimeOfDay" to="DebugOverlay" method="_on_goInside_pressed"]
 [connection signal="pressed" from="DebugOverlay/DEBUG/goOutside" to="DebugOverlay" method="_on_goOutside_pressed"]
 [connection signal="pressed" from="DebugOverlay/DEBUG/NextDay" to="DebugOverlay" method="_on_NextDay_pressed"]
@@ -450,3 +456,4 @@ script = ExtResource( 16 )
 [editable path="UI"]
 [editable path="MouseExample"]
 [editable path="NPCManager"]
+[editable path="DEBUG/Beaches"]

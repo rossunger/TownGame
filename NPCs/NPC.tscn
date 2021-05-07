@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://NPCs/visuals/girl1.png" type="Texture" id=1]
 [ext_resource path="res://FX/loveHeart.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="E:/FONTBASE/Handwritingy/Gaegu-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://NPCs/visuals/NPCFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://NPCs/NPC.gd" type="Script" id=6]
+[ext_resource path="res://NPCs/NPCBody.gd" type="Script" id=7]
 [ext_resource path="res://NPCs/NPCData/MyEmotions.gd" type="Script" id=8]
 [ext_resource path="res://NPCs/NPCData/MyRelationships.gd" type="Script" id=9]
 
@@ -49,15 +50,30 @@ bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="CapsuleShape2D" id=8]
 
-[node name="CharacterName" type="KinematicBody2D"]
-scale = Vector2( 0.38531, 0.361887 )
+[node name="CharacterName" type="Node2D"]
+visible = false
 z_index = 1
 script = ExtResource( 6 )
 daysThatIWork = ExtResource( 3 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="MyEmotions" type="Node" parent="."]
+script = ExtResource( 8 )
 
-[node name="NameLabel" type="RichTextLabel" parent="."]
+[node name="MyRelationships" type="Node" parent="."]
+script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": "first relationship is always with yourself"
+}
+
+[node name="MyWork" type="Node" parent="."]
+
+[node name="NPCBody" type="KinematicBody2D" parent="."]
+scale = Vector2( 0.385, 0.362 )
+script = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NPCBody"]
+
+[node name="NameLabel" type="RichTextLabel" parent="NPCBody"]
 margin_left = 117.914
 margin_top = -508.168
 margin_right = 1383.91
@@ -70,7 +86,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="Particles2D" type="Particles2D" parent="NPCBody"]
 material = SubResource( 1 )
 position = Vector2( 2.75256, -106.49 )
 z_index = -1
@@ -82,7 +98,7 @@ randomness = 0.25
 process_material = SubResource( 4 )
 texture = ExtResource( 2 )
 
-[node name="StrongestEmotion" type="Label" parent="."]
+[node name="StrongestEmotion" type="Label" parent="NPCBody"]
 margin_left = 123.655
 margin_top = -324.171
 margin_right = 545.655
@@ -94,7 +110,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EmotionLabel" type="Label" parent="."]
+[node name="EmotionLabel" type="Label" parent="NPCBody"]
 margin_left = 568.741
 margin_top = -322.885
 margin_right = 812.741
@@ -106,25 +122,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MyEmotions" type="Node" parent="."]
-script = ExtResource( 8 )
-
-[node name="MyRelationships" type="Node" parent="."]
-script = ExtResource( 9 )
-__meta__ = {
-"_editor_description_": "first relationship is always with yourself"
-}
-
-[node name="feetCollision" type="CollisionShape2D" parent="."]
+[node name="feetCollision" type="CollisionShape2D" parent="NPCBody"]
 rotation = 1.5708
 scale = Vector2( 2.76329, 2.59531 )
 shape = SubResource( 8 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="NPCBody"]
 texture = ExtResource( 1 )
 offset = Vector2( 0, -240 )
-
-[node name="MyWork" type="Node" parent="."]
 
 [connection signal="renamed" from="." to="." method="_on_renamed"]
 [connection signal="tree_entered" from="." to="." method="_on_CharacterName_tree_entered"]

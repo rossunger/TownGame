@@ -20,7 +20,7 @@ var targetZoom = 2
 func _ready():
 	Game.connect("goInside", self, "goInside")
 	Game.connect("goOutside", self, "goOutside")
-	Game.connect("rideBike", self, "rideBike")
+	Game.connect("rideVehicle", self, "rideVehicle")
 	Game.connect("newPlayerStart", self, "setPlayerStart")
 	Game.player = self
 
@@ -70,7 +70,7 @@ func doMovement():
 	else:
 		targetZoom = 2			
 
-func goOutside():		
+func goOutside(data):		
 	if lastOutsidePlayerPosition:
 		set_deferred("position", lastOutsidePlayerPosition)
 	else:
@@ -89,18 +89,21 @@ func setPlayerStart(newPosition):
 		lastOutsidePlayerPosition = newPosition
 	position = newPosition
 
-func rideBike(bike):	
-	if bike && not currentVehicle:
-		bike.bike.get_parent().remove_child(bike.bike)
-		add_child(bike.bike)
-		bike.bike.position = Vector2(0,0)
-		speed = Enums.PlayerSpeed.Biking
-		currentVehicle = bike.bike
+func rideVehicle(data):	
+	if data && not currentVehicle:
+		data.vehicle.get_parent().remove_child(data.vehicle)
+		add_child(data.vehicle)		
+		data.vehicle.position = Vector2(0,0)
+		if data.vehicle.vehicleType == Enums.VehicleType.Bike:
+			speed = Enums.PlayerSpeed.Biking
+		if data.vehicle.vehicleType == Enums.VehicleType.Car:
+			speed = Enums.PlayerSpeed.Car
+		currentVehicle = data.vehicle
 		
 func exitVehicle():
 	remove_child(currentVehicle)
 	Game.CurrentNeighbourhood.add_child(currentVehicle)	
-	currentVehicle.position = position
+	currentVehicle.position = position	
 	currentVehicle = null
 	speed = Enums.PlayerSpeed.Walking
 					

@@ -1,7 +1,7 @@
 extends Node
 signal goInside
 signal goOutside
-signal rideBike
+signal rideVehicle
 signal playerMoved
 signal newPlayerStart
 signal doInteraction
@@ -12,6 +12,7 @@ signal SaveGame
 signal LoadGame
 
 var NPCManager: Node2D
+var ObjectManager : Node2D
 var player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291

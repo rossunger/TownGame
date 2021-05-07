@@ -1,7 +1,8 @@
-extends Node2D
+extends BaseObject
 
 export var rideable = true
 var isBeingRidden = false
+export (Enums.VehicleType) var vehicleType
 
 func _ready():
 	$AnimationPlayer.play("ride")	
@@ -30,5 +31,5 @@ func onRideMeAreaExited(area):
 
 func interact():	
 	if not isBeingRidden:
-		Game.emit_signal("rideBike", {"bike": self})	
+		Game.emit_signal("rideVehicle", {"vehicle": self})	
 		remove_from_group("interactable")

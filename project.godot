@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://NPCs/AI/Action.gd"
 }, {
+"base": "Node2D",
+"class": "BaseObject",
+"language": "GDScript",
+"path": "res://Objects/BaseObject.gd"
+}, {
 "base": "Node",
 "class": "Brain",
 "language": "GDScript",
@@ -84,10 +89,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://NPCs/NPCData/MyRelationships.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Node",
 "class": "NPC",
 "language": "GDScript",
 "path": "res://NPCs/NPC.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "NPCBody",
+"language": "GDScript",
+"path": "res://NPCs/NPCBody.gd"
 }, {
 "base": "Node2D",
 "class": "Neighbourhood",
@@ -133,6 +143,7 @@ _global_script_class_icons={
 "AIKnowledgeBase": "",
 "AIKnowledgeItem": "",
 "Action": "",
+"BaseObject": "",
 "Brain": "",
 "CameraPreset": "",
 "Consideration": "",
@@ -146,6 +157,7 @@ _global_script_class_icons={
 "MyEmotions": "",
 "MyRelationships": "",
 "NPC": "",
+"NPCBody": "",
 "Neighbourhood": "",
 "OutsideHouse": "",
 "Player": "",

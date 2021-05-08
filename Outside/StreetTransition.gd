@@ -1,16 +1,18 @@
 tool
 extends Area2D
 
-export (NodePath) var northSt
-export (NodePath) var southSt
+export (String) var northSt
+export (String) var southSt
 
 func _on_Area2D_body_exited(body):		
-	if body.get("player")!=null:					
-		if northSt:						
-			if body.global_position.y < global_position.y:					
-				get_node("../..").LoadStreet(get_node(northSt))
-			else:
-				get_node("../..").LoadStreet(get_node(southSt))
+	var theStreet
+	if body.global_position.y < global_position.y:
+		theStreet = northSt
+	else:
+		theStreet = southSt	
+	body.parent.bodyStreetOrRoom = theStreet	
+	if body.get("player")!=null:	
+		Game.emit_signal("goOutside", {"street": theStreet})						
 
 func _get_configuration_warning():
 	var warning = ""

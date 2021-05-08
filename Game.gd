@@ -13,12 +13,12 @@ signal LoadGame
 
 var NPCManager: Node2D
 var ObjectManager : Node2D
-var player
+var player : Player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291
-var CurrentNeighbourhood
-var CurrentStreetOrRoom
-var lastStreet
+var CurrentNeighbourhood #the instance of the scene
+var CurrentStreetOrRoom #the instance of the room or scene
+var lastStreet #the nodepath to the last street we were on, relative to the neighbourhood
 var InsideHouses: Dictionary = {}
 
 var interactables = []
@@ -29,10 +29,6 @@ export(PackedScene) var PauseMenuScene
 func setPaused(paused=true):	
 	isPaused = paused
 	emit_signal("setPaused", paused)	
-
-func setPlayerPosition(newPosition):
-	pass
-	#player.position = newPosition
 
 func setPlayerTargetAction(action):
 	player.targetAction = action

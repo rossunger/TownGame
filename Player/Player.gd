@@ -102,12 +102,12 @@ func goInside(data):
 func setPlayerStart(newPosition):
 	if !lastOutsidePlayerPosition:
 		lastOutsidePlayerPosition = newPosition
-	position = newPosition
+	bodyGlobalPosition = lastOutsidePlayerPosition
 
 func setCharacter(newCharacter):
 	character = newCharacter
 	position = newCharacter.position
-	Game.emit_signal("goOutside", {"neighbourhood": newCharacter.bodyNeighbourhood, "street": newCharacter.bodyStreet})
+	Game.emit_signal("goOutside", {"neighbourhood": newCharacter.bodyNeighbourhood, "street": newCharacter.bodyStreetOrRoom})
 	if newCharacter.bodyInside:
 		Game.emit_signal("goInside", {"insideHouse": newCharacter.bodyInside})
 

@@ -5,10 +5,10 @@
 [ext_resource path="res://Player/PlayerBody.gd" type="Script" id=3]
 [ext_resource path="res://Player/Player.gd" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 100 )
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=3]
 particles_animation = true
@@ -94,7 +94,7 @@ tracks/1/keys = {
 "values": [  ]
 }
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=11]
 radius = 50.0
 height = 100.0
 
@@ -117,16 +117,15 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/fullBodyArea"]
 position = Vector2( -2.54443, -97.812 )
-shape = SubResource( 11 )
+shape = SubResource( 1 )
 
 [node name="feetCollision" type="CollisionShape2D" parent="PlayerBody"]
 rotation = 1.5708
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="girl1" type="Sprite" parent="PlayerBody"]
 position = Vector2( -1.97564, -98.308 )
 scale = Vector2( 0.405931, 0.405931 )
-z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Particles2D" type="Particles2D" parent="PlayerBody"]
@@ -161,7 +160,7 @@ collision_mask = 2
 
 [node name="NearbyCollisionShape2D" type="CollisionShape2D" parent="NearbyArea"]
 rotation = 1.5708
-shape = SubResource( 2 )
+shape = SubResource( 11 )
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 position = Vector2( 0, -93.928 )

@@ -10,7 +10,7 @@
 [ext_resource path="res://NPCs/fullBodyArea.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 300 )
+extents = Vector2( 2, 100 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 118, 90 )
@@ -41,7 +41,6 @@ position = Vector2( 283.936, -207.655 )
 texture = ExtResource( 5 )
 
 [node name="RideMeArea" type="Area2D" parent="BaseBody"]
-scale = Vector2( 0.25, 0.25 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody/RideMeArea"]
 rotation = 1.5708
@@ -75,6 +74,10 @@ script = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody/fullBodyArea"]
 position = Vector2( -0.484982, -90.4276 )
 shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody"]
+rotation = 1.5708
+shape = SubResource( 1 )
 
 [connection signal="area_entered" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaEntered"]
 [connection signal="area_exited" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaExited"]

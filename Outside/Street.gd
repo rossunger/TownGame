@@ -1,4 +1,4 @@
-extends Node2D
+extends YSort
 class_name Street
 export (NodePath) var Street2
 export (NodePath) var Street3

@@ -9,7 +9,7 @@ func _ready():
 			get_child(i).queue_free()
 
 func _process(delta):
-	var dist = abs(position.x - Game.player.position.x)
+	var dist = abs(global_position.x - Game.player.body.global_position.x)
 	if dist > 400:
 		modulate.a = 1 - 400 / dist
 	else:

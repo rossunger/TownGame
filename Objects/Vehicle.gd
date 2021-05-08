@@ -1,4 +1,5 @@
-extends BaseObject
+extends BaseBody
+class_name Vehicle
 
 export var rideable = true
 var isBeingRidden = false
@@ -10,26 +11,33 @@ func _ready():
 	
 func _physics_process(delta):
 	var parent = get_parent()
-	if parent is Player && parent.velocity.length() > 0:
+	if parent is PlayerBody && parent.velocity.length() > 0:
 		if parent.velocity.x > 0:
 			scale.x = 1
+			$InteractionHint.scale.x = 1
 		if parent.velocity.x < 0:
 			scale.x = -1		
+			$InteractionHint.scale.x = -1
 		$AnimationPlayer.playback_speed = 1
 	else:
 		$AnimationPlayer.playback_speed = 0
 
 func onRideMeAreaEntered(area):			
-	if rideable:
-		add_to_group("interactable")		
-		$RideMeLabel.visible = true
-	
+	if rideable && not isBeingRidden && area.get_parent() is Player:
+		Game.addInteractable(self)		
+		
 func onRideMeAreaExited(area):				
-	if rideable:
-		remove_from_group("interactable")
-		$RideMeLabel.visible = false	
+	if rideable && not isBeingRidden && area.get_parent() is Player:
+		Game.removeInteractable(self)
+		
 
 func interact():	
 	if not isBeingRidden:
-		Game.emit_signal("rideVehicle", {"vehicle": self})	
-		remove_from_group("interactable")
+		isBeingRidden = true	
+		Game.emit_signal("rideVehicle", {"vehicle": self})			
+		get_node("InteractionHint").visible = false
+		
+func endRiding():	
+	isBeingRidden = false	
+
+

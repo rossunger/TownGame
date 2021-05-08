@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://DebugOverlay.gd" type="Script" id=1]
 [ext_resource path="res://Timelines/Animations/test2.tres" type="Animation" id=2]
@@ -20,7 +20,6 @@
 [ext_resource path="res://Timelines/Camera/cameraShot.gd" type="Script" id=18]
 [ext_resource path="res://GlobalLighting.gd" type="Script" id=19]
 [ext_resource path="res://Objects/Bike.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Outside/Beaches.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Timelines/Animations/TESTING.tres" type="Animation" id=22]
 [ext_resource path="res://ObjectManager.gd" type="Script" id=23]
 
@@ -34,10 +33,8 @@ var InsideScene
 
 export(PackedScene) var StartingNeighbourhoodScene
 var CurrentNeighbourhoodScene
-var InsideHouses: Dictionary = {}
 
 var inside
-var lastStreet
 export (PackedScene) onready var PauseMenu = PauseMenu.instance()
 
 func _ready():				
@@ -66,10 +63,8 @@ func goInside(data = {}):
 		print(\"ERROR\")
 	#remove_child the neighbourhood, add_child the inside scene
 	$Outside.remove_child(Game.CurrentNeighbourhood)	
-	$Inside.add_child(InsideHouses[data.insideHouse])			
-	
-	#to do: set LastStreet
-	#lastStreet = .currentStreet									
+	$Inside.add_child(Game.InsideHouses[data.insideHouse])							
+	Game.lastStreet = Game.CurrentStreetOrRoom	
 
 #data can include: neighbourhood, street
 func goOutside(data = {}):		
@@ -80,7 +75,7 @@ func goOutside(data = {}):
 			child.queue_free()
 		for child in $Inside.get_children():
 			child.queue_free()		
-		InsideHouses.clear()
+		Game.InsideHouses.clear()
 		#and load the new neighbourhood...
 		Game.CurrentNeighbourhood = data.neighbourhood.instance()
 		$Outside.add_child(Game.CurrentNeighbourhood)
@@ -92,14 +87,18 @@ func goOutside(data = {}):
 					#check if it's a house, and if it's \"InsideScene\" parameter has been set
 					if house is OutsideHouse && house.InsideScene is PackedScene:
 						var i = house.InsideScene.instance()				
-						InsideHouses[house.InsideScene.get_path()] = i						
-						#print(InsideHouses.keys()[0])
+						Game.InsideHouses[house.InsideScene.get_path()] = i						
+												
 	#2. if same neighbourhood, remove_child on all the inside scenes, and add_child the neighbourhood to outside
 	else:
 		for child in $Inside.get_children():
 			$Inside.remove_child(child)
-		$Outside.add_child(Game.CurrentNeighbourhood)	
-	lastStreet = \"\"		
+		$Outside.add_child(Game.CurrentNeighbourhood)
+	if data.has(\"street\"):
+		Game.CurrentNeighbourhood.LoadStreet(data.street)
+	elif Game.lastStreet:
+		Game.CurrentNeighbourhood.LoadStreet(Game.lastStreet)
+	Game.lastStreet = \"\"		
 	
 func emit_goOutside(params):
 	Game.emit_signal(\"goOutside\", params)
@@ -157,59 +156,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ -6.979, -71.202 ]
-}
-
-[sub_resource type="Animation" id=3]
-length = 10.0
-tracks/0/type = "method"
-tracks/0/path = NodePath("../NPCManager/Jimmy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 6.5 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "sadness", 1.0, true ],
-"method": "set_emotion"
-} ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../NPCManager/Jimmy:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 2, 6.1, 7.1, 10 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 617.974, -183.628 ), Vector2( 570.097, -74.8523 ), Vector2( -91.5209, -69.8126 ), Vector2( -91.5209, -69.8126 ), Vector2( 570.097, -74.8523 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("../NPCManager/Abby:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 3, 3.6, 5.1, 7.6, 9.3, 9.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -332.619, -85 ), Vector2( -332.619, -85 ), Vector2( -332.619, -85 ), Vector2( -151.19, -72.4008 ), Vector2( -151.19, -72.4008 ), Vector2( -330.099, -82.4802 ), Vector2( -330.099, -82.4802 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("../NPCManager/Abby:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 3, 9.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -290,12 +236,15 @@ tracks/5/keys = {
 }
 
 [node name="GameRoot" type="Node2D"]
-position = Vector2( 111.091, 449.635 )
 script = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 StartingNeighbourhoodScene = ExtResource( 11 )
 PauseMenu = ExtResource( 15 )
 
 [node name="GlobalLighting" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 19 )
 
 [node name="Morning" type="Light2D" parent="GlobalLighting"]
@@ -399,7 +348,6 @@ anims/GoToMap = SubResource( 2 )
 
 [node name="Director" type="AnimationPlayer" parent="."]
 autoplay = "test2"
-anims/D1Q1 = SubResource( 3 )
 anims/TESTING = ExtResource( 22 )
 anims/TownCouncil1 = SubResource( 4 )
 anims/test2 = ExtResource( 2 )
@@ -420,7 +368,10 @@ target = NodePath("../../Player")
 [node name="NPCManager" parent="." instance=ExtResource( 9 )]
 
 [node name="Jimmy" parent="NPCManager" index="0"]
-position = Vector2( 120, 580 )
+position = Vector2( 0, 0 )
+
+[node name="Judith" parent="NPCManager" index="2"]
+position = Vector2( 0, 0 )
 
 [node name="Inside" type="Node2D" parent="."]
 script = ExtResource( 10 )
@@ -441,13 +392,15 @@ __meta__ = {
 [node name="DEBUG" type="Node2D" parent="."]
 script = ExtResource( 16 )
 
-[node name="Beaches" parent="DEBUG" instance=ExtResource( 21 )]
+[node name="Downtown" parent="DEBUG" instance=ExtResource( 11 )]
 
 [node name="ObjectManager" type="Node2D" parent="."]
 script = ExtResource( 23 )
 
 [node name="Bike" parent="ObjectManager" instance=ExtResource( 20 )]
 position = Vector2( 1260.4, 546.066 )
+
+[node name="Node2D" type="Node2D" parent="."]
 
 [connection signal="pressed" from="DebugOverlay/DEBUG/NextTimeOfDay" to="DebugOverlay" method="_on_goInside_pressed"]
 [connection signal="pressed" from="DebugOverlay/DEBUG/goOutside" to="DebugOverlay" method="_on_goOutside_pressed"]
@@ -456,4 +409,3 @@ position = Vector2( 1260.4, 546.066 )
 [editable path="UI"]
 [editable path="MouseExample"]
 [editable path="NPCManager"]
-[editable path="DEBUG/Beaches"]

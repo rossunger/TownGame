@@ -1,22 +1,17 @@
 tool
-extends Node
+extends BaseObject
 class_name NPC
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
 onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork()
 
 var destination: Vector2
 var working = false
-var body
-var bodyNeighbourhood #the neighbourhood that the body is in
-var bodyStreet #the street that the body is on
-var bodyInside #the house the body is inside of
 
 func _ready():	
 	for child in get_children():
 		if child is Brain:			
-			child.connect("newAction", self, "processNewAction")
-	Game.connect("goOutside", self, "processSceneChange")
-
+			child.connect("newAction", self, "processNewAction")	
+	
 func processNewAction(data = []):	
 	print("processing new action")
 	if data[0] == "wait":
@@ -45,7 +40,9 @@ func stopAndWait():
 	#target location = null
 
 func goToLocation(location):
-	print("im going to location: " + location)
+	if location is Vector2:
+		destination = location
+	print("im going to location: " + str(location))
 
 func _get_configuration_warning():
 	var warning:= PoolStringArray()
@@ -58,42 +55,6 @@ func _get_configuration_warning():
 		warning.append("%s is missing a Brain" % name)
 	return warning.join("/n")
 
-func processSceneChange(data):
-	if data.has("neighbourhood"):
-		if data.neighbourhood == bodyNeighbourhood:
-			returnToScene()
-		elif not has_node(name):
-			leaveScene()
-	if data.has("insideHouse"):
-		if data.insideHouse == bodyNeighbourhood:
-			returnToScene()
-		elif not has_node(name):
-			leaveScene()
-			
-func leaveScene():
-	#bodyParent = 
-	print(body.get_parent().get_path())
-	body.get_parent().remove_child(body)
-	add_child(body)	
-	body.set_process(false)
-	
-
-func returnToScene():
-	#this happens when we load a new neighbourhood, or a new inside scene...
-	body.set_process(true)
-	remove_child(body)
-	var st = Game.CurrentNeighbourhood.get_node(bodyStreet)
-	st.add_child(body)		
-
-func teleport(newNeighbourhood, newStreet = null, newInside = null):
-	if newNeighbourhood:
-		bodyNeighbourhood = newNeighbourhood		
-	if newStreet:
-		bodyStreet = newStreet
-	if newInside:
-		bodyInside = newInside
-	if load(Game.CurrentNeighbourhood.filename) == newNeighbourhood:
-		returnToScene()		
 
 """ List of INSTRUCTIONS an ACTION can give a CHARACTER
 Wait

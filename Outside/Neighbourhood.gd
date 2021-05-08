@@ -23,7 +23,8 @@ func doParallax(deltaX, deltaY):
 	
 func LoadStreet(street):
 	#set the actual variable
-	currentStreet = street					
+	currentStreet = street	
+	Game.CurrentStreetOrRoom = street				
 	#go through each street...
 	for st in get_children():		
 		#if it's a street, then set it's modulation color based on it's Z property

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends BaseObject
 class_name Player
 
 export (int) var speed = 300
@@ -8,12 +8,15 @@ export(NodePath) var character; #the character we are following
 
 var currentVehicle = null
 
-var velocity = Vector2()
-var lastPosition: Vector2 #track this for the parallax effect... pass this info to "Outside" node.
+var velocity: Vector2
+var lastPosition: Vector2
 
 var lastOutsidePlayerPosition  #for when you go inside
 
-onready var Cam = get_node("PlayerCamera");
+var Cam
+var CamRemoteTransform
+var NearbyArea
+var NearbyAreaRemoteTransform
 var zoom = 2
 var targetZoom = 2
 
@@ -22,7 +25,15 @@ func _ready():
 	Game.connect("goOutside", self, "goOutside")
 	Game.connect("rideVehicle", self, "rideVehicle")
 	Game.connect("newPlayerStart", self, "setPlayerStart")
-	Game.player = self
+	Game.player = self	
+	Cam = $PlayerCamera
+	Cam.global_position = body.global_position
+	CamRemoteTransform = body.get_node("CamRemoteTransform2D")
+	CamRemoteTransform.remote_path = Cam.get_path()
+	NearbyArea = $NearbyArea
+	NearbyArea.global_position = body.global_position
+	NearbyAreaRemoteTransform = body.get_node("NearbyAreaRemoteTransform2D")
+	NearbyAreaRemoteTransform.remote_path = NearbyArea.get_path()
 
 func _input(ev):
 	if Input.is_action_pressed("ui_cancel") && not ev.is_echo():
@@ -32,6 +43,20 @@ func _input(ev):
 			Game.doInteraction()
 		else:
 			exitVehicle()
+			
+func _physics_process(delta):	
+	if !Cam:
+		return
+	get_input();
+	velocity = body.move_and_slide(velocity);
+	if (abs(zoom - targetZoom) >= 0.01):
+		zoom = lerp(zoom, targetZoom, 0.005);
+	else: zoom = targetZoom;
+	Cam.zoom.x = zoom;
+	Cam.zoom.y = zoom;
+	if lastPosition != position:
+		Game.emit_signal("playerMoved", lastPosition.x-position.x, lastPosition.y-position.y)
+		lastPosition = position		
 
 func get_input():	
 	if Game.isPaused:
@@ -42,17 +67,6 @@ func get_input():
 	#if Input.is_action_pressed("ui_end"):
 		#Map.doShow(false)		
 
-func _physics_process(delta):	
-	get_input();
-	velocity = move_and_slide(velocity);
-	if (abs(zoom - targetZoom) >= 0.01):
-		zoom = lerp(zoom, targetZoom, 0.005);
-	else: zoom = targetZoom;
-	Cam.zoom.x = zoom;
-	Cam.zoom.y = zoom;
-	if lastPosition != position:
-		Game.emit_signal("playerMoved", lastPosition.x-position.x, lastPosition.y-position.y)
-		lastPosition = position		
 
 func doMovement():
 	velocity = Vector2()	
@@ -70,24 +84,32 @@ func doMovement():
 	else:
 		targetZoom = 2			
 
-func goOutside(data):		
+func goOutside(data):			
 	if lastOutsidePlayerPosition:
-		set_deferred("position", lastOutsidePlayerPosition)
+		set_deferred("global_position", lastOutsidePlayerPosition)
 	else:
 		pass
-func goInside(data = {}):
-	lastOutsidePlayerPosition = position
-	var s = load(data.insideHouse).get_state()
-	for i in s.get_node_count():
-		if s.get_node_name(i) == "PlayerStart":
-			for j in s.get_node_property_count(i):
-				if s.get_node_property_name(i, j) == "position":
-					position = s.get_node_property_value(i, j)
 
+func goInside(data):
+	lastOutsidePlayerPosition = body.global_position
+	remove_child(body)
+	Game.InsideHouses[data.insideHouse].get_node(Game.InsideHouses[data.insideHouse].firstRoom).add_child(body)	
+	body.global_position = Game.InsideHouses[data.insideHouse].get_node("PlayerStart").global_position
+	
+	#get the firstRoom and add player's body as a child
+	
+	
 func setPlayerStart(newPosition):
 	if !lastOutsidePlayerPosition:
 		lastOutsidePlayerPosition = newPosition
 	position = newPosition
+
+func setCharacter(newCharacter):
+	character = newCharacter
+	position = newCharacter.position
+	Game.emit_signal("goOutside", {"neighbourhood": newCharacter.bodyNeighbourhood, "street": newCharacter.bodyStreet})
+	if newCharacter.bodyInside:
+		Game.emit_signal("goInside", {"insideHouse": newCharacter.bodyInside})
 
 func rideVehicle(data):	
 	if data && not currentVehicle:
@@ -100,10 +122,11 @@ func rideVehicle(data):
 			speed = Enums.PlayerSpeed.Car
 		currentVehicle = data.vehicle
 		
-func exitVehicle():
+func exitVehicle():	
 	remove_child(currentVehicle)
-	Game.CurrentNeighbourhood.add_child(currentVehicle)	
-	currentVehicle.position = position	
+	Game.CurrentStreetOrRoom.add_child(currentVehicle)	
+	currentVehicle.endRiding()
+	currentVehicle.global_position = global_position	
 	currentVehicle = null
 	speed = Enums.PlayerSpeed.Walking
 					

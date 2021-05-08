@@ -20,13 +20,27 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
-"args": [ ExtResource( 1 ), "SecondSt", null ],
+"args": [ ExtResource( 1 ), Vector2( 1300, 450 ), "MainSt", null ],
 "method": "teleport"
 }, {
-"args": [ Vector2( 300, 600 ) ],
+"args": [ Vector2( 1300, 600 ) ],
 "method": "goToLocation"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("ObjectManager/Bike")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ ExtResource( 1 ), Vector2( 1300, 550 ), "MainSt", null ],
+"method": "teleport"
 } ]
 }

@@ -9,7 +9,7 @@ var currentRoom
 onready var tween = get_parent().get_parent().get_node("Tween")
 
 func _on_Area2D_body_exited(body):	
-	if body is Player:					
+	if body.get("player")!=null:					
 		modulate.a = 1
 		var r:NodePath
 		var c:NodePath
@@ -31,8 +31,11 @@ func _on_Area2D_body_exited(body):
 		#fade in new room if it's hidden
 		if get_node(r).modulate.a != 1:
 			tween.interpolate_property(get_node(r), "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			
+			Game.CurrentStreetOrRoom = get_node(r)			
 		#fade out current room, unless we're going south, in which case it's not in the way
 		if !r == southRoom:
 			tween.interpolate_property(get_node(c), "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)
+		#body.get_parent().remove_child(body)
+		#get_node(r).add_child(body)			
 		tween.start()
 

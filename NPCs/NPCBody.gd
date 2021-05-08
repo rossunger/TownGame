@@ -1,11 +1,11 @@
-extends KinematicBody2D
+extends BaseBody
 class_name NPCBody
-var parent
+
 func _ready():
-	parent = get_parent()
-	name = parent.name
-	parent.body = self
 	doRename()
+
+func doRename():	
+	$NameLabel.text = name	
 	
 func _physics_process(delta):	
 	if not Engine.editor_hint:
@@ -15,7 +15,4 @@ func _physics_process(delta):
 				parent.destination = position
 			else:
 				position += (parent.destination - position).normalized() *2
-			#replace above code with pathfinding...
-
-func doRename():	
-	$NameLabel.text = name	
+			#replace above code with pathfinding...	

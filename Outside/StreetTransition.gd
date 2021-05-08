@@ -5,9 +5,9 @@ export (NodePath) var northSt
 export (NodePath) var southSt
 
 func _on_Area2D_body_exited(body):		
-	if body is Player:					
+	if body.get("player")!=null:					
 		if northSt:						
-			if body.position.y < position.y:					
+			if body.global_position.y < global_position.y:					
 				get_node("../..").LoadStreet(get_node(northSt))
 			else:
 				get_node("../..").LoadStreet(get_node(southSt))

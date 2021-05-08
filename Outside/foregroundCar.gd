@@ -10,9 +10,9 @@ func _ready():
 	get_node("Sprite").texture = carSprites[rng.randi_range(0, carSprites.size()-1)]
 	position.y = get_parent().position.y
 	if left:
-		position.x = Game.player.position.x + 1500
+		global_position.x = Game.player.body.global_position.x + 1500
 	else:
-		position.x = Game.player.position.x - 1500
+		global_position.x = Game.player.body.global_position.x - 1500
 		scale.x = -1
 
 func _process(delta):
@@ -21,5 +21,5 @@ func _process(delta):
 	else:
 		position.x += CAR_SPEED
 	
-	if abs(Game.player.position.x - position.x) > MAX_DISTANCE_FROM_PLAYER:
+	if abs(Game.player.body.global_position.x - global_position.x) > MAX_DISTANCE_FROM_PLAYER:
 		queue_free()

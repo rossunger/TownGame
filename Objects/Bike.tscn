@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Objects/Vehicle.gd" type="Script" id=2]
@@ -6,47 +6,53 @@
 [ext_resource path="res://Objects/BikeWheel1.png" type="Texture" id=4]
 [ext_resource path="res://Objects/BikeWheel2.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Animations/ride.tres" type="Animation" id=6]
+[ext_resource path="res://Objects/BaseObject.gd" type="Script" id=7]
+[ext_resource path="res://NPCs/fullBodyArea.gd" type="Script" id=8]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 200.0
-height = 700.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 118, 90 )
 
 [node name="Bike" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="BaseBody" type="KinematicBody2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="Frame" type="Sprite" parent="."]
+[node name="Frame" type="Sprite" parent="BaseBody"]
 position = Vector2( 0, -89.135 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[node name="FrontWheel" type="Node2D" parent="Frame"]
+[node name="FrontWheel" type="Node2D" parent="BaseBody/Frame"]
 position = Vector2( 288.174, 211.893 )
 
-[node name="FrontWheel" type="Sprite" parent="Frame/FrontWheel"]
+[node name="FrontWheel" type="Sprite" parent="BaseBody/Frame/FrontWheel"]
 position = Vector2( -283.936, -220.368 )
 texture = ExtResource( 4 )
 
-[node name="BackWheel" type="Node2D" parent="Frame"]
+[node name="BackWheel" type="Node2D" parent="BaseBody/Frame"]
 position = Vector2( -292.412, 211.893 )
 
-[node name="BackWheel" type="Sprite" parent="Frame/BackWheel"]
+[node name="BackWheel" type="Sprite" parent="BaseBody/Frame/BackWheel"]
 position = Vector2( 283.936, -207.655 )
 texture = ExtResource( 5 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="RideMeArea" type="Area2D" parent="BaseBody"]
 scale = Vector2( 0.25, 0.25 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody/RideMeArea"]
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="RideMeLabel" type="Node2D" parent="."]
-visible = false
+[node name="InteractionHint" type="Node2D" parent="BaseBody"]
 light_mask = 2
 position = Vector2( -1.13153, -86.7122 )
 z_index = 1
 
-[node name="Label" type="Label" parent="RideMeLabel"]
+[node name="Label" type="Label" parent="BaseBody/InteractionHint"]
 margin_left = -52.2464
 margin_top = -31.3598
 margin_right = 138.753
@@ -57,8 +63,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseBody"]
 anims/ride = ExtResource( 6 )
 
-[connection signal="area_entered" from="Area2D" to="." method="onRideMeAreaEntered"]
-[connection signal="area_exited" from="Area2D" to="." method="onRideMeAreaExited"]
+[node name="fullBodyArea" type="Area2D" parent="BaseBody"]
+position = Vector2( 1.05946, 1.05946 )
+collision_layer = 8
+collision_mask = 8
+script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody/fullBodyArea"]
+position = Vector2( -0.484982, -90.4276 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaEntered"]
+[connection signal="area_exited" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaExited"]

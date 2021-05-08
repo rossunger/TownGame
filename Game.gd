@@ -17,6 +17,11 @@ var player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291
 var CurrentNeighbourhood
+var CurrentStreetOrRoom
+var lastStreet
+var InsideHouses: Dictionary = {}
+
+var interactables = []
 
 var isPaused = false
 export(PackedScene) var PauseMenuScene 
@@ -32,9 +37,38 @@ func setPlayerPosition(newPosition):
 func setPlayerTargetAction(action):
 	player.targetAction = action
 
-func doInteraction():	
-	for i in get_tree().get_nodes_in_group("interactable"):
-		i.interact()
-	#1. decide which one has priority
-	#2. 
+func addInteractable(item):
+	if !interactables.has(item):
+		interactables.append(item)
+	interactables.sort_custom(self, "sortInteractablesByPriority")
+	for i in interactables:
+		i.get_node("InteractionHint").visible = false	
+	if not player.currentVehicle:
+		interactables[0].get_node("InteractionHint").visible = true	
 	
+func removeInteractable(item):
+	if interactables.has(item):
+		item.get_node("InteractionHint").visible = false
+		interactables.erase(item)
+		if interactables.size()>0 && not player.currentVehicle:
+			interactables[0].get_node("InteractionHint").visible = true
+	
+func doInteraction():		
+	if interactables.size() > 0:		
+		interactables[0].interact()
+
+func sortInteractablesByPriority(a, b):
+	if a.get_parent() is Player && not b.get_parent() is Player:
+		return true
+	elif a is Vehicle && not b is Vehicle:
+		return true
+	elif abs((a.global_position - player.global_position).length()) < abs((b.global_position - player.global_position).length()):
+		return true
+	return false
+
+	
+	#1. decide which one has priority
+	#	- vehicles first
+	#	- then items you're holding?
+	#	- then 
+	#2. interact it	

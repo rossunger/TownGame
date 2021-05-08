@@ -12,5 +12,6 @@ func _ready():
 			room.modulate.a = 1
 
 func _on_Area2D_body_entered(body):
-	if body is Player:		
-		Game.emit_signal("goOutside", {})
+	if body.get("player")!=null:		
+		body.player.bodyStreet = Game.lastStreet	
+		Game.emit_signal("goOutside", {"neighbourhood": load(Game.CurrentNeighbourhood.filename), "street": Game.lastStreet})

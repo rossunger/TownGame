@@ -15,12 +15,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="GoInsideLabel" type="Node2D" parent="."]
+[node name="InteractionHint" type="Node2D" parent="."]
 visible = false
 light_mask = 2
 z_index = 1
 
-[node name="Label" type="Label" parent="GoInsideLabel"]
+[node name="Label" type="Label" parent="InteractionHint"]
 margin_left = -85.0045
 margin_top = -283.344
 margin_right = 105.995

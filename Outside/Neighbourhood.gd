@@ -1,8 +1,7 @@
 extends Node2D
 class_name Neighbourhood
 var currentStreet	
-onready var tween = get_node("Tween")
-export(NodePath) onready var firstStreet = get_node(firstStreet)
+export(String) onready var firstStreet
 
 func _ready():		
 	Game.connect("playerMoved", self, "doParallax")			
@@ -23,16 +22,13 @@ func doParallax(deltaX, deltaY):
 	
 func LoadStreet(street):
 	#set the actual variable
-	currentStreet = street	
-	Game.CurrentStreetOrRoom = street				
+	currentStreet = get_node(street)
 	#go through each street...
 	for st in get_children():		
-		#if it's a street, then set it's modulation color based on it's Z property
-		var j = st.name
+		#if it's a street, then set it's modulation color based on it's Z property		
 		#if we don't have a current street, start by hiding everyone.
 		if !currentStreet && st is Street && st.modulate.a != 0:			
-			tween.interpolate_property(street, "modulate", street.modulate, Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)
-			tween.start()			
+			pass
 		elif st is Street && currentStreet is Street:			
 			if st.z <= currentStreet.z:				
 				var s = 1
@@ -40,9 +36,10 @@ func LoadStreet(street):
 					s = 0.8
 				if currentStreet.z - st.z == 2:
 					s = 0.6
-				tween.interpolate_property(st, "modulate", st.modulate, Color(s,s,s,1), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)								
+				Game.tween.interpolate_property(st, "modulate", st.modulate, Color(s,s,s,1), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)								
 			else:				
 				if currentStreet != st:
-					tween.interpolate_property(st, "modulate", st.modulate, Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)																		
-			tween.interpolate_property(street, "position", street.position, street.startPosition, 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			
-	tween.start()		
+					Game.tween.interpolate_property(st, "modulate", st.modulate, Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)																		
+			Game.tween.interpolate_property(currentStreet, "position", currentStreet.position, currentStreet.startPosition, 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			
+		#Game.player.body.get_parent().remove_child(Game.player.body)
+	Game.tween.start()		

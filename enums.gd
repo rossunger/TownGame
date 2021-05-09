@@ -50,3 +50,5 @@ enum HomeOwnership { homeOwners, renters, homeless }
 enum PlayerSpeed {Walking=300, Running=450, Biking=600, Car=800}
 
 enum VehicleType {Bike, Car}
+
+enum Layers {OutsideSolid = 0, OutsideInteractable = 1, OutsideArea = 2, InsideSolid = 5, InsideInteractable = 6, InsideArea=7}

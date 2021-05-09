@@ -1,12 +1,12 @@
 tool
 extends Node2D
 class_name OutsideHouse
-export (Resource) var Household #who lives here
-export (PackedScene) var InsideScene #scene to load when inside
+export (Resource) var household #who lives here
+export (String) var Address
 	
 func _ready():
-	if Household:
-		$HouseholdLabel.text = Household.name + " Family"
+	if household:
+		$HouseholdLabel.text = household.name + " Family"
 	
 func _get_configuration_warning():
 	var warning = ""
@@ -17,10 +17,10 @@ func _get_configuration_warning():
 			sprite = child
 		if child is Area2D:
 			area = child
-	if !sprite:
+	if not sprite:
 		warning += ("Please add a Sprite for this house \n")
-	if !area:
+	if not area:
 		warning += ("Please add a 'GoInsideArea' for this house \n")
-	if !InsideScene:
-		warning += ("Please set the InsideScene property \n")
+	if not Address:
+		warning += ("Please add an Address \n")
 	return warning

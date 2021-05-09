@@ -1,41 +1,38 @@
-extends Node2D
+extends Area2D
 
-export (NodePath) var northRoom
-export (NodePath) var southRoom
-export (NodePath) var eastRoom
-export (NodePath) var westRoom
+export (String) var northRoom
+export (String) var southRoom
+export (String) var eastRoom
+export (String) var westRoom
 
-var currentRoom
-onready var tween = get_parent().get_parent().get_node("Tween")
-
-func _on_Area2D_body_exited(body):	
-	if body.get("player")!=null:					
-		modulate.a = 1
-		var r:NodePath
-		var c:NodePath
-		if northRoom:
-			if body.position.y < position.y:				
-				r = northRoom
-				c = southRoom				
-			else:
-				r = southRoom
-				c = northRoom				
-		#TO DO - test the west/east transitions... we might need to flip the > sign
-		if westRoom:
-			if body.position.x > position.x:	
-				r = eastRoom
-				c = westRoom				
-			else:
-				r = westRoom
-				c = eastRoom				
-		#fade in new room if it's hidden
-		if get_node(r).modulate.a != 1:
-			tween.interpolate_property(get_node(r), "modulate", Color(1,1,1,0), Color(1,1,1,1), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			
-			Game.CurrentStreetOrRoom = get_node(r)			
-		#fade out current room, unless we're going south, in which case it's not in the way
-		if !r == southRoom:
-			tween.interpolate_property(get_node(c), "modulate", Color(1,1,1,1), Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)
-		#body.get_parent().remove_child(body)
-		#get_node(r).add_child(body)			
-		tween.start()
-
+func onBodyExited(body):
+	if not body is BaseBody:
+		return	
+	var nextRoomName:String
+	var currentRoomName:String
+	if northRoom:
+		if body.global_position.y < global_position.y:				
+			nextRoomName = northRoom
+			currentRoomName = southRoom				
+		else:
+			nextRoomName = southRoom
+			currentRoomName = northRoom				
+	#TO DO - test the west/east transitions... we might need to flip the > sign
+	if westRoom:
+		if body.global_position.x > global_position.x:	
+			nextRoomName = eastRoom
+			currentRoomName = westRoom				
+		else:
+			nextRoomName = westRoom
+			currentRoomName = eastRoom					
+	
+	var nextRoom = get_owner().get_node("Rooms/" + nextRoomName)
+	var currentRoom = get_owner().get_node("Rooms/" + currentRoomName)
+		
+	#if it's the player, then do the room transition			
+	if body.get("player")!=null:									
+		get_owner().doRoomTransition(currentRoom, nextRoom, nextRoom.name == southRoom)
+	
+	#move body to the new room
+	body.parent.setRoom(nextRoomName)	
+	

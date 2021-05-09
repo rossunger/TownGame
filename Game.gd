@@ -1,30 +1,43 @@
 extends Node
-signal goInside
-signal goOutside
+
+signal goInside #for when player goes into a house
+signal goOutside #for when player changes Neighbourhoods
 signal rideVehicle
-signal playerMoved
+signal playerMoved #for parallax effect of streets
 signal newPlayerStart
-signal doInteraction
+signal doInteraction 
 signal setPaused
 signal setTimeOfDay
 signal setDayOfTheYear
 signal SaveGame
 signal LoadGame
 
+var world
+var outside
+var inside
+
 var NPCManager: Node2D
 var ObjectManager : Node2D
 var player : Player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291
-var CurrentNeighbourhood #the instance of the scene
-var CurrentStreetOrRoom #the instance of the room or scene
 var lastStreet #the nodepath to the last street we were on, relative to the neighbourhood
 var InsideHouses: Dictionary = {}
 
 var interactables = []
 
+onready var tween = Tween.new()
+
 var isPaused = false
 export(PackedScene) var PauseMenuScene 
+
+func _ready():
+	world = get_node("/root/GameRoot/World")
+	world.add_child(tween)	
+	player = get_node("/root/GameRoot/Player")
+	tween.connect("tween_all_completed", player, "tweenDone")
+	outside = world.get_node("Outside")
+	inside = world.get_node("Inside")
 
 func setPaused(paused=true):	
 	isPaused = paused
@@ -62,9 +75,32 @@ func sortInteractablesByPriority(a, b):
 		return true
 	return false
 
+#####################
+# UTILITY FUNCTIONS #
+#####################
+func getHouse(houseName):
+	return inside.get_node(houseName)
+
+func getRoom(houseName, roomName):	
+	return inside.get_node(houseName + "/Rooms/" + roomName)
+
+func getNeighbourhood(neighbourhoodName):
+	return outside.get_node(neighbourhoodName)
+
+func getStreet(neighbourhoodName, streetName):
+	return outside.get_node(neighbourhoodName + "/" + streetName)
+
+func changeStreetOrRoom(data={}):
+	if data.has("street"):
+		getNeighbourhood(player.bodyNeighbourhood).LoadStreet(data.street)
 	
-	#1. decide which one has priority
-	#	- vehicles first
-	#	- then items you're holding?
-	#	- then 
-	#2. interact it	
+func goInside(houseName, roomName):	
+	inside.visible = true
+	getHouse(houseName).visible = true	
+	outside.visible = false
+	
+	
+func goOutside(neighbourhoodName, streetName):
+	getHouse(player.bodyHouse).visible = false	
+	inside.visible = false
+	outside.visible = true

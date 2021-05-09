@@ -1,4 +1,4 @@
-tool
+#tool
 extends BaseObject
 class_name NPC
 export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork

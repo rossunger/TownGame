@@ -15,4 +15,4 @@ func setDayOfTheYear():
 	get_node("DateOfTheYearLabel").text = Enums.getDateOfTheYear(Game.dayOfTheYear)
 
 func setLocation(data):
-	$Location.text = Game.CurrentNeighbourhood.name
+	$Location.text = Game.player.bodyNeighbourhood

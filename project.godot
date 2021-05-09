@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://NPCs/Relationship.gd"
 }, {
-"base": "Node2D",
+"base": "YSort",
 "class": "Room",
 "language": "GDScript",
 "path": "res://Inside/Room.gd"
@@ -138,6 +138,11 @@ _global_script_classes=[ {
 "class": "Street",
 "language": "GDScript",
 "path": "res://Outside/Street.gd"
+}, {
+"base": "Area2D",
+"class": "StreetTransition",
+"language": "GDScript",
+"path": "res://Outside/StreetTransition.gd"
 }, {
 "base": "BaseBody",
 "class": "Vehicle",
@@ -149,10 +154,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Timelines/Camera/cameraShot.gd"
 }, {
-"base": "Resource",
+"base": "Area2D",
 "class": "goToNeighbourhood",
 "language": "GDScript",
-"path": "res://Outside/goToNeighbourhoodResource.gd"
+"path": "res://Outside/goToNeighbourhood.gd"
 }, {
 "base": "Resource",
 "class": "job",
@@ -186,6 +191,7 @@ _global_script_class_icons={
 "Relationship": "",
 "Room": "",
 "Street": "",
+"StreetTransition": "",
 "Vehicle": "",
 "cameraShot": "",
 "goToNeighbourhood": "",
@@ -215,6 +221,15 @@ enabled=PoolStringArray( "res://addons/director2D/plugin.cfg" )
 [global]
 
 batch=false
+
+[layer_names]
+
+2d_physics/layer_1="OutsideSolid"
+2d_physics/layer_2="OutsideInteractable"
+2d_physics/layer_3="OutisdeArea"
+2d_physics/layer_6="InsideSolid"
+2d_physics/layer_7="InsideInteractable"
+2d_physics/layer_8="InsideArea"
 
 [rendering]
 

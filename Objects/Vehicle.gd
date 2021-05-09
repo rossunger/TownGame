@@ -9,17 +9,17 @@ func _ready():
 	$AnimationPlayer.play("ride")	
 	$AnimationPlayer.playback_speed = 0	
 	
-func _physics_process(delta):
-	var parent = get_parent()
-	if parent is PlayerBody && parent.velocity.length() > 0:
-		if parent.velocity.x > 0:
+func doMovement(velocity):	
+	print(velocity.length())	
+	if velocity.length() > 0:
+		if velocity.x > 0:
 			scale.x = 1
 			$InteractionHint.scale.x = 1
-		if parent.velocity.x < 0:
+		if velocity.x < 0:
 			scale.x = -1		
 			$InteractionHint.scale.x = -1
 		$AnimationPlayer.playback_speed = 1
-	else:
+	else:	
 		$AnimationPlayer.playback_speed = 0
 
 func onRideMeAreaEntered(area):			
@@ -33,11 +33,15 @@ func onRideMeAreaExited(area):
 
 func interact():	
 	if not isBeingRidden:
-		isBeingRidden = true	
-		Game.emit_signal("rideVehicle", {"vehicle": self})			
+		isBeingRidden = true			
+		Game.emit_signal("rideVehicle", self)			
 		get_node("InteractionHint").visible = false
 		
-func endRiding():	
+func exitVehicle():	
+	var pos = global_position
+	var par = get_parent()
+	par.remove_child(self)
+	par.get_parent().add_child(self)		
 	isBeingRidden = false	
-
-
+	global_position = pos	
+	$AnimationPlayer.playback_speed = 1

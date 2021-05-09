@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://DebugOverlay.gd" type="Script" id=1]
 [ext_resource path="res://Timelines/Animations/test2.tres" type="Animation" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://NPCs/Animals/MouseExample.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://NPCs/NPCManager.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Inside/Inside.gd" type="Script" id=10]
 [ext_resource path="res://Outside/Downtown.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Director.gd" type="Script" id=12]
 [ext_resource path="res://CinematicCamera.gd" type="Script" id=13]
@@ -23,6 +22,10 @@
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Timelines/Animations/TESTING.tres" type="Animation" id=22]
 [ext_resource path="res://ObjectManager.gd" type="Script" id=23]
+[ext_resource path="res://Inside/1MainStInside.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Inside/2MainStInside.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Outside/Beaches.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Outside/NS102.tscn" type="PackedScene" id=27]
 
 [sub_resource type="Animation" id=2]
 tracks/0/type = "value"
@@ -158,7 +161,6 @@ script = ExtResource( 15 )
 __meta__ = {
 "_edit_lock_": true
 }
-StartingNeighbourhoodScene = ExtResource( 11 )
 PauseMenu = ExtResource( 21 )
 
 [node name="GlobalLighting" type="Node2D" parent="."]
@@ -292,11 +294,30 @@ position = Vector2( 0, 0 )
 [node name="Judith" parent="NPCManager" index="2"]
 position = Vector2( 0, 0 )
 
-[node name="Inside" type="Node2D" parent="."]
-script = ExtResource( 10 )
+[node name="World" type="Node2D" parent="."]
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Outside" type="Node2D" parent="World"]
+
+[node name="Downtown" parent="World/Outside" instance=ExtResource( 11 )]
+
+[node name="Beaches" parent="World/Outside" instance=ExtResource( 26 )]
+position = Vector2( -7399.27, 8.97998 )
+
+[node name="NS102" parent="World/Outside" instance=ExtResource( 27 )]
+position = Vector2( 7324.72, 6.30481 )
+
+[node name="Inside" type="Node2D" parent="World"]
+visible = false
+
+[node name="1MainSt" parent="World/Inside" instance=ExtResource( 24 )]
+visible = false
+
+[node name="2MainSt" parent="World/Inside" instance=ExtResource( 25 )]
+visible = false
+position = Vector2( 3118.19, -32.0361 )
 
 [node name="GlobalAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -306,12 +327,8 @@ __meta__ = {
 "_editor_description_": "for UI, and for non-spatial music"
 }
 
-[node name="Outside" type="Node2D" parent="."]
-
 [node name="DEBUG" type="Node2D" parent="."]
 script = ExtResource( 16 )
-
-[node name="Downtown" parent="DEBUG" instance=ExtResource( 11 )]
 
 [node name="ObjectManager" type="Node2D" parent="."]
 visible = false

@@ -1,10 +1,10 @@
 tool
 extends Area2D
-onready var InsideScene = get_parent().InsideScene
+onready var Address = get_parent().Address
 
 func _on_GoInsideArea_entered(area):
 	if area.get_parent() is Player:	
-		if InsideScene:				
+		if Address:				
 			Game.addInteractable(self)					
 	
 func _on_GoInsideArea_exited(area):
@@ -17,8 +17,6 @@ func _get_configuration_warning():
 	return ""
 
 func interact():		
-	Game.emit_signal("goInside", {"insideHouse": InsideScene.get_path()})	
+	Game.goInside(Address, Game.getHouse(Address).firstRoom)
+	Game.player.teleportInside(Address, Game.getHouse(Address).firstRoom, Game.getHouse(Address).get_node("PlayerStart").global_position)
 	Game.removeInteractable(self)
-					
-	
-	

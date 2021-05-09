@@ -4,20 +4,22 @@ class_name Vehicle
 export var rideable = true
 var isBeingRidden = false
 export (Enums.VehicleType) var vehicleType
+var facingRight = true
 
 func _ready():
 	$AnimationPlayer.play("ride")	
 	$AnimationPlayer.playback_speed = 0	
 	
-func doMovement(velocity):	
-	print(velocity.length())	
-	if velocity.length() > 0:
-		if velocity.x > 0:
-			scale.x = 1
+func doMovement(velocity):			
+	if velocity.length() > 0:		
+		if velocity.x > 0 && not facingRight:
+			scale.x = 1			
 			$InteractionHint.scale.x = 1
-		if velocity.x < 0:
-			scale.x = -1		
+			facingRight = true
+		if velocity.x < 0 && facingRight:
+			scale.x = -1					
 			$InteractionHint.scale.x = -1
+			facingRight = false
 		$AnimationPlayer.playback_speed = 1
 	else:	
 		$AnimationPlayer.playback_speed = 0

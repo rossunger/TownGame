@@ -60,11 +60,6 @@ func _physics_process(delta):
 	if lastPosition != body.position:
 		Game.emit_signal("playerMoved", lastPosition.x-body.position.x, lastPosition.y-body.position.y)
 		lastPosition = body.position		
-
-func _draw():
-	if body.modulate.a != 1:
-		print("damn")
-	body.modulate.a = 1 
 	
 func get_input():	
 	if Game.isPaused:

@@ -49,8 +49,8 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_group_": true
 }
-northSt = NodePath("../../SecondSt")
-southSt = NodePath("../../MainSt")
+northSt = "SecondSt"
+southSt = "MainSt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionMainStToSecondSt1"]
 position = Vector2( 0, 20.258 )
@@ -63,8 +63,8 @@ script = ExtResource( 8 )
 __meta__ = {
 "_edit_group_": true
 }
-northSt = NodePath("../../ThirdSt")
-southSt = NodePath("../../SecondSt")
+northSt = "ThirdSt"
+southSt = "SecondSt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/TransitionSecondStToThirdSt"]
 shape = SubResource( 2 )
@@ -144,10 +144,14 @@ position = Vector2( 3385.74, 561.647 )
 collision_layer = 4
 script = ExtResource( 25 )
 GoToNeighbourhood = "Downtown"
+GoToStreet = "MainSt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainSt/ToDowntown"]
 position = Vector2( -21.3574, 16.0181 )
 shape = SubResource( 4 )
+
+[node name="FromDowntown" type="Node2D" parent="MainSt"]
+position = Vector2( 3167.16, 599.079 )
 
 [node name="Tree_0002_Layer-13" type="Sprite" parent="MainSt"]
 position = Vector2( -727.513, 260.605 )

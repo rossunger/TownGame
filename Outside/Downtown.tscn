@@ -236,6 +236,34 @@ foregroundTreeScene = ExtResource( 26 )
 [node name="OutsideTheShop" type="Node2D" parent="MainSt/PointsOfInterest"]
 position = Vector2( 612.172, 511.265 )
 
+[node name="ToBeaches" type="Area2D" parent="MainSt"]
+position = Vector2( -784.885, 579.32 )
+collision_layer = 4
+script = ExtResource( 3 )
+GoToNeighbourhood = "Beaches"
+GoToStreet = "MainSt"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainSt/ToBeaches"]
+position = Vector2( -21.3574, 16.0181 )
+shape = SubResource( 3 )
+
+[node name="ToNS102" type="Area2D" parent="MainSt"]
+position = Vector2( 4687.56, 566.621 )
+collision_layer = 4
+script = ExtResource( 3 )
+GoToNeighbourhood = "NS102"
+GoToStreet = "HwySt"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainSt/ToNS102"]
+position = Vector2( -21.3574, 16.0181 )
+shape = SubResource( 3 )
+
+[node name="FromBeaches" type="Node2D" parent="MainSt"]
+position = Vector2( -590.333, 590.333 )
+
+[node name="FromNS102" type="Node2D" parent="MainSt"]
+position = Vector2( 4423, 581.343 )
+
 [node name="SecondSt" type="YSort" parent="."]
 position = Vector2( -9.52441, -282.557 )
 script = ExtResource( 5 )
@@ -322,28 +350,8 @@ position = Vector2( -88.4517, -193.163 )
 texture = ExtResource( 10 )
 
 [node name="PlayerStart" type="Node2D" parent="."]
-position = Vector2( 777.646, 603.894 )
+position = Vector2( 1480.29, 590.174 )
 script = ExtResource( 6 )
-
-[node name="ToBeaches" type="Area2D" parent="."]
-position = Vector2( -784.885, 579.32 )
-collision_layer = 4
-script = ExtResource( 3 )
-GoToNeighbourhood = "Beaches"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ToBeaches"]
-position = Vector2( -21.3574, 16.0181 )
-shape = SubResource( 3 )
-
-[node name="ToNS102" type="Area2D" parent="."]
-position = Vector2( 4687.56, 566.621 )
-collision_layer = 4
-script = ExtResource( 3 )
-GoToNeighbourhood = "NS102"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ToNS102"]
-position = Vector2( -21.3574, 16.0181 )
-shape = SubResource( 3 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false
@@ -353,5 +361,5 @@ navpoly = SubResource( 4 )
 
 [connection signal="body_exited" from="Transitions/TransitionMainStToSecondSt1" to="Transitions/TransitionMainStToSecondSt1" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionSecondStToThirdSt" to="Transitions/TransitionSecondStToThirdSt" method="_on_Area2D_body_exited"]
-[connection signal="body_entered" from="ToBeaches" to="ToBeaches" method="_on_ToBeaches_body_entered"]
-[connection signal="body_entered" from="ToNS102" to="ToNS102" method="_on_ToBeaches_body_entered"]
+[connection signal="body_entered" from="MainSt/ToBeaches" to="MainSt/ToBeaches" method="_on_ToBeaches_body_entered"]
+[connection signal="body_entered" from="MainSt/ToNS102" to="MainSt/ToNS102" method="_on_ToBeaches_body_entered"]

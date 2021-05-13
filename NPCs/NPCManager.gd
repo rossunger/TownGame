@@ -10,8 +10,7 @@ func refresh(value):
 	#to do sorting algorithm
 	
 #Set the AI thread to process every 
-func _ready():
-	Game.NPCManager = self	
+func _ready():	
 	AIThread = Thread.new()
 	AIThread.start(self, "AITick")
 	

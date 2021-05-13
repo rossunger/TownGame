@@ -1,14 +1,35 @@
-extends Resource
-class_name job
+extends Node
+class_name Job
 
-export var jobTitle = ""
 export (Enums.IncomeBrackets) var salary
-export (Resource) var jobBrain
-export var employer = ""
-export var multiLocation = false
-export var dealWithClients = false
-export var goesToClient =false
+onready var business = get_parent()
+export (Resource) onready var daysToWork = daysToWork.getDaysToWork()
 
+	
+
+
+var taskList = []
+
+func decideNextTask():
+	return "goToBusinessAddress"
+	pass
+	
+func goToJobAddress():
+	pass
+func goToSupplier():
+	#get supplies for job
+	pass
+func goToClient():
+	pass
+func awaitClient():
+	pass
+func engageWithClient(duration):
+	pass
+func workAlone(jobTask, location, duration):
+	pass
+func takeABreak(duration):
+	pass 	
+	
 """
 1. a job is just a series of actions.
 

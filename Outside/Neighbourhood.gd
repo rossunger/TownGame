@@ -24,9 +24,7 @@ func LoadStreet(street):
 	#set the actual variable
 	currentStreet = get_node(street)
 	#go through each street...
-	for st in get_children():		
-		#if it's a street, then set it's modulation color based on it's Z property		
-		#if we don't have a current street, start by hiding everyone.
+	for st in get_children():				
 		if !currentStreet && st is Street && st.modulate.a != 0:			
 			pass
 		elif st is Street && currentStreet is Street:			
@@ -40,6 +38,5 @@ func LoadStreet(street):
 			else:				
 				if currentStreet != st:
 					Game.tween.interpolate_property(st, "modulate", st.modulate, Color(1,1,1,0), 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)																		
-			Game.tween.interpolate_property(currentStreet, "position", currentStreet.position, currentStreet.startPosition, 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)			
-		#Game.player.body.get_parent().remove_child(Game.player.body)
+			Game.tween.interpolate_property(currentStreet, "position", currentStreet.position, currentStreet.startPosition, 0.3, Tween.TRANS_LINEAR, Tween.TRANS_LINEAR)					
 	Game.tween.start()		

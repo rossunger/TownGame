@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="E:/FONTBASE/Sensible Fonts/Unna-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Inside/goToRoom.tscn" type="PackedScene" id=2]
@@ -8,14 +8,15 @@
 [ext_resource path="res://Inside/PlayerStart.gd" type="Script" id=6]
 [ext_resource path="res://Inside/ExitHouse.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Inside/InsideFloor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://insideTilemap.tres" type="TileSet" id=9]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 140, 40 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 60 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 48
 use_filter = true
 font_data = ExtResource( 1 )
@@ -37,7 +38,7 @@ northRoom = "Hall"
 southRoom = "Foyer"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Transitions/goToRoom"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="ExitHouse" parent="." instance=ExtResource( 7 )]
 position = Vector2( -1623.1, 192.822 )
@@ -45,7 +46,7 @@ neighbourhoodName = "Downtown"
 streetName = "MainSt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitHouse"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -77,6 +78,11 @@ position = Vector2( -612.576, -48.8 )
 scale = Vector2( 1.46465, 1 )
 color = Color( 0.905882, 0.882353, 0.882353, 1 )
 polygon = PoolVector2Array( 1026.19, 50.9895, 1023.04, 62.3288, -170.738, 65.4785, -171.998, 50.9895 )
+
+[node name="TileMap" type="TileMap" parent="Rooms/Hall/Walls"]
+tile_set = ExtResource( 9 )
+cell_size = Vector2( 32, 32 )
+format = 1
 
 [node name="Polygon2D14" type="Polygon2D" parent="Rooms/Hall"]
 position = Vector2( 417.061, -423.448 )
@@ -132,7 +138,7 @@ margin_left = -1613.0
 margin_top = -148.318
 margin_right = -1536.0
 margin_bottom = -30.3177
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Exit
 <---"
 __meta__ = {
@@ -208,10 +214,8 @@ polygon = PoolVector2Array( 276.925, -118.221, 273.225, 95.0082, 229.286, 51.619
 [node name="Floor" parent="." instance=ExtResource( 8 )]
 
 [node name="FloorCollision" type="CollisionPolygon2D" parent="Floor"]
-visible = false
 position = Vector2( -719.155, 517.485 )
 build_mode = 1
 polygon = PoolVector2Array( 1766.9, -356.048, 1766.9, -282.509, 427.119, -279.709, -939.906, -276.852, -939.906, -353.22, 274.313, -354.489, 356.716, -510.533, -940.85, -510.533, -482.885, -972.987, 1295.09, -977.477, 1849.59, -517.268, 468.962, -512.778, 554.017, -354.781 )
 
 [connection signal="tree_entered" from="PlayerStart" to="PlayerStart" method="_on_PlayerStart_tree_entered"]
-[connection signal="body_entered" from="ExitHouse" to="ExitHouse" method="exitHouse"]

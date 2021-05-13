@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Outside/Neighbourhood.gd" type="Script" id=1]
 [ext_resource path="res://Outside/OutsideHouse.gd" type="Script" id=2]
@@ -18,14 +18,15 @@
 [ext_resource path="res://Outside/Sprites/tumblr_mpmqfkWoKK1s7i6fqo1_1280.png" type="Texture" id=16]
 [ext_resource path="res://Outside/Sprites/tumblr_mqcupaMwKR1s7i6fqo1_1280.png" type="Texture" id=17]
 [ext_resource path="res://FX/light.png" type="Texture" id=18]
+[ext_resource path="res://NPCs/Jobs/Business.gd" type="Script" id=19]
 [ext_resource path="res://Outside/GoInsideArea.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Outside/foregroundCars.gd" type="Script" id=21]
 [ext_resource path="res://Objects/Sign.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Outside/foregroundCar.tscn" type="PackedScene" id=23]
+[ext_resource path="res://NPCs/Animals/cat1.png" type="Texture" id=24]
 [ext_resource path="res://Outside/foregroundTrees.gd" type="Script" id=25]
 [ext_resource path="res://Outside/foregroundTree.tscn" type="PackedScene" id=26]
-[ext_resource path="res://NPCs/Households/Anderson-SmithHousehold.tres" type="Resource" id=27]
-[ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=28]
+[ext_resource path="res://Audio/02-Persian Cat.wav" type="AudioStream" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 285.93, 8 )
@@ -90,6 +91,20 @@ Street2 = NodePath("../SecondSt")
 Street3 = NodePath("../ThirdSt")
 z = 3
 
+[node name="Cat" type="Node2D" parent="MainSt"]
+position = Vector2( 1232.43, 394.106 )
+
+[node name="cat1" type="Sprite" parent="MainSt/Cat"]
+position = Vector2( -2.81079, -35.0266 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 24 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="MainSt/Cat"]
+stream = ExtResource( 27 )
+autoplay = true
+max_distance = 600.0
+attenuation = 2.2974
+
 [node name="FloorShape2" type="Polygon2D" parent="MainSt"]
 position = Vector2( -1, -1 )
 z_index = -2
@@ -99,8 +114,7 @@ polygon = PoolVector2Array( -3506.05, 522.027, -3510.8, 674.246, 221.617, 665.79
 [node name="1MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( 812.006, 509.352 )
 script = ExtResource( 2 )
-household = ExtResource( 27 )
-Address = "1MainSt"
+address = "1MainSt"
 
 [node name="Sprite" type="Sprite" parent="MainSt/1MainSt"]
 position = Vector2( -44.3541, -379.902 )
@@ -111,26 +125,14 @@ texture = ExtResource( 15 )
 position = Vector2( 0.242859, 18.5096 )
 scale = Vector2( 1.32, 1.4 )
 
-[node name="HouseholdLabel" type="Label" parent="MainSt/1MainSt"]
-margin_left = -317.943
-margin_top = -615.256
-margin_right = 252.057
-margin_bottom = -513.256
-custom_fonts/font = ExtResource( 28 )
-text = "Anderson-Smith Family"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="2MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( -384.127, 509.547 )
 scale = Vector2( 0.88, 0.7 )
 script = ExtResource( 2 )
-Address = "2MainSt"
+address = "2MainSt"
 
 [node name="GoInsideArea" parent="MainSt/2MainSt" instance=ExtResource( 20 )]
-position = Vector2( -4.89706, 3.45996 )
+position = Vector2( -3.76071, 26.3171 )
 scale = Vector2( 1.5, 2 )
 
 [node name="Sprite" type="Sprite" parent="MainSt/2MainSt"]
@@ -147,10 +149,13 @@ color = Color( 0.752941, 0.839216, 1, 1 )
 energy = 0.8
 mode = 2
 
+[node name="GeneralStore" type="Node" parent="MainSt/2MainSt"]
+script = ExtResource( 19 )
+
 [node name="3MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( 1208.51, 379.852 )
 script = ExtResource( 2 )
-Address = "3MainSt"
+household = null
 
 [node name="GoInsideArea" parent="MainSt/3MainSt" instance=ExtResource( 20 )]
 position = Vector2( -3.18311, -6.53241 )
@@ -162,7 +167,7 @@ texture = ExtResource( 14 )
 [node name="4MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( 2172.81, 483.442 )
 script = ExtResource( 2 )
-Address = "4MainSt"
+household = null
 
 [node name="GoInsideArea" parent="MainSt/4MainSt" instance=ExtResource( 20 )]
 position = Vector2( -0.971436, -2.03534 )
@@ -176,7 +181,7 @@ texture = ExtResource( 11 )
 [node name="5MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( 3175.16, 325.354 )
 script = ExtResource( 2 )
-Address = "5MainSt"
+household = null
 
 [node name="GoInsideArea" parent="MainSt/5MainSt" instance=ExtResource( 20 )]
 position = Vector2( 3.09399, -28.0859 )
@@ -189,7 +194,7 @@ texture = ExtResource( 13 )
 [node name="6MainSt" type="Node2D" parent="MainSt"]
 position = Vector2( 3955.51, 422.898 )
 script = ExtResource( 2 )
-Address = "6MainSt"
+household = null
 
 [node name="GoInsideArea" parent="MainSt/6MainSt" instance=ExtResource( 20 )]
 position = Vector2( 2.50293, 1.5061 )
@@ -274,6 +279,7 @@ z = 2
 position = Vector2( -655.575, 9.13692 )
 z_index = -10
 script = ExtResource( 2 )
+household = null
 
 [node name="GoInsideArea" parent="SecondSt/1 Second st" instance=ExtResource( 20 )]
 position = Vector2( 488.364, 532.24 )
@@ -287,6 +293,7 @@ texture = ExtResource( 7 )
 position = Vector2( 1053.92, 277.471 )
 z_index = -10
 script = ExtResource( 2 )
+household = null
 
 [node name="GoInsideArea" parent="SecondSt/2 Second st" instance=ExtResource( 20 )]
 position = Vector2( -301.995, 269.493 )
@@ -317,6 +324,7 @@ polygon = PoolVector2Array( 592.724, 261.729, 595.086, 152.073, 1470.34, 140.18,
 position = Vector2( -569.377, 241.178 )
 z_index = -10
 script = ExtResource( 2 )
+household = null
 
 [node name="GoInsideArea" parent="ThirdSt/1 Third st" instance=ExtResource( 20 )]
 position = Vector2( -138.838, 263.136 )
@@ -329,6 +337,7 @@ texture = ExtResource( 16 )
 position = Vector2( -8.73514, 272.345 )
 z_index = -10
 script = ExtResource( 2 )
+household = null
 
 [node name="GoInsideArea" parent="ThirdSt/2 Third st" instance=ExtResource( 20 )]
 position = Vector2( 58.2219, 233.471 )
@@ -341,6 +350,7 @@ texture = ExtResource( 12 )
 position = Vector2( 1012.03, 256.793 )
 z_index = -10
 script = ExtResource( 2 )
+household = null
 
 [node name="GoInsideArea" parent="ThirdSt/3 Third st" instance=ExtResource( 20 )]
 position = Vector2( -257.498, 178.379 )
@@ -354,7 +364,6 @@ position = Vector2( 1480.29, 590.174 )
 script = ExtResource( 6 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
-visible = false
 
 [node name="FloorNavPoly" type="NavigationPolygonInstance" parent="Navigation2D"]
 navpoly = SubResource( 4 )

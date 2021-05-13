@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Objects/Sign.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Outside/GoInsideArea.tscn" type="PackedScene" id=3]
@@ -35,6 +35,11 @@ extents = Vector2( 146.219, 8 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 40, 80 )
+
+[sub_resource type="NavigationPolygon" id=5]
+vertices = PoolVector2Array( -862.047, 663.787, -2237.5, 630.398, -1796.27, 375.839, -1439.88, 138.251, -952.274, 485.966, 1499.19, 263.521, 1516.01, 401.428, 480.023, 391.337, 604.49, 265.088, 591.021, 54.9788, 1462.19, 58.3424, 1472.28, 139.068, 594.385, 152.523, 358.934, 152.523, 305.117, 65.0696, -1014.92, 153.971, -1021.66, 59.6845, -415.992, 353.212, -421.417, 266.885, 358.932, 265.518, -93.5518, 347.555, 301.753, -56.0194, 597.748, -49.2922, 3283.59, 504.821, 6541, 505.226, 6537.64, 652.383, 3277.93, 562.516, 2350.21, 562.516, 476.655, 509.974, 2321.92, 534.231, -91.7759, 511.018, -1111.79, 166.536 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 0, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8 ), PoolIntArray( 9, 10, 11, 12, 13, 14 ), PoolIntArray( 15, 16, 14, 13 ), PoolIntArray( 17, 18, 19, 20 ), PoolIntArray( 14, 21, 22, 9 ), PoolIntArray( 23, 24, 25, 26 ), PoolIntArray( 19, 13, 12, 8, 7 ), PoolIntArray( 26, 25, 0, 27 ), PoolIntArray( 28, 29, 27, 0, 30 ), PoolIntArray( 30, 20, 19, 7, 28 ), PoolIntArray( 4, 30, 0 ), PoolIntArray( 4, 3, 31 ) ]
+outlines = [ PoolVector2Array( -952.274, 485.966, -1111.79, 166.536, -1439.88, 138.251, -1796.27, 375.839, -2237.5, 630.398, -862.047, 663.787, 6537.64, 652.383, 6541, 505.226, 3283.59, 504.821, 3277.93, 562.516, 2350.21, 562.516, 2321.92, 534.231, 476.655, 509.974, 480.023, 391.337, 1516.01, 401.428, 1499.19, 263.521, 604.49, 265.088, 594.385, 152.523, 1472.28, 139.068, 1462.19, 58.3424, 591.021, 54.9788, 597.748, -49.2922, 301.753, -56.0194, 305.117, 65.0696, -1021.66, 59.6845, -1014.92, 153.971, 358.934, 152.523, 358.932, 265.518, -421.417, 266.885, -415.992, 353.212, -93.5518, 347.555, -91.7759, 511.018 ) ]
 
 [node name="Beaches" type="Node2D"]
 script = ExtResource( 24 )
@@ -280,6 +285,14 @@ position = Vector2( -1647.84, -62.1702 )
 scale = Vector2( 2.42544, 4.12804 )
 z_index = -1
 texture = ExtResource( 11 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="FloorNavPoly" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 5 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [connection signal="body_exited" from="Transitions/TransitionMainStToSecondSt1" to="Transitions/TransitionMainStToSecondSt1" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="Transitions/TransitionSecondStToThirdSt" to="Transitions/TransitionSecondStToThirdSt" method="_on_Area2D_body_exited"]

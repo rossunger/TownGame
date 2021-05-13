@@ -1,16 +1,14 @@
 #tool
 extends BaseObject
 class_name NPC
-export(Resource) var daysThatIWork = daysThatIWork as DaysThatIWork
-onready var daysThatIWorkArr = daysThatIWork.getDaysThatIWork()
+var myJobs = []
 
-var destination: Vector2
 var working = false
 
 func _ready():	
 	for child in get_children():
 		if child is Brain:			
-			child.connect("newAction", self, "processNewAction")	
+			child.connect("newAction", self, "processNewAction")		
 	
 func processNewAction(data = []):	
 	print("processing new action")
@@ -39,10 +37,24 @@ func stopAndWait():
 	#play idle animation
 	#target location = null
 
-func goToLocation(location):
-	if location is Vector2:
-		destination = location
-	print("im going to location: " + str(location))
+func newJob(jobPath):
+	var job =  Game.businessManager.get_node(jobPath)	
+	if not myJobs.has(job):
+		myJobs.append(job)
+
+func _physics_process(delta):
+	if destination != body.global_position:
+		if body.get_node("Audio/Footsteps").playing ==false:
+			body.get_node("Audio/Footsteps").play()
+	else:
+		if body.get_node("Audio/Footsteps").playing == true:
+			body.get_node("Audio/Footsteps").stop()
+
+func speakPhrase(phrase):
+	var talk = body.get_node("Audio/Talk")
+	if talk is AudioStreamPlayer2D:
+		talk.stream = load("res://Audio/Dialog/" + phrase + ".ogg")
+		talk.play(0)
 
 func _get_configuration_warning():
 	var warning:= PoolStringArray()
@@ -54,7 +66,6 @@ func _get_configuration_warning():
 	if !hasBrain:
 		warning.append("%s is missing a Brain" % name)
 	return warning.join("/n")
-
 
 """ List of INSTRUCTIONS an ACTION can give a CHARACTER
 Wait

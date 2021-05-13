@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://NPCs/Jobs/Business.gd" type="Script" id=1]
+[ext_resource path="res://NPCs/Jobs/Job.gd" type="Script" id=2]
+[ext_resource path="res://NPCs/Jobs/WorkWeekdays.tres" type="Resource" id=3]
+[ext_resource path="res://NPCs/Jobs/WorkWeekends.tres" type="Resource" id=4]
+
+[node name="BusinessManager" type="Node"]
+
+[node name="Municipality" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Grocery" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Hospital" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Cafe" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="GeneralStore" type="Node" parent="."]
+script = ExtResource( 1 )
+neighbourhood = "Downtown"
+street = "MainSt"
+address = "2MainSt"
+staff = [ "Jimmy" ]
+
+[node name="Cashier" type="Node" parent="GeneralStore"]
+script = ExtResource( 2 )
+daysToWork = ExtResource( 3 )
+
+[node name="PlumberJo" type="Node" parent="."]
+script = ExtResource( 1 )
+staff = [ "Abby" ]
+clientsComeHere = false
+staffWorkHere = false
+
+[node name="Plumber" type="Node" parent="PlumberJo"]
+script = ExtResource( 2 )
+daysToWork = ExtResource( 4 )

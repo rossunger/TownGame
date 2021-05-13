@@ -1,16 +1,23 @@
-extends Resource
+extends Node
 class_name Household
 
-export var name = ""
-export (Array, String) var Members
-export (Enums.RelationshipIdentities) var RelationshipType
-export (Enums.Ethnicities) var Ethnicity
-export (Enums.Religions) var Religion
-export (bool) var EnglishIsSecondLangauge
-export (Enums.IncomeBrackets) var IncomeBracket
-export (Enums.IncomeTypes) var IncomeType
-export (Enums.YearsHere) var YearsHere
+export (String) var neighbourhood
+export (String) var street
+export (String) var address
+export (Array, String) var members
+export (Enums.RelationshipIdentities) var relationshipType
+export (Enums.Ethnicities) var ethnicity
+export (Enums.Religions) var religion
+export (bool) var englishIsSecondLangauge
+export (Enums.IncomeBrackets) var incomeBracket
+export (Enums.IncomeTypes) var incomeType
+export (Enums.YearsHere) var yearsHere
 export (Enums.PoliticalLeanings) var politicalLeaning
+var outsideHouse
 
-#var homeOwners / Renter / Homeless
-
+func _ready():
+	outsideHouse = Game.getStreet(neighbourhood, street).get_node(address)
+	var householdLabel = get_parent().householdLabel.instance()
+	householdLabel.text = name
+	outsideHouse.add_child(householdLabel)
+	pass

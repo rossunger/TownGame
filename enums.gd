@@ -47,8 +47,12 @@ enum PoliticalLeanings { centre, radicalLeft, left,  right, radicalRight }
 enum WealthType { noMoney, newMoney, oldMoney }
 enum HomeOwnership { homeOwners, renters, homeless }
 
-enum PlayerSpeed {Walking=300, Running=450, Biking=600, Car=800}
+enum PlayerSpeed {Walking=100, Running=150, Biking=200, Car=200}
 
 enum VehicleType {Bike, Car}
 
 enum Layers {OutsideSolid = 0, OutsideInteractable = 1, OutsideArea = 2, InsideSolid = 5, InsideInteractable = 6, InsideArea=7}
+
+#AI
+enum AIKnowledgeType {everyAgent, global, equation}
+enum AIKnowledgeValueType {fixedValue, fixedRange, dynamicRange}

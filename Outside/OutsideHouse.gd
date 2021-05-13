@@ -1,12 +1,12 @@
 tool
 extends Node2D
 class_name OutsideHouse
-export (Resource) var household #who lives here
-export (String) var Address
+export (String) var household #name of household at this house
+export (String) var address = name
 	
 func _ready():
 	if household:
-		$HouseholdLabel.text = household.name + " Family"
+		$HouseholdLabel.text = household + " Family"
 	
 func _get_configuration_warning():
 	var warning = ""
@@ -21,6 +21,6 @@ func _get_configuration_warning():
 		warning += ("Please add a Sprite for this house \n")
 	if not area:
 		warning += ("Please add a 'GoInsideArea' for this house \n")
-	if not Address:
+	if not address:
 		warning += ("Please add an Address \n")
 	return warning

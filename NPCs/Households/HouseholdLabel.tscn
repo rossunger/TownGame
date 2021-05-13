@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=1]
+
+[node name="HouseholdLabel" type="Label"]
+margin_left = -317.943
+margin_top = -615.256
+margin_right = 252.057
+margin_bottom = -513.256
+custom_fonts/font = ExtResource( 1 )
+text = "Anderson-Smith Family"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

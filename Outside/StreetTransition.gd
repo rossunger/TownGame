@@ -5,9 +5,7 @@ class_name StreetTransition
 export (String) var northSt
 export (String) var southSt
 
-func _on_Area2D_body_exited(body):		
-	print(name)
-	print(body.name)
+func _on_Area2D_body_exited(body):			
 	var theStreet
 	if body.global_position.y < global_position.y:
 		theStreet = northSt
@@ -15,8 +13,8 @@ func _on_Area2D_body_exited(body):
 		theStreet = southSt	
 	body.parent.setStreet(theStreet)
 	#if it's the player, then tell the game to change the street
-	if body.get("player")!=null:	
-		Game.changeStreetOrRoom({"street": theStreet})	
+	if body == Game.player.body:
+		Game.changeStreet(theStreet)	
 
 func _get_configuration_warning():
 	var warning = ""

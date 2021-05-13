@@ -1,15 +1,13 @@
 tool
 extends Node
 class_name AIKnowledgeItem
-enum AIKnowledgeType {everyAgent, global, equation}
-enum AIKnowledgeValueType {fixedValue, fixedRange, dynamicRange}
 export var title = ""
-export (AIKnowledgeType) var type = AIKnowledgeType.everyAgent setget setKnowledgeType
-export (AIKnowledgeValueType) var valueType = AIKnowledgeValueType.fixedValue setget setValueType
-var MinValue = 0
-var MaxValue = 1000
-var FixedValue : Array
-var GlobalVariableName = ""
+export (Enums.AIKnowledgeType) var type = Enums.AIKnowledgeType.everyAgent setget setKnowledgeType
+export (Enums.AIKnowledgeValueType) var valueType = Enums.AIKnowledgeValueType.fixedValue setget setValueType
+var minValue = 0
+var maxValue = 1000
+var fixedValueOptions : Array
+var globalVariableName = ""
 
 func setKnowledgeType(value):
 	type = value
@@ -21,31 +19,31 @@ func setValueType(value):
 # call once when node selected 
 func _get_property_list():
 	var property_list = []
-	if valueType == AIKnowledgeValueType.fixedRange || valueType == AIKnowledgeValueType.dynamicRange:
+	if valueType == Enums.AIKnowledgeValueType.fixedRange || valueType == Enums.AIKnowledgeValueType.dynamicRange:
 		property_list.append({
 			"hint": PROPERTY_HINT_NONE,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"name": "MinValue",
+			"name": "minValue",
 			"type": TYPE_REAL
 		})     
 		property_list.append({
 			"hint": PROPERTY_HINT_NONE,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"name": "MaxValue",
+			"name": "maxValue",
 			"type": TYPE_REAL
 		})     
-	if valueType == AIKnowledgeValueType.fixedValue:		
+	if valueType == Enums.AIKnowledgeValueType.fixedValue:		
 		property_list.append({
 			"hint": PROPERTY_HINT_NONE,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"name": "FixedValue",
+			"name": "fixedValueOptions",
 			"type": TYPE_ARRAY
 		})    
-	if type == AIKnowledgeType.global:
+	if type == Enums.AIKnowledgeType.global:
 		property_list.append({
 			"hint": PROPERTY_HINT_NONE,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"name": "GlobalVariableName",
+			"name": "globalVariableName",
 			"type": TYPE_STRING
 		})    
 	return property_list

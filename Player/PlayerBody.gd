@@ -4,3 +4,4 @@ var player
 func _ready():	
 	player = get_parent()
 	player.body = self
+	set_process(false)

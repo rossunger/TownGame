@@ -6,4 +6,4 @@ var weight = 1 #weight is set by the designer... 10 = urgent, 1 = casual
 #var Curve = Curve.new()
 
 func evaluate():
-	return 0
+	return 1

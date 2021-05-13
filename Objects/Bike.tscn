@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://NPCs/visuals/NPCFont90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Objects/Vehicle.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Objects/Animations/ride.tres" type="Animation" id=6]
 [ext_resource path="res://Objects/BaseObject.gd" type="Script" id=7]
 [ext_resource path="res://NPCs/fullBodyArea.gd" type="Script" id=8]
+[ext_resource path="res://Audio/Bicycle Pedal Steady.wav" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 100 )
@@ -78,6 +79,12 @@ shape = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseBody"]
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Audio2D" type="AudioStreamPlayer2D" parent="BaseBody"]
+stream = ExtResource( 9 )
+volume_db = 12.0
+
+[node name="Tween" type="Tween" parent="BaseBody"]
 
 [connection signal="area_entered" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaEntered"]
 [connection signal="area_exited" from="BaseBody/RideMeArea" to="BaseBody" method="onRideMeAreaExited"]

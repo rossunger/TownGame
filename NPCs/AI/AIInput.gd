@@ -17,14 +17,8 @@ var myNPC
 
 
 func _ready():
-	myNPC = self
-	var safety = 0 
-	while not myNPC is NPC:
-		safety += 1
-		if safety >50:				
-			print("ERROR: " + name + " is not a child of NPC")
-			return
-		myNPC = myNPC.get_parent()				
+	if not Engine.editor_hint:
+		myNPC = Game.getAncestorOfType(self, NPC)
 
 func set_value(v):
 	value = v

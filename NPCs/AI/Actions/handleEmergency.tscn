@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://NPCs/AI/Action.gd" type="Script" id=2]
+
+[node name="handleEmergency" type="Node"]
+script = ExtResource( 2 )
+signalToEmit = "doJob"

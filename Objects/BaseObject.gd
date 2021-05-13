@@ -9,25 +9,62 @@ var bodyRoom = "" #the name of the room that the body is on, inside of the house
 var bodyGlobalPosition #the global x,y coords of the body
 
 var currentVehicle = null
-export (int) var speed = 300
+export (int) var speed = Enums.PlayerSpeed.Walking
 var velocity: Vector2
+var navPath
+var destination: Vector2
+var navEnabled = true
 
 func _ready():
 	bodyNeighbourhood = "Downtown"
 	bodyStreet = "MainSt"
+	destination = global_position
 
 func _physics_process(delta):
-	velocity = body.move_and_slide(velocity);
-	if currentVehicle:		
-		currentVehicle.doMovement(velocity)
+	if not Engine.editor_hint:		
+		if currentVehicle:		
+			currentVehicle.doMovement(velocity)				
+		if navEnabled:
+			doNavigation(delta)		
+
+func doNavigation(delta):
+	if body && body.global_position != destination:		
+		if navPath && navPath.size() > 0:
+			# Calculate the movement distance for this frame
+			var distance_to_walk = speed * delta			
+			var targetPosition = body.global_position
+			# Move the player along the path until he has run out of movement or the path ends.
+			while distance_to_walk > 0 and navPath.size() > 0:
+				var distance_to_next_point = body.global_position.distance_to(navPath[0])
+				if distance_to_walk <= distance_to_next_point:
+					# The player does not have enough movement left to get to the next point.
+					targetPosition += body.global_position.direction_to(navPath[0]) * distance_to_walk 
+					break
+				else:
+					# The player get to the next point
+					targetPosition = navPath[0]
+					navPath.remove(0)
+					# Update the distance to walk
+					distance_to_walk -= distance_to_next_point
+			velocity = body.global_position.direction_to(targetPosition) * speed 
+			velocity = body.move_and_slide(velocity);
+			#body.position += velocity/10
+			if body.parent.name == "Abby":
+				print(body.global_position)
+			if abs( (body.global_position- destination).length()) < 2:				
+				body.global_position = destination
+			else:				
+				goToLocation(destination)
+
 
 func enterVehicle(vehicle):
 	if vehicle && not currentVehicle:
-		body.set_collision_layer_bit(Enums.Layers.OutsideSolid, false)
-		body.set_collision_mask_bit(Enums.Layers.OutsideSolid, false)	
+		vehicle.set_collision_layer_bit(Enums.Layers.OutsideSolid, false)
+		vehicle.set_collision_mask_bit(Enums.Layers.OutsideSolid, false)	
 		
 		vehicle.get_parent().remove_child(vehicle)
-		body.add_child(vehicle)		
+		body.add_child(vehicle)					
+		
 		vehicle.position = Vector2(0,0)
 		if vehicle.vehicleType == Enums.VehicleType.Bike:
 			speed = Enums.PlayerSpeed.Biking
@@ -37,10 +74,11 @@ func enterVehicle(vehicle):
 
 func exitVehicle():
 	speed = Enums.PlayerSpeed.Walking			
-	currentVehicle.exitVehicle()
-	currentVehicle = null
-	body.set_collision_layer_bit(Enums.Layers.OutsideSolid, true)
-	body.set_collision_mask_bit(Enums.Layers.OutsideSolid, true)
+	if currentVehicle:
+		currentVehicle.set_collision_layer_bit(Enums.Layers.OutsideSolid, true)
+		currentVehicle.set_collision_mask_bit(Enums.Layers.OutsideSolid, true)			
+		currentVehicle.exitVehicle()
+		currentVehicle = null
 
 func teleportInside(houseName, roomName, globalPosition):
 	bodyNeighbourhood = ""
@@ -55,6 +93,7 @@ func teleportInside(houseName, roomName, globalPosition):
 		body.get_parent().remove_child(body)
 		Game.getRoom(bodyHouse, bodyRoom).add_child(body)
 	body.global_position = globalPosition
+	destination = globalPosition
 	print(global_position)
 	
 	
@@ -71,6 +110,7 @@ func teleportOutside(neighbourhoodName, streetName, globalPosition ):
 	bodyHouse = ""
 	bodyRoom = ""
 	body.global_position = globalPosition
+	destination = globalPosition
 	
 
 func setStreet(streetName):	
@@ -88,92 +128,11 @@ func setRoom(roomName):
 	bodyRoom = roomName
 	body.global_position = pos	
 
-"""
-
-func changeNeighbourhood(value):
-	bodyNeighbourhood = value
-	processSceneChange({"neighbourhood": value})
-		
-func changeStreetOrRoom(value):
-	#bodyStreetOrRoom = value
-	processSceneChange({"street": value})
-	
-func changeInside(value):
-	bodyInside = value
-	processSceneChange({"insideHouse": value})
-	
-func _ready():
-	Game.connect("goOutside", self, "processSceneChange")			
-	
-func processSceneChange(data):
-	var neighbourhood = null
-	var inside = null
-	var street = null
-	if not bodyNeighbourhood:
-		bodyNeighbourhood = load(Game.CurrentNeighbourhood.filename)
-	if not bodyStreetOrRoom:
-		bodyStreetOrRoom = Game.CurrentStreetOrRoom.name
-	if body.get("player"):
-		print("processing scene change on player")
-	if data.has("neighbourhood"):
-		#if we're going to the neighbourhood in which this object currently is, then return
-		if data.neighbourhood == bodyNeighbourhood:
-			neighbourhood = true	
-		else:
-			neighbourhood = false
-	if data.has("insideHouse"):
-		if data.insideHouse == bodyInside:
-			inside = true
-		else:
-			inside = false
-	if data.has("street"):
-		if bodyStreetOrRoom == data.street:
-			street = true
-	
-	# possibilities:
-	# - in the scene, stays in the scene   :   
-	#	 - if inside:  sameNeighbourhood, and same insideHouse
-	#	- if outside:  sameNeighbourhood
-	# - in the scene, leaves the scene
-	#	- if inside:   body has inside, and 
-	#	- if outside:
-	# - out of scene, enters scene
-	# - out of scene, stays out of scene
-	if neighbourhood == true || street == true:
-		bodyGlobalPosition = body.global_position
-		returnToScene()
-	elif not has_node(name):		
-		leaveScene()	
-	#if this body isn't already out of the scene, then return it to the original parent
-	
-	
+func goToLocation(newDestination):
+	if newDestination is Vector2:
+		destination = newDestination
+		navPath = Game.pathfindingOutside.get_new_path(body.global_position, destination) 		
+		navPath.remove(0)
 			
-			
-func leaveScene():	
-	print(name + " is leaving the scene")
-	bodyGlobalPosition = body.global_position
-	body.get_parent().remove_child(body)
-	add_child(body)	
-	body.set_process(false)
-	
+	#print("im going to location: " + str(newDestination))
 
-func returnToScene():	
-	print(name + " is returning to the scene")
-	#this happens when we load a new neighbourhood, or a new inside scene...
-	body.set_process(true)
-	body.get_parent().remove_child(body)
-	Game.CurrentNeighbourhood.get_node(bodyStreetOrRoom).add_child(body)
-	if bodyGlobalPosition:
-		body.global_position = bodyGlobalPosition 
-
-func teleport(newNeighbourhood, globalPosition = Vector2(0,0), newStreet = null, newInside = null):
-	if newNeighbourhood:
-		bodyNeighbourhood = newNeighbourhood		
-	if newStreet:
-		bodyStreetOrRoom = newStreet
-	if newInside:
-		bodyInside = newInside
-	if globalPosition:
-		print(body.global_position)
-		bodyGlobalPosition = globalPosition	
-"""

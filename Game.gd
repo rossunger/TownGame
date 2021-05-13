@@ -1,7 +1,7 @@
 extends Node
 
 signal goInside #for when player goes into a house
-signal goOutside #for when player changes Neighbourhoods
+signal goOutside #for when player changes Neighbourhoods or leaves house
 signal rideVehicle
 signal playerMoved #for parallax effect of streets
 signal newPlayerStart
@@ -15,15 +15,18 @@ signal LoadGame
 var world
 var outside
 var inside
+var businessManager
+var pathfindingOutside: Pathfinding
+#var pathfindingInside: Pathfinding
 
 var NPCManager: Node2D
 var ObjectManager : Node2D
+var EnvironmentManager: Node2D
 var player : Player
 var timeOfDay = Enums.TimesOfDay.Morning
 var dayOfTheYear = 291
 var lastStreet #the nodepath to the last street we were on, relative to the neighbourhood
 var InsideHouses: Dictionary = {}
-
 var interactables = []
 
 onready var tween = Tween.new()
@@ -38,6 +41,11 @@ func _ready():
 	tween.connect("tween_all_completed", player, "tweenDone")
 	outside = world.get_node("Outside")
 	inside = world.get_node("Inside")
+	businessManager = get_node("/root/GameRoot/BusinessManager")
+	NPCManager = get_node("/root/GameRoot/NPCManager")
+	EnvironmentManager = get_node("/root/GameRoot/EnvironmentManager")
+	pathfindingOutside = outside.get_node("Pathfinding")
+	#pathfindingInside = inside.get_node("Pathfinding")
 
 func setPaused(paused=true):	
 	isPaused = paused
@@ -90,17 +98,55 @@ func getNeighbourhood(neighbourhoodName):
 func getStreet(neighbourhoodName, streetName):
 	return outside.get_node(neighbourhoodName + "/" + streetName)
 
-func changeStreetOrRoom(data={}):
-	if data.has("street"):
-		getNeighbourhood(player.bodyNeighbourhood).LoadStreet(data.street)
+func changeStreet(streetName):	
+	getNeighbourhood(player.bodyNeighbourhood).LoadStreet(streetName)
+	#if data.has("room"):
+	#	doRoomTransition()
 	
 func goInside(houseName, roomName):	
 	inside.visible = true
-	getHouse(houseName).visible = true	
-	outside.visible = false
-	
+	getHouse(houseName).visible = true		
+	getHouse(houseName).doRoomTransition(null, getRoom(houseName, roomName), roomName)
+	endOutside()
+	emit_signal("goInside")
 	
 func goOutside(neighbourhoodName, streetName):
-	getHouse(player.bodyHouse).visible = false	
-	inside.visible = false
+	if player.body &&  player.body.parent.bodyHouse != "": 
+		endInside()
+	changeStreet(streetName)
 	outside.visible = true
+	emit_signal("goOutside")	
+
+func endInside():
+	getHouse(player.body.parent.bodyHouse).visible = false	
+	inside.visible = false
+	
+func endOutside():
+	outside.visible = false	
+
+func getAncestorOfType(obj, parentType):	
+	var result = obj
+	var safety = 0 
+	while not result is parentType:
+		var tmp = result.name
+		safety += 1
+		if safety >50:				
+			print("ERROR: " + name + " is not a child of " + parentType)
+			return
+		result = result.get_parent()
+	return result
+
+func setNextTimeOfDay():
+	if timeOfDay == Enums.TimesOfDay.Night:		
+		timeOfDay = Enums.TimesOfDay.Morning
+		setNextDayOfYear()
+	else:
+		Game.timeOfDay += 1		
+	Game.emit_signal("setTimeOfDay", Game.timeOfDay)
+
+func setNextDayOfYear():	
+	dayOfTheYear += 1
+	emit_signal("setDayOfTheYear")
+
+func getNPC(npcName):
+	return NPCManager.get_node(npcName)

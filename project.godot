@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "AIKnowledgeBase",
-"language": "GDScript",
-"path": "res://NPCs/AI/AIKnowledgeBase.gd"
-}, {
-"base": "Node",
 "class": "AIKnowledgeItem",
 "language": "GDScript",
 "path": "res://NPCs/AI/AIKnowledgeItem.gd"
@@ -39,10 +34,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://NPCs/AI/Brain.gd"
 }, {
+"base": "Node",
+"class": "Business",
+"language": "GDScript",
+"path": "res://NPCs/Jobs/Business.gd"
+}, {
 "base": "Resource",
 "class": "CameraPreset",
 "language": "GDScript",
 "path": "res://Timelines/Camera/CameraPreset.gd"
+}, {
+"base": "Node",
+"class": "Client",
+"language": "GDScript",
+"path": "res://NPCs/Jobs/Client.gd"
 }, {
 "base": "Node",
 "class": "Consideration",
@@ -50,9 +55,9 @@ _global_script_classes=[ {
 "path": "res://NPCs/AI/Consideration.gd"
 }, {
 "base": "Resource",
-"class": "DaysThatIWork",
+"class": "DaysToWork",
 "language": "GDScript",
-"path": "res://NPCs/NPCData/DaysThatIWork.gd"
+"path": "res://NPCs/Jobs/DaysToWork.gd"
 }, {
 "base": "Node",
 "class": "Dialogic",
@@ -79,10 +84,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "Resource",
+"base": "Node",
 "class": "Household",
 "language": "GDScript",
-"path": "res://NPCs/Households/Household.gd"
+"path": "res://NPCs/Households/household.gd"
+}, {
+"base": "Node",
+"class": "Job",
+"language": "GDScript",
+"path": "res://NPCs/Jobs/Job.gd"
 }, {
 "base": "Node",
 "class": "MyEmotions",
@@ -113,6 +123,11 @@ _global_script_classes=[ {
 "class": "OutsideHouse",
 "language": "GDScript",
 "path": "res://Outside/OutsideHouse.gd"
+}, {
+"base": "Node2D",
+"class": "Pathfinding",
+"language": "GDScript",
+"path": "res://Pathfinding.gd"
 }, {
 "base": "BaseObject",
 "class": "Player",
@@ -158,34 +173,32 @@ _global_script_classes=[ {
 "class": "goToNeighbourhood",
 "language": "GDScript",
 "path": "res://Outside/goToNeighbourhood.gd"
-}, {
-"base": "Resource",
-"class": "job",
-"language": "GDScript",
-"path": "res://NPCs/Jobs/Job.gd"
 } ]
 _global_script_class_icons={
-"AIKnowledgeBase": "",
 "AIKnowledgeItem": "",
 "Action": "",
 "BaseBody": "",
 "BaseObject": "",
 "Brain": "",
+"Business": "",
 "CameraPreset": "",
+"Client": "",
 "Consideration": "",
-"DaysThatIWork": "",
+"DaysToWork": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",
 "DialogicDefinitionsUtil": "",
 "DialogicResources": "",
 "DialogicUtil": "",
 "Household": "",
+"Job": "",
 "MyEmotions": "",
 "MyRelationships": "",
 "NPC": "",
 "NPCBody": "",
 "Neighbourhood": "",
 "OutsideHouse": "",
+"Pathfinding": "",
 "Player": "",
 "PlayerBody": "",
 "Relationship": "",
@@ -194,8 +207,7 @@ _global_script_class_icons={
 "StreetTransition": "",
 "Vehicle": "",
 "cameraShot": "",
-"goToNeighbourhood": "",
-"job": ""
+"goToNeighbourhood": ""
 }
 
 [application]

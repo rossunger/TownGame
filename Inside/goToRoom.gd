@@ -30,7 +30,7 @@ func onBodyExited(body):
 	var currentRoom = get_owner().get_node("Rooms/" + currentRoomName)
 		
 	#if it's the player, then do the room transition			
-	if body.get("player")!=null:									
+	if body == Game.player.body:									
 		get_owner().doRoomTransition(currentRoom, nextRoom, nextRoom.name == southRoom)
 	
 	#move body to the new room

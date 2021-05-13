@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ImAlright.ogg-042ca278fb4171d4828a2bab7fba6025.oggstr"
+
+[deps]
+
+source_file="res://Audio/Dialog/ImAlright.ogg"
+dest_files=[ "res://.import/ImAlright.ogg-042ca278fb4171d4828a2bab7fba6025.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

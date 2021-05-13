@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/RossConvo1.mp3-7616c37e4f28df5f22f9b711ddaee832.mp3str"
+
+[deps]
+
+source_file="res://Audio/RossConvo1.mp3"
+dest_files=[ "res://.import/RossConvo1.mp3-7616c37e4f28df5f22f9b711ddaee832.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

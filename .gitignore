@@ -2,10 +2,8 @@
 .DS_Store
 project-icon.png
 test-scenes
-/.import
 /default_env.tres
 /icon.png
-*.import
 /.vscode
 /addons/godot-plugin-refresher
 /addons/explore-editor-theme

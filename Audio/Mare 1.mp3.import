@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Mare 1.mp3-b6ef9b897f472e0d7f4c2d2f15aa796a.mp3str"
+
+[deps]
+
+source_file="res://Audio/Mare 1.mp3"
+dest_files=[ "res://.import/Mare 1.mp3-b6ef9b897f472e0d7f4c2d2f15aa796a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
